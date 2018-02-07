@@ -1,0 +1,28 @@
+# OS generated files #
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Project Files #
+Dockerfile
+docker-compose.yml
+.dockerignore
+.git
+.gitignore
+README.md
+
+# Node Files #
+node_modules
+npm-debug.log
+npm-debug.log.*
+
+# Build Artifacts #
+dist
+data
+
+# IDE #
+.idea
+*.swp
+.vscode
+.editorconfig
