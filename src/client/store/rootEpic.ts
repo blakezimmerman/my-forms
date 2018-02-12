@@ -1,7 +1,11 @@
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { routerEpic } from '../router/router.epics';
+import { routerEpic } from 'client/router/router.epics';
+import { loginEpic } from 'client/app/login/login.epics';
 
-const rootEpic = combineEpics(routerEpic);
+const rootEpic = combineEpics(
+  routerEpic,
+  loginEpic
+);
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 

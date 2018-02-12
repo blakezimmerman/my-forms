@@ -5,13 +5,20 @@ export const host =
   ENV === 'prod'
     ? `http://localhost:${port}/` // Add prod link later
     : `http://localhost:${port}/`;
+export const secret = 'This is my super secret string';
 
 // Create app
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
+app.use(cookieParser(secret));
+
+// Add routes
+import routes from './routes';
+routes(app);
 
 // Serve app
 import serveApp from './serveApp';

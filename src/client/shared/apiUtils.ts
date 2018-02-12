@@ -18,3 +18,10 @@ export const post = (url: string, body: object, action: AsyncActionDispatcher<an
   axios.post(url, body)
     .then((response) => action.SUCCESS(response.data))
     .catch((err) => action.FAILURE(err.response.data));
+
+export const refreshSession = (action: AsyncActionDispatcher<any, any>) =>
+  axios.get(api('auth/refresh'))
+    .then((response) => response.data !== 'Not Authorized'
+      ? action.SUCCESS(response.data)
+      : action.FAILURE(undefined)
+    );

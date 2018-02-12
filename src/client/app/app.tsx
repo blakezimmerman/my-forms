@@ -2,36 +2,61 @@ import * as React from 'react';
 import * as styles from './app.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
-import Link from 'redux-first-router-link';
+import { ActionDispatcher } from 'client/shared/reduxUtils';
+import { REFRESH_SESSION } from './login/login.reducer';
+import { getUserName, getAuthenticated } from './login/login.selectors';
+import Header from './header/header';
+import Home from './home/home';
 import Login from './login/login';
-import Register from './register/register';
+import Register from './login/register';
+import Dashboard from './dashboard/dashboard';
 
 interface Props {
   locationPath: string;
+  authenticated: boolean;
+  refreshSession: ActionDispatcher<void>;
 }
 
-const getPage = (path: string) => {
-  switch (path) {
-    case ('/login'): return <Login/>;
-    case ('/register'): return <Register/>;
+class App extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
   }
-};
 
-const App = (props: Props) => (
-  <div className={styles.test}>
-    myForms
-    <div><Link to='/login'>Login Link</Link></div>
-    <div><Link to='/register'>Register Link</Link></div>
-    {getPage(props.locationPath)}
-  </div>
-);
+  componentDidMount() {
+    if (!this.props.authenticated) {
+      return this.props.refreshSession();
+    }
+  }
+
+  render() {
+    const { locationPath, authenticated } = this.props;
+
+    const getPage = () => {
+      switch (locationPath) {
+        case ('/'): return <Home/>;
+        case ('/login'): return <Login/>;
+        case ('/register'): return <Register/>;
+        case ('/dashboard'): return authenticated && <Dashboard/>;
+      }
+    };
+
+    return (
+      <div className={styles.test}>
+        <Header
+          locationPath={locationPath}
+          authenticated={authenticated}
+        />
+        {getPage()}
+      </div>
+    );
+  }
+}
 
 const mapState = (state: State) => ({
-  locationPath: state.location.pathname
+  locationPath: state.location.pathname,
+  authenticated: getAuthenticated(state)
 });
 
-const mapDispatch = {
-
-};
+const mapDispatch = { refreshSession: REFRESH_SESSION };
 
 export default connect(mapState, mapDispatch)(App);
