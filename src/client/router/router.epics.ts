@@ -7,6 +7,12 @@ import { filter } from 'rxjs/operators/filter';
 import { mapTo } from 'rxjs/operators';
 import { getAuthenticated } from 'client/app/login/login.selectors';
 
+const authEpic: Epic<State> = (actions$, store) =>
+  actions$.ofType('LOGIN', 'REGISTER').pipe(
+    filter(() => getAuthenticated(store.getState())),
+    mapTo(routeActions.DASHBOARD())
+  );
+
 const noAuthEpic: Epic<State> = (actions$, store) =>
   actions$.ofType('DASHBOARD').pipe(
     delay(300),
@@ -15,5 +21,6 @@ const noAuthEpic: Epic<State> = (actions$, store) =>
   );
 
 export const routerEpic = combineEpics(
+  authEpic,
   noAuthEpic
 );

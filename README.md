@@ -41,7 +41,7 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 │   │   │   │   ├── 'feature'.styles.scss
 │   │   │   │   ├── 'feature'.styles.scss.d.ts (Auto-gen'd style definitions)
 │   │   │   │   ├── 'UI Component'.tsx
-│   │   │   ├── app.styles.scss (Styles for root component)
+│   │   │   ├── app.styles.scss (Global styles for app)
 │   │   │   ├── app.styles.scss.d.ts (Auto-gen'd style definitions)
 │   │   │   └── app.tsx (Root component)
 │   │   ├── assets/ (Static assets like images)
@@ -49,6 +49,7 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 │   │   │   ├── router.epics.ts (Epics for router actions)
 │   │   │   └── router.ts (Route map for application)
 │   │   ├── shared/ (Code shared between React components)
+│   │   │   ├── UI/ (Generic components and SCSS mixins)
 │   │   │   ├── apiUtils.ts (Utils for API calls)
 │   │   │   ├── miscUtils.ts (Other utils)
 │   │   │   └── reduxUtils.ts (Utils and abstractions for redux)

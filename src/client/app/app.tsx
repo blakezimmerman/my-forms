@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './app.styles.scss';
+import './app.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
@@ -41,13 +41,13 @@ class App extends React.Component<Props> {
     };
 
     return (
-      <div className={styles.test}>
+      <>
         <Header
           locationPath={locationPath}
           authenticated={authenticated}
         />
         {getPage()}
-      </div>
+      </>
     );
   }
 }

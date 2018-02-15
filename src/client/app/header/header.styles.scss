@@ -1,0 +1,22 @@
+@import '../../shared/UI/variables';
+@import '../../shared/UI/mixins';
+
+.banner {
+  color: white;
+  background-color: $primary-color;
+  font-family: $heading-font;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+
+  h1 {
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+  }
+}
+
+.headerButton {
+  @include clear-button($primary-color);
+}

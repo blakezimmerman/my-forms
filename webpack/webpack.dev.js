@@ -26,6 +26,7 @@ module.exports = webpackMerge(commonConfig, {
             options: {
               modules: true,
               namedExport: true,
+              sass: true,
               banner: scssBanner
             }
           },

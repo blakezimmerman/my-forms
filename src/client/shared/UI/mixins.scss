@@ -1,0 +1,13 @@
+@import './functions';
+@import './variables';
+
+@mixin clear-button($bg-color) {
+  color: pick-visible-color($bg-color, white, black);
+  background-color: rgba(0, 0, 0, 0);
+  font-family: $body-font;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
