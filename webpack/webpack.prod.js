@@ -32,7 +32,12 @@ module.exports = webpackMerge(commonConfig, {
                 banner: scssBanner
               }
             },
-            { loader: 'sass-loader' }
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [APP_DIR]
+              }
+            }
           ]
         })
       }

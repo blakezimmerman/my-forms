@@ -11,3 +11,21 @@
   border-radius: 2px;
   cursor: pointer;
 }
+
+@mixin button($bg-color) {
+  color: pick-visible-color($bg-color, white, black);
+  background-color: $bg-color;
+  font-family: $body-font;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:disabled, &:disabled:hover {
+    color: $disabled-color;
+    background-color: $disabledBG-color;
+  }
+}

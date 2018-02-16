@@ -1,0 +1,48 @@
+@import 'shared/UI/variables';
+@import 'shared/UI/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+
+  h2 {
+    font-family: $heading-font;
+    font-weight: 400;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+.error {
+  color: $failure-color;
+}
+
+.success {
+  color: $success-color;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-size: 1.1rem;
+
+  input {
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  button {
+    @include button($primary-color);
+    margin: 1rem 0 1.5rem 0;
+    padding: 0.6rem 1rem;
+  }
+}

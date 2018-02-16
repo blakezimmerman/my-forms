@@ -16,7 +16,7 @@ const processUser = ({userName, password}: NewUser) =>
           hashedPassword: bcrypt.hashSync(password)
         });
       }
-      Promise.reject('Username is already taken');
+      throw new Error('Username is already taken');
     })
     .catch((err: any) => Promise.reject(err));
 
