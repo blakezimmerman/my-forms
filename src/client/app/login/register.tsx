@@ -22,18 +22,22 @@ const Register = (props: Props) => {
 
   return (
     <div className={styles.container}>
-        <h2>Create an Account</h2>
-        {props.error && !props.result &&
-          <h3 className={styles.error}>{props.error}</h3>
-        }
-        {props.result && !props.error &&
-          <h3 className={styles.success}>
-            {'Registration Success! '}
-            <Link to='/login'>Click here to proceed to login.</Link>
-          </h3>
-        }
-        <AccountForm submitText='Create Account' submitFn={registerButton}/>
+      <h2>Create an Account</h2>
+      {props.error && !props.result &&
+        <h3 className={styles.error}>{props.error}</h3>
+      }
+      {props.result && !props.error &&
+        <h3 className={styles.success}>
+          {'Registration Success! '}
+          <Link to='/login'>Click here to proceed to login.</Link>
+        </h3>
+      }
+      <AccountForm submitText='Create Account' submitFn={registerButton}/>
+      <div>
+        {'Already have an account? '}
+        <Link to='/login'>Click here to log in!</Link>
       </div>
+    </div>
   );
 };
 

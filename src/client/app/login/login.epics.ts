@@ -1,4 +1,5 @@
 import { combineEpics } from 'redux-observable';
+import { State } from 'client/store/rootReducer';
 import { Epic, getType } from 'client/shared/reduxUtils';
 import { api, post, refreshSession } from 'client/shared/apiUtils';
 import { match, is } from 'client/shared/miscUtils';
@@ -6,6 +7,7 @@ import { REFRESH_SESSION, LOGIN_REQUEST, REGISTER_REQUEST } from './login.reduce
 import { routeActions } from 'client/router/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { filter } from 'rxjs/operators/filter';
 import { mapTo } from 'rxjs/operators/mapTo';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
@@ -38,8 +40,9 @@ const registerSuccessEpic: Epic = (actions$) =>
     mapTo(LOGIN_REQUEST.RESET())
   );
 
-const loginSuccessEpic: Epic = (actions$) =>
+const loginSuccessEpic: Epic<State> = (actions$, store) =>
   actions$.ofType(getType(LOGIN_REQUEST.SUCCESS)).pipe(
+    filter((action) => !(store.getState().location.pathname === '/')),
     switchMap((action) =>
       Observable.of(routeActions.DASHBOARD(), REGISTER_REQUEST.RESET())
     )
