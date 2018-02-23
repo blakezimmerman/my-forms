@@ -2,7 +2,8 @@
 // Please do not change this file!
 
 export const container: string;
+export const upper: string;
 export const getStarted: string;
-export const examplesContainer: string;
+export const examples: string;
 export const cardsContainer: string;
 export const exampleCard: string;

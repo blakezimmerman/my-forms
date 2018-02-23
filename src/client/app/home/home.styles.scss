@@ -6,36 +6,44 @@
   flex-direction: column;
   align-items: center;
   font-size: 1rem;
+}
+
+.upper {
+  width: 100%;
+  background-color: $primary-color;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h2 {
-    font-family: $heading-font;
     font-weight: 400;
-    font-style: italic;
     font-size: 1.8rem;
     text-align: center;
-    margin: 3rem 0;
+    margin: 3rem 0 0;
   }
 }
 
 .getStarted {
-  @include button($primary-color);
+  @include button(white);
+  color: $primary-color;
   font-size: 1.3rem;
-  margin: 0 1rem;
+  margin: 3rem 1rem;
   padding: 1rem 1.2rem;
 
-  &:hover {
-    background-color: lighten($primary-color, 10);
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.15rem;
+    padding: 0.8rem 1rem;
   }
 }
 
-.examplesContainer {
+.examples {
   width: 100%;
-  margin: 5rem 1rem;
+  margin: 3rem 0;
 
   h2 {
     font-family: $heading-font;
     font-weight: 400;
-    font-style: italic;
     font-size: 1.5rem;
     text-align: center;
     margin: 0 0 1rem 0;

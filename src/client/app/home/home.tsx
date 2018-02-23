@@ -18,8 +18,8 @@ const Home = (props: Props) => {
   const toRegister = () => props.registerRoute();
 
   return (
-    <FadeIn>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.upper}>
         <h2>Get Answers With Ease</h2>
         {props.authenticated
           ? <button className={styles.getStarted} onClick={toDashboard}>
@@ -29,7 +29,9 @@ const Home = (props: Props) => {
               Create An Account To Get Started
             </button>
         }
-        <div className={styles.examplesContainer}>
+      </div>
+      <FadeIn>
+        <div className={styles.examples} key={1}>
           <h2>With myForms you can easily...</h2>
           <div className={styles.cardsContainer}>
             <div className={styles.exampleCard}>
@@ -40,8 +42,8 @@ const Home = (props: Props) => {
             </div>
           </div>
         </div>
-      </div>
-    </FadeIn>
+      </FadeIn>
+    </div>
   );
 };
 

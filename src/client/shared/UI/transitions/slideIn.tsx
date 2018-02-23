@@ -23,7 +23,7 @@ const SlideIn = ({ children }: Props) => {
       styles={calcStyles}
     >
       {(interpolatingStyles: PlainStyle[]) =>
-        <>
+        <div style={{ width: '100%' }}>
           {children.map((elem, i) => (
             <div
               key={i}
@@ -32,7 +32,7 @@ const SlideIn = ({ children }: Props) => {
               {elem}
             </div>
           ))}
-        </>
+        </div>
       }
     </StaggeredMotion>
   );

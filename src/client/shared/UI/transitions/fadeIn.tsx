@@ -11,7 +11,11 @@ const FadeIn = ({ children }: Props) => (
     style={{ opacity: spring(1, { stiffness: 100, damping: 20 }) }}
   >
     {(interpolatingStyle: PlainStyle) =>
-      <div style={{ opacity: interpolatingStyle.opacity }}>
+      <div
+        style={{
+          opacity: interpolatingStyle.opacity,
+          width: '100%'
+        }}>
         {children}
       </div>
     }

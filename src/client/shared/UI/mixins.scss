@@ -8,6 +8,7 @@
   font-size: 1.1rem;
   text-align: center;
   padding: 0.4rem 0.8rem;
+  border: 1px solid pick-visible-color($bg-color, white, black);
   border-radius: 2px;
   cursor: pointer;
 }
