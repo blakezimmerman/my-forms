@@ -3,6 +3,8 @@
 ## About
 myForms is a web application for creating surveys / tests, administrating them through shareable links, and viewing the results once submissions are received. This application follows the specifications required by the Engineering Design VI course (SSW-322 at Stevens Institute of Technology).
 
+The running application can be found at: https://myforms.herokuapp.com
+
 ## Technology Stack
 The technology stack for myForms can be classified into three distinct parts:
 

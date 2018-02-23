@@ -2,8 +2,8 @@ import { MongoClient, Db } from 'mongodb';
 
 type MongoConnection = Promise<Db> | undefined;
 
-const serverUrl = 'mongodb://mongo/';
-const database = 'my-forms';
+const serverUrl = process.env.MONGODB_URI || 'mongodb://mongo';
+const database = process.env.MONGODB_DB || 'my-forms';
 
 let connection: MongoConnection;
 
