@@ -4,6 +4,10 @@
   "description": "Project for Engineering Design VI",
   "author": "Blake Zimmerman <blake.zimmerman@me.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blakezimmerman/my-forms.git"
+  },
   "main": "src/server/app.ts",
   "scripts": {
     "start": "nodemon --watch 'src/server/**/*.ts' --exec 'ts-node' src/server/app.ts",
@@ -32,7 +36,6 @@
     "handlebars": "^4.0.11",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
-    "uuid": "^3.2.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.0"
@@ -55,7 +58,6 @@
     "@types/redux-first-router": "^1.10.2",
     "@types/redux-first-router-link": "^1.4.3",
     "@types/redux-logger": "^3.0.5",
-    "@types/uuid": "^3.4.3",
     "@types/webpack": "^3.8.8",
     "@types/webpack-dev-middleware": "^2.0.0",
     "@types/webpack-env": "^1.13.5",

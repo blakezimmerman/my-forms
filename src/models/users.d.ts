@@ -1,12 +1,10 @@
 export interface User {
   userName: string;
-}
-
-export interface NewUser extends User {
   password: string;
 }
 
-export interface UserAccount extends User {
+export interface UserAccount {
   _id: string;
+  userName: string;
   hashedPassword: string;
 }

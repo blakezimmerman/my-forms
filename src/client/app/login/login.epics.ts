@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 import { State } from 'client/store/rootReducer';
 import { Epic, getType } from 'client/shared/reduxUtils';
-import { api, post, refreshSession } from 'client/shared/apiUtils';
+import { api, httpPost, refreshSession } from 'client/shared/apiUtils';
 import { match, is } from 'client/shared/miscUtils';
 import { REFRESH_SESSION, LOGIN_REQUEST, REGISTER_REQUEST } from './login.reducer';
 import { routeActions } from 'client/router/router';
@@ -23,7 +23,7 @@ const loginRequestEpic: Epic = (actions$) =>
   actions$.ofType(getType(LOGIN_REQUEST.PENDING)).pipe(
     debounceTime(300),
     switchMap((action) =>
-      post(api('auth/login'), action.payload, LOGIN_REQUEST)
+      httpPost(api('auth/login'), action.payload, LOGIN_REQUEST)
     )
   );
 
@@ -31,7 +31,7 @@ const registerRequestEpic: Epic = (actions$) =>
   actions$.ofType(getType(REGISTER_REQUEST.PENDING)).pipe(
     debounceTime(300),
     switchMap((action) =>
-      post(api('users/new'), action.payload, REGISTER_REQUEST)
+      httpPost(api('users'), action.payload, REGISTER_REQUEST)
     )
   );
 

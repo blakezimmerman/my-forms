@@ -3,7 +3,7 @@ import * as styles from './login.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
-import { NewUser } from 'models/users';
+import { User } from 'models/users';
 import { REGISTER_REQUEST } from './login.reducer';
 import { InsertOneWriteOpResult } from 'mongodb';
 import Link from 'redux-first-router-link';
@@ -13,11 +13,11 @@ interface Props {
   pending: boolean;
   result: InsertOneWriteOpResult;
   error: string;
-  requestRegistration: ActionDispatcher<NewUser>;
+  requestRegistration: ActionDispatcher<User>;
 }
 
 const Register = (props: Props) => {
-  const registerButton = (requestedUser: NewUser) => (event: React.MouseEvent<HTMLButtonElement>) =>
+  const registerButton = (requestedUser: User) => (event: React.MouseEvent<HTMLButtonElement>) =>
     props.requestRegistration(requestedUser);
 
   return (

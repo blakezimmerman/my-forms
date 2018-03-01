@@ -9,13 +9,23 @@ export const apiBase = APP_CONFIG.host + 'api/';
 
 export const api = (endpoint: string) => apiBase + endpoint;
 
-export const get = (url: string, action: AsyncActionDispatcher<any, any>) =>
+export const httpPost = (url: string, body: object, action: AsyncActionDispatcher<any, any>) =>
+  axios.post(url, body)
+    .then((response) => action.SUCCESS(response.data))
+    .catch((err) => action.FAILURE(err.response.data));
+
+export const httpGet = (url: string, action: AsyncActionDispatcher<any, any>) =>
   axios.get(url)
     .then((response) => action.SUCCESS(response.data))
     .catch((err) => action.FAILURE(err.response.data));
 
-export const post = (url: string, body: object, action: AsyncActionDispatcher<any, any>) =>
-  axios.post(url, body)
+export const httpPut = (url: string, body: object, action: AsyncActionDispatcher<any, any>) =>
+  axios.put(url, body)
+    .then((response) => action.SUCCESS(response.data))
+    .catch((err) => action.FAILURE(err.response.data));
+
+export const httpDelete = (url: string, action: AsyncActionDispatcher<any, any>) =>
+  axios.delete(url)
     .then((response) => action.SUCCESS(response.data))
     .catch((err) => action.FAILURE(err.response.data));
 

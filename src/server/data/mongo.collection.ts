@@ -1,4 +1,4 @@
-import { Collection, Db } from 'mongodb';
+import { Collection } from 'mongodb';
 import connectDb from './mongo.connection';
 
 type MongoCollection = Promise<Collection> | undefined;
@@ -25,3 +25,4 @@ if (process.env.CLEAN) {
 }
 
 export const usersCollection = getCollection('users');
+export const formsCollection = getCollection('forms');

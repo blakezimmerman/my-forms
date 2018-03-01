@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as styles from './login.styles.scss';
 import { Action } from 'client/shared/reduxUtils';
-import { NewUser } from 'models/users';
+import { User } from 'models/users';
 
 interface Props {
   submitText: string;
-  submitFn: (requestedUser: NewUser) => (event: React.MouseEvent<HTMLButtonElement>) => Action<NewUser | undefined>;
+  submitFn: (requestedUser: User) => (event: React.MouseEvent<HTMLButtonElement>) => Action<User | undefined>;
 }
 
 interface LocalState {

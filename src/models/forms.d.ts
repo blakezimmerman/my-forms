@@ -1,15 +1,27 @@
+export type FormType = 'survey' | 'test';
+
+export interface NewForm {
+  published: boolean;
+  type: FormType;
+  questions: Question[];
+}
+
 export interface Form {
   _id: string;
   createdBy: string;
   published: boolean;
-  type: 'survey' | 'test';
+  type: FormType;
   questions: Question[];
   submissions: Submission[];
 }
 
+export type QuestionType =
+  'trueFalse'   | 'multipleChoice' | 'shortAnswer' |
+  'essayAnswer' | 'matching'       | 'ranking';
+
 export interface Question {
   prompt: string;
-  type: 'trueFalse' | 'multipleChoice' | 'shortAnswer' | 'essayAnswer' | 'matching' | 'ranking';
+  type: QuestionType;
 }
 
 export interface TrueFalseTest extends Question {
@@ -33,7 +45,7 @@ export interface Matching extends Question {
   setB: string[];
 }
 
-export interface MatchingTest extends Question {
+export interface MatchingTest extends Matching {
   answer: number[];
 }
 
@@ -41,20 +53,23 @@ export interface Ranking extends Question {
   options: string[];
 }
 
-export interface RankingTest extends Question {
+export interface RankingTest extends Ranking {
   answer: string[];
 }
 
-type Submission = Response[];
+export interface Submission {
+  submittedBy: string;
+  responses: Response[];
+}
 
 type Reponse =
-  TrueFalseResponse | MultipleChoiceResponse |
-  ShortAnswerResponse | EssayAnswerResponse |
-  MatchingResponse | RankingResponse;
+  TrueFalseResponse   | MultipleChoiceResponse |
+  ShortAnswerResponse | EssayAnswerResponse    |
+  MatchingResponse    | RankingResponse;
 
 type TrueFalseResponse = boolean;
 type MultipleChoiceResponse = string[];
-type ShortAnswerResponse = string;
-type EssayAnswerResponse = string;
+type ShortAnswerResponse = { reponse: string, correct: boolean | undefined };
+type EssayAnswerResponse = { reponse: string, correct: boolean | undefined };
 type MatchingResponse = number[];
 type RankingResponse = string[];

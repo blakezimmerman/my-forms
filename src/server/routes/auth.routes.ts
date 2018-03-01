@@ -7,11 +7,6 @@ import { getUser } from '../data/users.data';
 
 const router = express.Router();
 
-const findUser = (userName: string) =>
-  getUser(userName)
-    .then((users) => users.length ? users[0] : false)
-    .catch((err) => false);
-
 const checkPassword = (hash: string, password: string) =>
   bcrypt.compareSync(password, hash);
 
@@ -19,7 +14,7 @@ const generateToken = (userName: string) =>
   jwt.sign(userName, secret);
 
 router.post('/login', (req, res) => {
-  findUser(req.body.userName)
+  getUser(req.body.userName)
     .then((user) => {
       if (user) {
         if (checkPassword(user.hashedPassword, req.body.password)) {
@@ -44,7 +39,7 @@ router.get('/refresh', (req, res) =>
   jwt.verify(req.signedCookies.token, secret, (err: any, decoded: string) =>
     (err || !decoded)
       ? res.json('Not Authorized')
-      : findUser(decoded)
+      : getUser(decoded)
           .then((user) => {
             if (user) {
               res.json(user.userName);
