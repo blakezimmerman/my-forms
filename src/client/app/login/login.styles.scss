@@ -2,10 +2,8 @@
 @import 'shared/UI/mixins';
 
 .container {
-  display: flex;
-  flex-direction: column;
+  @include page-container();
   align-items: center;
-  font-size: 1rem;
 
   h2 {
     font-family: $heading-font;

@@ -1,0 +1,17 @@
+@import 'shared/UI/variables';
+@import 'shared/UI/mixins';
+
+.container {
+  @include page-container();
+
+  h2 {
+    font-family: $heading-font;
+    font-weight: 400;
+    font-size: 1.8rem;
+  }
+}
+
+.createButton {
+  @include button($primary-color);
+  margin: 0.5rem;
+}

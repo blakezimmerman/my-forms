@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as bcrypt from 'bcrypt-nodejs';
-import * as uuid from 'uuid/v4';
 import * as jwt from 'jsonwebtoken';
 import { secret } from '../app';
 import { getUser } from '../data/users.data';
