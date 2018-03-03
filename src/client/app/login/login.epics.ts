@@ -42,7 +42,7 @@ const registerSuccessEpic: Epic = (actions$) =>
 
 const loginSuccessEpic: Epic<State> = (actions$, store) =>
   actions$.ofType(getType(LOGIN_REQUEST.SUCCESS)).pipe(
-    filter((action) => !(store.getState().location.pathname === '/')),
+    filter((action) => is('/login', '/register')(store.getState().location.pathname)),
     switchMap((action) =>
       Observable.of(routeActions.DASHBOARD(), REGISTER_REQUEST.RESET())
     )

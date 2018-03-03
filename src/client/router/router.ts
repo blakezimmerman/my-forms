@@ -9,7 +9,9 @@ const routesMap = {
   HOME: '/',
   LOGIN: '/login',
   REGISTER: '/register',
-  DASHBOARD: '/dashboard'
+  DASHBOARD: '/dashboard',
+  CREATE_SURVEY: '/create-survey',
+  CREATE_TEST: '/create-test'
 };
 
 const { reducer, middleware, enhancer } = connectRoutes(history, routesMap);
@@ -23,5 +25,7 @@ export const routeActions = {
   HOME: actionCreator<void>('HOME'),
   LOGIN: actionCreator<void>('LOGIN'),
   REGISTER: actionCreator<void>('REGISTER'),
-  DASHBOARD: actionCreator<void>('DASHBOARD')
+  DASHBOARD: actionCreator<void>('DASHBOARD'),
+  CREATE_SURVEY: actionCreator<void>('CREATE_SURVEY'),
+  CREATE_TEST: actionCreator<void>('CREATE_TEST')
 };

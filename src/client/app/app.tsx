@@ -10,6 +10,7 @@ import Home from './home/home';
 import Login from './login/login';
 import Register from './login/register';
 import Dashboard from './dashboard/dashboard';
+import CreateForm from './create/createForm';
 
 interface Props {
   locationPath: string;
@@ -37,6 +38,9 @@ class App extends React.Component<Props> {
         case ('/login'): return <Login/>;
         case ('/register'): return <Register/>;
         case ('/dashboard'): return authenticated && <Dashboard/>;
+        case ('/create-survey'): return authenticated && <CreateForm type={'survey'}/>;
+        case ('/create-test'): return authenticated && <CreateForm type={'test'}/>;
+        default: return <Home/>;
       }
     };
 
