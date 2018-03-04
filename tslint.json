@@ -10,6 +10,7 @@
     "no-implicit-dependencies": false,
     "object-literal-sort-keys": false,
     "interface-name": [false, "always-prefix"],
+    "interface-over-type-literal": false,
     "member-access": false,
     "no-submodule-imports": false,
     "ban-types": false,

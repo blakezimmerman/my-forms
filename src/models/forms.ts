@@ -1,4 +1,7 @@
-export type FormType = 'survey' | 'test';
+export const enum FormType {
+  Survey = 'Survey',
+  Test = 'Test'
+}
 
 export interface NewForm {
   published: boolean;
@@ -15,9 +18,14 @@ export interface Form {
   submissions: Submission[];
 }
 
-export type QuestionType =
-  'trueFalse'   | 'multipleChoice' | 'shortAnswer' |
-  'essayAnswer' | 'matching'       | 'ranking';
+export const enum QuestionType {
+  TrueFalse = 'True/False',
+  MultipleChoice = 'Multiple Choice',
+  ShortAnswer = 'Short Answer',
+  EssayAnswer = 'Essay Answer',
+  Matching = 'Matching',
+  Ranking = 'Ranking'
+}
 
 export interface Question {
   prompt: string;

@@ -6,7 +6,7 @@ interface Props {
 }
 
 const CreateForm = (props: Props) => (
-  <div>Create Component</div>
+  <div>Create {props.type}</div>
 );
 
 export default CreateForm;

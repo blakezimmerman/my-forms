@@ -5,6 +5,7 @@ import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
 import { REFRESH_SESSION } from './login/login.reducer';
 import { getUserName, getAuthenticated } from './login/login.selectors';
+import { FormType } from 'models/forms';
 import Header from './header/header';
 import Home from './home/home';
 import Login from './login/login';
@@ -38,8 +39,8 @@ class App extends React.Component<Props> {
         case ('/login'): return <Login/>;
         case ('/register'): return <Register/>;
         case ('/dashboard'): return authenticated && <Dashboard/>;
-        case ('/create-survey'): return authenticated && <CreateForm type={'survey'}/>;
-        case ('/create-test'): return authenticated && <CreateForm type={'test'}/>;
+        case ('/create-survey'): return authenticated && <CreateForm type={FormType.Survey}/>;
+        case ('/create-test'): return authenticated && <CreateForm type={FormType.Test}/>;
         default: return <Home/>;
       }
     };
