@@ -2,7 +2,7 @@
 export const ENV = process.env.NODE_ENV || 'dev';
 const port = process.env.PORT || 3000;
 export const host = process.env.HOST || `http://localhost:${port}/`;
-export const secret = 'This is my super secret string';
+export const secret = process.env.SECRET || 'This is my not so secret string';
 
 // Create app
 import * as express from 'express';
