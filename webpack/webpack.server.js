@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 const copyNodeModules = require('copy-node-modules');
+const { MODELS_DIR } = require('./webpack.common.js');
 
 const ROOT_DIR = path.resolve(__dirname, '../');
 const SERVER_DIR = path.resolve(__dirname, '../src/server');
@@ -53,7 +54,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        include: SERVER_DIR,
+        include: [SERVER_DIR, MODELS_DIR],
         use: ['awesome-typescript-loader']
       }
     ]

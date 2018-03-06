@@ -1,4 +1,4 @@
-export const enum FormType {
+export enum FormType {
   Survey = 'Survey',
   Test = 'Test'
 }
@@ -18,7 +18,7 @@ export interface Form {
   submissions: Submission[];
 }
 
-export const enum QuestionType {
+export enum QuestionType {
   TrueFalse = 'True/False',
   MultipleChoice = 'Multiple Choice',
   ShortAnswer = 'Short Answer',
@@ -28,6 +28,7 @@ export const enum QuestionType {
 }
 
 export interface Question {
+  _id: string;
   prompt: string;
   type: QuestionType;
 }

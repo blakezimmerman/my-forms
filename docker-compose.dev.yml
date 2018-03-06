@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
-      - ignore:/app/node_modules
+      - /app/node_modules
     links:
       - mongo
   mongo:
@@ -20,6 +20,3 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
-
-volumes:
-  ignore:
