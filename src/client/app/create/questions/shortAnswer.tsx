@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { QuestionProps } from './questionFactory';
+import { QuestionProps } from './question';
 
 const ShortAnswer = (props: QuestionProps) => <div>Short Answer Question</div>;
 

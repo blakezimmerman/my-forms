@@ -5,3 +5,6 @@ export const container: string;
 export const header: string;
 export const headerButton: string;
 export const select: string;
+export const nameInput: string;
+export const questionCard: string;
+export const questionTop: string;

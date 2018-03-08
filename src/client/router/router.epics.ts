@@ -7,6 +7,8 @@ import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 import { mapTo } from 'rxjs/operators';
 import { getAuthenticated } from 'client/app/login/login.selectors';
+import { SET_TYPE } from 'client/app/create/create.reducer';
+import { FormType } from 'models/forms';
 
 const authEpic: Epic<State> = (actions$, store) =>
   actions$.ofType('LOGIN', 'REGISTER').pipe(
@@ -26,8 +28,20 @@ const notFoundEpic: Epic = (actions$) =>
     mapTo(routeActions.HOME())
   );
 
+const createSurveyEpic: Epic = (actions$) =>
+  actions$.ofType('CREATE_SURVEY').pipe(
+    mapTo(SET_TYPE(FormType.Survey))
+  );
+
+const createTestEpic: Epic = (actions$) =>
+  actions$.ofType('CREATE_TEST').pipe(
+    mapTo(SET_TYPE(FormType.Test))
+  );
+
 export const routerEpic = combineEpics(
   authEpic,
   noAuthEpic,
-  notFoundEpic
+  notFoundEpic,
+  createSurveyEpic,
+  createTestEpic
 );

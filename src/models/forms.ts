@@ -6,6 +6,7 @@ export enum FormType {
 export interface NewForm {
   published: boolean;
   type: FormType;
+  name: string;
   questions: Question[];
 }
 
@@ -14,6 +15,7 @@ export interface Form {
   createdBy: string;
   published: boolean;
   type: FormType;
+  name: string;
   questions: Question[];
   submissions: Submission[];
 }

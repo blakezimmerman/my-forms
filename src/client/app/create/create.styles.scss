@@ -18,3 +18,32 @@
 .select {
   @include select($primary-color);
 }
+
+.nameInput {
+  @include input();
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+}
+
+.questionCard {
+  @include card();
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.questionTop {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+
+  textarea {
+    @include textarea();
+    margin: 0 1rem;
+  }
+
+  i {
+    cursor: default;
+  }
+}

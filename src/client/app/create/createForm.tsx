@@ -1,25 +1,29 @@
 import * as React from 'react';
 import * as styles from './create.styles.scss';
-import * as R from 'ramda';
-import * as shortId from 'shortid';
-import { FormType, QuestionType, Question } from 'models/forms';
-import QuestionFactory from './questions/questionFactory';
+import { connect } from 'react-redux';
+import { State } from 'client/store/rootReducer';
+import { ActionDispatcher } from 'client/shared/reduxUtils';
+import { Form, FormType, QuestionType, Question } from 'models/forms';
+import { UPDATE_NAME, ADD_QUESTION } from './create.reducer';
+import FadeIn from 'client/shared/UI/transitions/fadeIn';
+import QuestionCard from './questions/question';
 
 interface Props {
   type: FormType;
+  form: Form;
+  UPDATE_NAME: ActionDispatcher<string>;
+  ADD_QUESTION: ActionDispatcher<QuestionType>;
 }
 
 interface LocalState {
   select: QuestionType;
-  questions: Question[];
 }
 
 class CreateForm extends React.Component<Props, LocalState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      select: QuestionType.TrueFalse,
-      questions: []
+      select: QuestionType.TrueFalse
     };
   }
 
@@ -27,24 +31,9 @@ class CreateForm extends React.Component<Props, LocalState> {
     this.setState({select: event.currentTarget.value as QuestionType});
   }
 
-  createQuestion = () => {
-    this.setState((prevState) => ({
-      questions: [
-        ...prevState.questions,
-        {
-          _id: shortId.generate(),
-          prompt: '',
-          type: prevState.select
-        }
-      ]
-    }));
-  }
+  handleName = (event: React.FormEvent<HTMLInputElement>) => this.props.UPDATE_NAME(event.currentTarget.value);
 
-  updateQuestion = (i: number, q: Question) => {
-    this.setState((prevState) => ({
-      questions: R.update(i, q, prevState.questions)
-    }));
-  }
+  createQuestion = () => this.props.ADD_QUESTION(this.state.select);
 
   render() {
     return (
@@ -67,9 +56,17 @@ class CreateForm extends React.Component<Props, LocalState> {
           </button>
         </div>
         <div className={styles.container}>
-          Create {this.props.type}
-          {this.state.questions.map((question, index) =>
-            <QuestionFactory key={question._id} question={question} index={index}/>
+          <input
+            className={styles.nameInput}
+            type='text'
+            value={this.props.form.name}
+            onChange={this.handleName}
+            placeholder={`Enter ${this.props.type} Name...`}
+          />
+          {this.props.form.questions.map((question, index) =>
+            <FadeIn key={question._id}>
+              <QuestionCard question={question} index={index}/>
+            </FadeIn>
           )}
         </div>
       </>
@@ -77,4 +74,13 @@ class CreateForm extends React.Component<Props, LocalState> {
   }
 }
 
-export default CreateForm;
+const mapState = (state: State) => ({
+  form: state.create.form
+});
+
+const mapDispatch = {
+  UPDATE_NAME,
+  ADD_QUESTION
+};
+
+export default connect(mapState, mapDispatch)(CreateForm);
