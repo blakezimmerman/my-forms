@@ -5,6 +5,7 @@ import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
 import { Form, FormType, QuestionType, Question } from 'models/forms';
 import { UPDATE_NAME, ADD_QUESTION } from './create.reducer';
+import { animateScroll } from 'react-scroll';
 import FadeIn from 'client/shared/UI/transitions/fadeIn';
 import QuestionCard from './questions/question';
 
@@ -33,7 +34,10 @@ class CreateForm extends React.Component<Props, LocalState> {
 
   handleName = (event: React.FormEvent<HTMLInputElement>) => this.props.UPDATE_NAME(event.currentTarget.value);
 
-  createQuestion = () => this.props.ADD_QUESTION(this.state.select);
+  createQuestion = () => {
+    this.props.ADD_QUESTION(this.state.select);
+    animateScroll.scrollToBottom();
+  }
 
   render() {
     return (

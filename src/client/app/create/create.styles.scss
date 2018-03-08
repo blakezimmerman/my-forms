@@ -8,6 +8,15 @@
 .header {
   padding: 1rem;
   border-bottom: 1px lightgray solid;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.8rem;
+  background-color: white;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0.7rem;
+    top: 3.5rem;
+  }
 }
 
 .headerButton {
