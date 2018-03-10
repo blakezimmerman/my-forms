@@ -1,6 +1,18 @@
 import * as React from 'react';
-import { QuestionProps } from './question';
+import * as styles from '../create.styles.scss';
+import { FormType, Response, ShortAnswer as ShortAnswerQuestion } from 'models/forms';
+import { ActionDispatcher } from 'client/shared/reduxUtils';
 
-const ShortAnswer = (props: QuestionProps) => <div>Short Answer Question</div>;
+interface Props {
+  question: ShortAnswerQuestion;
+}
 
-export default ShortAnswer;
+const CreateShortAnswer = (props: Props) => (
+  <div>
+    <div className={styles.centeredBadge}>
+      <div>Short Answer Question</div>
+    </div>
+  </div>
+);
+
+export default CreateShortAnswer;

@@ -1,6 +1,27 @@
 import * as React from 'react';
-import { QuestionProps } from './question';
+import * as styles from '../create.styles.scss';
+import { FormType, Response, MultipleChoice as MultipleChoiceQuestion } from 'models/forms';
+import { Action } from 'client/shared/reduxUtils';
 
-const MultipleChoice = (props: QuestionProps) => <div>Multiple Choice Question</div>;
+interface Props {
+  type: FormType;
+  question: MultipleChoiceQuestion;
+  setAnswer: (answer: Response) => Action<any>;
+}
 
-export default MultipleChoice;
+const CreateMultipleChoice = (props: Props) => (
+  <div>
+    <div className={styles.centeredBadge}>
+      <div>Multiple Choice Question</div>
+    </div>
+    {props.type === FormType.Test &&
+      <>
+        <div className={styles.answerPrompt}>
+          Provide the correct answer:
+        </div>
+      </>
+    }
+  </div>
+);
+
+export default CreateMultipleChoice;

@@ -8,3 +8,5 @@ export const select: string;
 export const nameInput: string;
 export const questionCard: string;
 export const questionTop: string;
+export const centeredBadge: string;
+export const answerPrompt: string;

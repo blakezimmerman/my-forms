@@ -56,3 +56,15 @@
     cursor: default;
   }
 }
+
+.centeredBadge {
+  display: flex;
+
+  div {
+    @include badge($primary-color);
+  }
+}
+
+.answerPrompt {
+  margin: 1rem 0 0.2rem 0;
+}

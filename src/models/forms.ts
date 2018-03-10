@@ -29,43 +29,38 @@ export enum QuestionType {
   Ranking = 'Ranking'
 }
 
-export interface Question {
+export type Question =
+  TrueFalse | MultipleChoice | ShortAnswer |
+  Matching  | Ranking;
+
+export interface QuestionBase {
   _id: string;
   prompt: string;
   type: QuestionType;
 }
 
-export interface TrueFalseTest extends Question {
-  answer: boolean;
+export interface TrueFalse extends QuestionBase {
+  answer?: boolean;
 }
 
-export interface MultipleChoice extends Question {
+export interface MultipleChoice extends QuestionBase {
   options: string[];
+  answer?: string[];
 }
 
-export interface MultipleChoiceTest extends MultipleChoice {
-  answer: string[];
-}
-
-export interface ShortAnswer extends Question {
+export interface ShortAnswer extends QuestionBase {
   charLimit: number;
 }
 
-export interface Matching extends Question {
+export interface Matching extends QuestionBase {
   setA: string[];
   setB: string[];
+  answer?: number[];
 }
 
-export interface MatchingTest extends Matching {
-  answer: number[];
-}
-
-export interface Ranking extends Question {
+export interface Ranking extends QuestionBase {
   options: string[];
-}
-
-export interface RankingTest extends Ranking {
-  answer: string[];
+  answer?: string[];
 }
 
 export interface Submission {
@@ -73,14 +68,14 @@ export interface Submission {
   responses: Response[];
 }
 
-type Reponse =
+export type Response =
   TrueFalseResponse   | MultipleChoiceResponse |
   ShortAnswerResponse | EssayAnswerResponse    |
   MatchingResponse    | RankingResponse;
 
-type TrueFalseResponse = boolean;
-type MultipleChoiceResponse = string[];
-type ShortAnswerResponse = { reponse: string, correct: boolean | undefined };
-type EssayAnswerResponse = { reponse: string, correct: boolean | undefined };
-type MatchingResponse = number[];
-type RankingResponse = string[];
+export type TrueFalseResponse = boolean;
+export type MultipleChoiceResponse = string[];
+export type ShortAnswerResponse = { reponse: string, correct: boolean | undefined };
+export type EssayAnswerResponse = { reponse: string, correct: boolean | undefined };
+export type MatchingResponse = number[];
+export type RankingResponse = string[];

@@ -1,6 +1,27 @@
 import * as React from 'react';
-import { QuestionProps } from './question';
+import * as styles from '../create.styles.scss';
+import { FormType, Response, Ranking as RankingQuestion } from 'models/forms';
+import { Action } from 'client/shared/reduxUtils';
 
-const Ranking = (props: QuestionProps) => <div>Ranking Question</div>;
+interface Props {
+  type: FormType;
+  question: RankingQuestion;
+  setAnswer: (answer: Response) => Action<any>;
+}
 
-export default Ranking;
+const RankingMatching = (props: Props) => (
+  <div>
+    <div className={styles.centeredBadge}>
+      <div>Ranking Question</div>
+    </div>
+    {props.type === FormType.Test &&
+      <>
+        <div className={styles.answerPrompt}>
+          Provide the correct answer:
+        </div>
+      </>
+    }
+  </div>
+);
+
+export default RankingMatching;

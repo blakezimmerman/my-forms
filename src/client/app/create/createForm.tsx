@@ -7,7 +7,7 @@ import { Form, FormType, QuestionType, Question } from 'models/forms';
 import { UPDATE_NAME, ADD_QUESTION } from './create.reducer';
 import { animateScroll } from 'react-scroll';
 import FadeIn from 'client/shared/UI/transitions/fadeIn';
-import QuestionCard from './questions/question';
+import CreateQuestion from './questions/question';
 
 interface Props {
   type: FormType;
@@ -69,7 +69,7 @@ class CreateForm extends React.Component<Props, LocalState> {
           />
           {this.props.form.questions.map((question, index) =>
             <FadeIn key={question._id}>
-              <QuestionCard question={question} index={index}/>
+              <CreateQuestion type={this.props.type} question={question} index={index}/>
             </FadeIn>
           )}
         </div>

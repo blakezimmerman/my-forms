@@ -1,0 +1,12 @@
+@import 'shared/UI/variables';
+@import 'shared/UI/mixins';
+
+.trueFalse {
+  label {
+    display: block;
+  }
+
+  input {
+    @include radio-button($primary-color);
+  }
+}

@@ -5,7 +5,7 @@ import {
 } from 'client/shared/reduxUtils';
 import { match } from 'client/shared/miscUtils';
 import { State } from 'client/store/rootReducer';
-import { NewForm, FormType, Question, QuestionType } from 'models/forms';
+import { NewForm, FormType, Question, QuestionType, Response } from 'models/forms';
 import * as R from 'ramda';
 import * as shortId from 'shortid';
 
@@ -14,12 +14,13 @@ export const UPDATE_NAME = actionCreator<string>('UPDATE_NAME');
 export const ADD_QUESTION = actionCreator<QuestionType>('ADD_QUESTION');
 export const REMOVE_QUESTION = actionCreator<number>('REMOVE_QUESTION');
 export const UPDATE_PROMPT = actionCreator<{i: number, prompt: string}>('UPDATE_PROMPT');
+export const SET_ANSWER = actionCreator<{i: number, answer: Response}>('SET_ANSWER');
 
 export interface CreateState {
   form: NewForm;
 }
 
-const initialFormState = {
+const initialFormState: NewForm = {
   published: false,
   type: FormType.Survey,
   name: '',
@@ -28,7 +29,7 @@ const initialFormState = {
 
 const updateQuestions = (state: NewForm, fn: (qs: Question[]) => Question[]) => R.evolve({questions: fn}, state);
 
-const form = (state: NewForm = initialFormState, curAction: Action<any>) =>
+const form = (state = initialFormState, curAction: Action<any>) =>
   match<Action<any>, NewForm>(curAction)
     .on(isType(SET_TYPE), (action) => ({...initialFormState, type: action.payload}))
     .on(isType(UPDATE_NAME), (action) => ({...state, name: action.payload}))
@@ -40,6 +41,9 @@ const form = (state: NewForm = initialFormState, curAction: Action<any>) =>
     ))
     .on(isType(UPDATE_PROMPT), (action) => updateQuestions(state,
       R.adjust(R.assoc('prompt', action.payload.prompt), action.payload.i)
+    ))
+    .on(isType(SET_ANSWER), (action) => updateQuestions(state,
+      R.adjust(R.assoc('answer', action.payload.answer), action.payload.i)
     ))
     .otherwise((action) => state);
 
