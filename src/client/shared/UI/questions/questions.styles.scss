@@ -10,3 +10,13 @@
     @include radio-button($primary-color);
   }
 }
+
+.multipleChoice {
+  label {
+    display: block;
+  }
+
+  input {
+    @include checkbox($primary-color);
+  }
+}

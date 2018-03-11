@@ -2,3 +2,4 @@
 // Please do not change this file!
 
 export const trueFalse: string;
+export const multipleChoice: string;

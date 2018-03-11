@@ -65,6 +65,12 @@
   }
 }
 
+.optionsPrompt {
+  color: darken($primary-color, 15%);
+  margin: 1rem 0 0.5rem 0;
+}
+
 .answerPrompt {
+  color: darken($primary-color, 15%);
   margin: 1rem 0 0.2rem 0;
 }

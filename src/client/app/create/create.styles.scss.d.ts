@@ -9,4 +9,5 @@ export const nameInput: string;
 export const questionCard: string;
 export const questionTop: string;
 export const centeredBadge: string;
+export const optionsPrompt: string;
 export const answerPrompt: string;

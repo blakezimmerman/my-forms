@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as styles from './questions.styles.scss';
+import { TrueFalseResponse } from 'models/forms';
 
 interface Props {
-  value: boolean;
-  onChange: (value: boolean) => void;
+  value: TrueFalseResponse | undefined;
+  onChange: (value: TrueFalseResponse) => void;
 }
 
 const TrueFalse = (props: Props) => {

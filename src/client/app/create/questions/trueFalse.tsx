@@ -21,7 +21,7 @@ const CreateTrueFalse = (props: Props) => {
           <div className={styles.answerPrompt}>
             Provide the correct answer:
           </div>
-          <TrueFalse value={props.question.answer!} onChange={props.setAnswer}/>
+          <TrueFalse value={props.question.answer} onChange={props.setAnswer}/>
         </>
       }
     </div>

@@ -100,3 +100,8 @@
     border: 6px solid $color;
   }
 }
+
+@mixin checkbox($color) {
+  @include radio-button($color);
+  border-radius: 0;
+}

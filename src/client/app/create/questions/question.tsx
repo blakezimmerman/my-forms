@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as styles from '../create.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
-import { REMOVE_QUESTION, UPDATE_PROMPT, SET_ANSWER } from '../create.reducer';
+import { REMOVE_QUESTION, UPDATE_PROMPT, SET_ANSWER, SET_OPTIONS } from '../create.reducer';
 import {
     FormType, Question, QuestionType, Response, TrueFalse,
     MultipleChoice, ShortAnswer, Matching, Ranking
@@ -23,6 +23,7 @@ export interface Props {
   REMOVE_QUESTION: ActionDispatcher<number>;
   UPDATE_PROMPT: ActionDispatcher<{i: number, prompt: string}>;
   SET_ANSWER: ActionDispatcher<{i: number, answer: Response}>;
+  SET_OPTIONS: ActionDispatcher<{i: number, options: string[]}>;
 }
 
 const CreateQuestion = (props: Props) => {
@@ -32,6 +33,8 @@ const CreateQuestion = (props: Props) => {
   const removeQuestion = () => props.REMOVE_QUESTION(props.index);
 
   const setAnswer = (answer: Response) => props.SET_ANSWER({i: props.index, answer});
+
+  const setOptions = (options: string[]) => props.SET_OPTIONS({i: props.index, options});
 
   return (
     <div className={styles.questionCard}>
@@ -56,6 +59,7 @@ const CreateQuestion = (props: Props) => {
             <CreateMultipleChoice
               type={props.type}
               question={props.question as MultipleChoice}
+              setOptions={setOptions}
               setAnswer={setAnswer}
             />)
           .on(is(QuestionType.ShortAnswer), (type) =>
@@ -92,7 +96,8 @@ const CreateQuestion = (props: Props) => {
 const mapDispatch = {
   REMOVE_QUESTION,
   UPDATE_PROMPT,
-  SET_ANSWER
+  SET_ANSWER,
+  SET_OPTIONS
 };
 
 export default connect(null, mapDispatch)(CreateQuestion);

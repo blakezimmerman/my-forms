@@ -40,12 +40,12 @@ export interface QuestionBase {
 }
 
 export interface TrueFalse extends QuestionBase {
-  answer?: boolean;
+  answer?: TrueFalseResponse;
 }
 
 export interface MultipleChoice extends QuestionBase {
   options: string[];
-  answer?: string[];
+  answer?: MultipleChoiceResponse;
 }
 
 export interface ShortAnswer extends QuestionBase {
@@ -55,12 +55,12 @@ export interface ShortAnswer extends QuestionBase {
 export interface Matching extends QuestionBase {
   setA: string[];
   setB: string[];
-  answer?: number[];
+  answer?: MatchingResponse;
 }
 
 export interface Ranking extends QuestionBase {
   options: string[];
-  answer?: string[];
+  answer?: RankingResponse;
 }
 
 export interface Submission {
