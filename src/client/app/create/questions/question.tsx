@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import {
   REMOVE_QUESTION, UPDATE_PROMPT, SET_ANSWER,
-  SET_OPTIONS, SET_SETA, SET_SETB
+  SET_OPTIONS, SET_SETA, SET_SETB, SET_CHAR_LIMIT
 } from '../create.reducer';
 import {
     FormType, Question, QuestionType, Response, TrueFalse,
@@ -29,6 +29,7 @@ export interface Props {
   SET_OPTIONS: ActionDispatcher<{i: number, options: string[]}>;
   SET_SETA: ActionDispatcher<{i: number, setA: string[]}>;
   SET_SETB: ActionDispatcher<{i: number, setB: string[]}>;
+  SET_CHAR_LIMIT: ActionDispatcher<{i: number, charLimit: number}>;
 }
 
 const CreateQuestion = (props: Props) => {
@@ -44,6 +45,8 @@ const CreateQuestion = (props: Props) => {
   const setSetA = (setA: string[]) => props.SET_SETA({i: props.index, setA});
 
   const setSetB = (setB: string[]) => props.SET_SETB({i: props.index, setB});
+
+  const setCharLimit = (charLimit: number) => props.SET_CHAR_LIMIT({i: props.index, charLimit});
 
   return (
     <div className={styles.questionCard}>
@@ -74,6 +77,7 @@ const CreateQuestion = (props: Props) => {
           .on(is(QuestionType.ShortAnswer), (type) =>
             <CreateShortAnswer
               question={props.question as ShortAnswer}
+              setCharLimit={setCharLimit}
             />)
           .on(is(QuestionType.EssayAnswer), (type) =>
             <div className={styles.centeredBadge}>
@@ -110,7 +114,8 @@ const mapDispatch = {
   SET_ANSWER,
   SET_OPTIONS,
   SET_SETA,
-  SET_SETB
+  SET_SETB,
+  SET_CHAR_LIMIT
 };
 
 export default connect(null, mapDispatch)(CreateQuestion);

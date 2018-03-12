@@ -18,6 +18,7 @@ export const SET_ANSWER = actionCreator<{i: number, answer: Response}>('SET_ANSW
 export const SET_OPTIONS = actionCreator<{i: number, options: string[]}>('SET_OPTIONS');
 export const SET_SETA = actionCreator<{i: number, setA: string[]}>('SET_SETA');
 export const SET_SETB = actionCreator<{i: number, setB: string[]}>('SET_SETB');
+export const SET_CHAR_LIMIT = actionCreator<{i: number, charLimit: number}>('SET_CHAR_LIMIT');
 
 export interface CreateState {
   form: NewForm;
@@ -56,6 +57,9 @@ const form = (state = initialFormState, curAction: Action<any>) =>
     ))
     .on(isType(SET_SETB), (action) => updateQuestions(state,
       R.adjust(R.assoc('setB', action.payload.setB), action.payload.i)
+    ))
+    .on(isType(SET_CHAR_LIMIT), (action) => updateQuestions(state,
+      R.adjust(R.assoc('charLimit', action.payload.charLimit), action.payload.i)
     ))
     .otherwise((action) => state);
 

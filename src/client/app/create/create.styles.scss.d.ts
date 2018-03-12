@@ -13,3 +13,4 @@ export const optionsPrompt: string;
 export const answerPrompt: string;
 export const columnContainer: string;
 export const column: string;
+export const limitInput: string;
