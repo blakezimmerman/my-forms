@@ -6,3 +6,14 @@
   margin: 0;
   -webkit-font-smoothing: antialiased;
 }
+
+:global(.material-icons) {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+:global(.dragging) {
+  cursor: pointer;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  user-select: none;
+}

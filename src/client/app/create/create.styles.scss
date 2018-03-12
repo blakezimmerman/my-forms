@@ -10,8 +10,9 @@
   border-bottom: 1px lightgray solid;
   position: -webkit-sticky;
   position: sticky;
-  top: 4.8rem;
+  top: 4.75rem;
   background-color: white;
+  z-index: 1;
 
   @media (max-width: $mobile-breakpoint) {
     padding: 0.7rem;

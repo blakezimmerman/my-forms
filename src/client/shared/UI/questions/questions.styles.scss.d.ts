@@ -8,3 +8,5 @@ export const columnContainer: string;
 export const column: string;
 export const letter: string;
 export const row: string;
+export const ranking: string;
+export const item: string;

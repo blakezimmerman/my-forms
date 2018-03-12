@@ -95,6 +95,7 @@ const CreateQuestion = (props: Props) => {
             <CreateRanking
               type={props.type}
               question={props.question as Ranking}
+              setOptions={setOptions}
               setAnswer={setAnswer}
             />)
           .otherwise((type) =>
