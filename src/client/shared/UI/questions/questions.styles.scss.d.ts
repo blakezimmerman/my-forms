@@ -3,3 +3,8 @@
 
 export const trueFalse: string;
 export const multipleChoice: string;
+export const matching: string;
+export const columnContainer: string;
+export const column: string;
+export const letter: string;
+export const row: string;

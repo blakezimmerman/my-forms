@@ -3,6 +3,7 @@ import * as styles from '../create.styles.scss';
 import { FormType, Response, MultipleChoice as MultipleChoiceQuestion } from 'models/forms';
 import { Action } from 'client/shared/reduxUtils';
 import CreateList from 'client/shared/UI/components/createList';
+import FadeIn from 'client/shared/UI/transitions/fadeIn';
 import MultipleChoice from 'client/shared/UI/questions/multipleChoice';
 
 interface Props {
@@ -27,16 +28,18 @@ const CreateMultipleChoice = (props: Props) => (
     {props.type === FormType.Test &&
      props.question.options &&
      !!props.question.options.length &&
-      <>
-        <div className={styles.answerPrompt}>
-          Provide the correct answer:
-        </div>
-        <MultipleChoice
-          options={props.question.options || []}
-          value={props.question.answer || []}
-          onChange={props.setAnswer}
-        />
-      </>
+      <FadeIn>
+        <>
+          <div className={styles.answerPrompt}>
+            Provide the correct answer:
+          </div>
+          <MultipleChoice
+            options={props.question.options}
+            value={props.question.answer || []}
+            onChange={props.setAnswer}
+          />
+        </>
+      </FadeIn>
     }
   </div>
 );

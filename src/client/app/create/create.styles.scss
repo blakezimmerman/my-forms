@@ -74,3 +74,16 @@
   color: darken($primary-color, 15%);
   margin: 1rem 0 0.2rem 0;
 }
+
+.columnContainer {
+  display: flex;
+  flex-wrap: wrap;
+
+  .column {
+    margin-right: 1rem;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}

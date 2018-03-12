@@ -11,3 +11,5 @@ export const questionTop: string;
 export const centeredBadge: string;
 export const optionsPrompt: string;
 export const answerPrompt: string;
+export const columnContainer: string;
+export const column: string;

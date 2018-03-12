@@ -20,3 +20,38 @@
     @include checkbox($primary-color);
   }
 }
+
+.matching {
+  select {
+    @include select($primary-color);
+    height: 1.4rem;
+    margin-right: 0.3rem;
+  }
+
+  .columnContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+    .column {
+      margin-right: 1rem;
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+
+  .letter {
+    display: inline-block;
+    color: $primary-color;
+    font-weight: bold;
+    margin-right: 0.3rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    height: 1.4rem;
+    margin: 0.3rem 0;
+  }
+}

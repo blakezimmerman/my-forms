@@ -16,6 +16,8 @@ export const REMOVE_QUESTION = actionCreator<number>('REMOVE_QUESTION');
 export const UPDATE_PROMPT = actionCreator<{i: number, prompt: string}>('UPDATE_PROMPT');
 export const SET_ANSWER = actionCreator<{i: number, answer: Response}>('SET_ANSWER');
 export const SET_OPTIONS = actionCreator<{i: number, options: string[]}>('SET_OPTIONS');
+export const SET_SETA = actionCreator<{i: number, setA: string[]}>('SET_SETA');
+export const SET_SETB = actionCreator<{i: number, setB: string[]}>('SET_SETB');
 
 export interface CreateState {
   form: NewForm;
@@ -48,6 +50,12 @@ const form = (state = initialFormState, curAction: Action<any>) =>
     ))
     .on(isType(SET_OPTIONS), (action) => updateQuestions(state,
       R.adjust(R.assoc('options', action.payload.options), action.payload.i)
+    ))
+    .on(isType(SET_SETA), (action) => updateQuestions(state,
+      R.adjust(R.assoc('setA', action.payload.setA), action.payload.i)
+    ))
+    .on(isType(SET_SETB), (action) => updateQuestions(state,
+      R.adjust(R.assoc('setB', action.payload.setB), action.payload.i)
     ))
     .otherwise((action) => state);
 
