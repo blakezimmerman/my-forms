@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
 import { Form, FormType, QuestionType, Question } from 'models/forms';
-import { UPDATE_NAME, ADD_QUESTION } from './create.reducer';
+import { UPDATE_NAME, TOGGLE_PUBLISH, ADD_QUESTION } from './create.reducer';
 import { animateScroll } from 'react-scroll';
 import FadeIn from 'client/shared/UI/transitions/fadeIn';
 import CreateQuestion from './questions/question';
+import Toggle from 'client/shared/UI/components/toggle';
 
 interface Props {
   type: FormType;
   form: Form;
   UPDATE_NAME: ActionDispatcher<string>;
+  TOGGLE_PUBLISH: ActionDispatcher<void>;
   ADD_QUESTION: ActionDispatcher<QuestionType>;
 }
 
@@ -33,6 +35,8 @@ class CreateForm extends React.Component<Props, LocalState> {
   }
 
   handleName = (event: React.FormEvent<HTMLInputElement>) => this.props.UPDATE_NAME(event.currentTarget.value);
+
+  togglePublish = (event: React.SyntheticEvent<HTMLInputElement>) => this.props.TOGGLE_PUBLISH();
 
   createQuestion = () => {
     this.props.ADD_QUESTION(this.state.select);
@@ -73,6 +77,19 @@ class CreateForm extends React.Component<Props, LocalState> {
             </FadeIn>
           )}
         </div>
+        <div className={styles.footer}>
+          <label className={styles.toggleLabel}>
+            <p>Publish?</p>
+            <Toggle
+              value={this.props.form.published}
+              onChange={this.togglePublish}
+              primary={false}
+            />
+          </label>
+          <button>
+            Create Form
+          </button>
+        </div>
       </>
     );
   }
@@ -84,6 +101,7 @@ const mapState = (state: State) => ({
 
 const mapDispatch = {
   UPDATE_NAME,
+  TOGGLE_PUBLISH,
   ADD_QUESTION
 };
 

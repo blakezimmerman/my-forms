@@ -3,6 +3,11 @@
 
 .container {
   @include page-container();
+  margin-bottom: 4.25rem;
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-bottom: 3.5rem;
+  }
 }
 
 .header {
@@ -93,4 +98,38 @@
   @include input();
   font-size: 1.2rem;
   margin: 0;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: calc(100% - 4rem);
+  z-index: 1;
+  background-color: $primary-color;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0.7rem 1.4rem;
+    width: calc(100% - 2.8rem);
+  }
+
+  button {
+    @include button(white);
+    color: $primary-color;
+  }
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  color: white;
+
+  p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0.5rem 0 0;
+  }
 }
