@@ -3,8 +3,9 @@ import * as styles from './create.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
-import { Form, FormType, QuestionType, Question } from 'models/forms';
+import { Form, FormType, QuestionType, Question, NewForm } from 'models/forms';
 import { UPDATE_NAME, TOGGLE_PUBLISH, ADD_QUESTION } from './create.reducer';
+import { isValidNewForm } from 'client/shared/formValidation';
 import { animateScroll } from 'react-scroll';
 import FadeIn from 'client/shared/UI/transitions/fadeIn';
 import CreateQuestion from './questions/question';
@@ -12,7 +13,7 @@ import Toggle from 'client/shared/UI/components/toggle';
 
 interface Props {
   type: FormType;
-  form: Form;
+  form: NewForm;
   UPDATE_NAME: ActionDispatcher<string>;
   TOGGLE_PUBLISH: ActionDispatcher<void>;
   ADD_QUESTION: ActionDispatcher<QuestionType>;
@@ -42,6 +43,8 @@ class CreateForm extends React.Component<Props, LocalState> {
     this.props.ADD_QUESTION(this.state.select);
     animateScroll.scrollToBottom();
   }
+
+  submitForm = () => { /*TODO*/ };
 
   render() {
     return (
@@ -86,7 +89,10 @@ class CreateForm extends React.Component<Props, LocalState> {
               primary={false}
             />
           </label>
-          <button>
+          <button
+            onChange={this.submitForm}
+            disabled={!isValidNewForm(this.props.form)}
+          >
             Create Form
           </button>
         </div>
