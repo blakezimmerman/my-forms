@@ -45,6 +45,27 @@ class Dashboard extends React.Component<Props> {
             </button>
           </div>
           <h2>Your Forms</h2>
+          {this.props.formsReq.pending &&
+            <div className={styles.loader}>Loading...</div>
+          }
+          {this.props.formsReq.error &&
+            <div className={styles.error}>An Error has Occurred</div>
+          }
+          {this.props.formsReq.result &&
+            this.props.formsReq.result.map((form) =>
+              <div key={form._id} className={styles.formCard}>
+                <div className={styles.firstRow}>
+                  <div className={styles.formName}>{form.name}</div>
+                  <div className={styles.formBadge}>{form.type}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <button>View</button>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </div>
+              </div>
+            )
+          }
         </div>
       </>
     );

@@ -38,6 +38,13 @@
   }
 }
 
+@mixin invertedButton($color) {
+  @include button($color);
+  color: $color;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid $color;
+}
+
 @mixin input() {
   margin-left: 0.5rem;
   font-family: $body-font;

@@ -30,3 +30,53 @@
   @include button($primary-color);
   margin: 0.5rem;
 }
+
+.formCard {
+  @include card();
+  margin: 1rem;
+  padding: 1rem;
+
+  .firstRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .formName {
+      font-size: 1.2rem;
+    }
+  }
+
+  .secondRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      @include invertedButton($primary-color);
+      display: inline-block;
+      margin: 0.6rem 1rem 0;
+      font-size: 1rem;
+      padding: 0.25rem 0.6rem;
+    }
+  }
+}
+
+.formBadge {
+  @include badge($primary-color);
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $primary-color;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $failure-color;
+}
