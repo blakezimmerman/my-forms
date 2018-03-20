@@ -8,6 +8,7 @@ export const formCard: string;
 export const firstRow: string;
 export const formName: string;
 export const secondRow: string;
-export const formBadge: string;
+export const publishedBadge: string;
+export const unpublishedBadge: string;
 export const loader: string;
 export const error: string;

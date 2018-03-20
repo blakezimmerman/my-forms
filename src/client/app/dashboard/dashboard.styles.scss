@@ -43,6 +43,15 @@
 
     .formName {
       font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+
+      div {
+        display: inline-block;
+        font-size: 1rem;
+        color: $failure-color;
+        margin-left: 0.2rem;
+      }
     }
   }
 
@@ -61,8 +70,12 @@
   }
 }
 
-.formBadge {
+.publishedBadge {
   @include badge($primary-color);
+}
+
+.unpublishedBadge {
+  @include badge($failure-color);
 }
 
 .loader {

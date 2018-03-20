@@ -56,7 +56,10 @@ class Dashboard extends React.Component<Props> {
               <div key={form._id} className={styles.formCard}>
                 <div className={styles.firstRow}>
                   <div className={styles.formName}>{form.name}</div>
-                  <div className={styles.formBadge}>{form.type}</div>
+                  {form.published
+                    ? <div className={styles.publishedBadge}>Published {form.type}</div>
+                    : <div className={styles.unpublishedBadge}>Unpublished {form.type}</div>
+                  }
                 </div>
                 <div className={styles.secondRow}>
                   <button>View</button>
