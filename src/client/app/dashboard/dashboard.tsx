@@ -7,7 +7,7 @@ import { Action, ActionDispatcher, AsyncReducerState} from 'client/shared/reduxU
 import { InsertOneWriteOpResult } from 'mongodb';
 import { getUserName } from '../login/login.selectors';
 import { routeActions } from 'client/router/router';
-import { GET_FORMS_REQUEST } from './dashboard.reducer';
+import { GET_FORMS_REQUEST, DELETE_FORM_REQUEST } from './dashboard.reducer';
 import { CREATE_REQUEST } from '../create/create.reducer';
 
 interface Props {
@@ -18,6 +18,7 @@ interface Props {
   toCreateTest: () => Action<void>;
   requestForms: ActionDispatcher<void>;
   createReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
+  deleteForm: (id: string) => () => Action<string>;
 }
 
 class Dashboard extends React.Component<Props> {
@@ -64,7 +65,7 @@ class Dashboard extends React.Component<Props> {
                 <div className={styles.secondRow}>
                   <button>View</button>
                   <button>Edit</button>
-                  <button>Delete</button>
+                  <button onClick={this.props.deleteForm(form._id)}>Delete</button>
                 </div>
               </div>
             )
@@ -85,7 +86,8 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   toCreateSurvey: () => dispatch(routeActions.CREATE_SURVEY()),
   toCreateTest: () => dispatch(routeActions.CREATE_TEST()),
   requestForms: () => dispatch(GET_FORMS_REQUEST.PENDING()),
-  createReset: (event: React.MouseEvent<HTMLElement>) => dispatch(CREATE_REQUEST.RESET())
+  createReset: (event: React.MouseEvent<HTMLElement>) => dispatch(CREATE_REQUEST.RESET()),
+  deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 
 export default connect(mapState, mapDispatch)(Dashboard);
