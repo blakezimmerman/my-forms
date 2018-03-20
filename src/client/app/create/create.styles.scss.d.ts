@@ -14,5 +14,6 @@ export const answerPrompt: string;
 export const columnContainer: string;
 export const column: string;
 export const limitInput: string;
+export const errorBanner: string;
 export const footer: string;
 export const toggleLabel: string;

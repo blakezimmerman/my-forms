@@ -57,10 +57,6 @@
     @include textarea();
     margin: 0 1rem;
   }
-
-  i {
-    cursor: default;
-  }
 }
 
 .centeredBadge {
@@ -98,6 +94,26 @@
   @include input();
   font-size: 1.2rem;
   margin: 0;
+}
+
+.errorBanner {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  background-color: $failure-color;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 4.15rem;
+  width: calc(100% - 3.2rem);
+
+  @media (max-width: $mobile-breakpoint) {
+    bottom: 3.5rem;
+    padding: 0.6rem 1.2rem;
+    width: calc(100% - 2.4rem);
+  }
 }
 
 .footer {

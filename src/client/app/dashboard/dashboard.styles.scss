@@ -1,6 +1,21 @@
 @import 'shared/UI/variables';
 @import 'shared/UI/mixins';
 
+.successBanner {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  background-color: $success-color;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
 .container {
   @include page-container();
 

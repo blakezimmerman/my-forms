@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as styles from './create.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
-import { ActionDispatcher } from 'client/shared/reduxUtils';
+import { ActionDispatcher, AsyncReducerState} from 'client/shared/reduxUtils';
+import { InsertOneWriteOpResult } from 'mongodb';
 import { Form, FormType, QuestionType, Question, NewForm } from 'models/forms';
-import { UPDATE_NAME, TOGGLE_PUBLISH, ADD_QUESTION } from './create.reducer';
+import { UPDATE_NAME, TOGGLE_PUBLISH, ADD_QUESTION, CREATE_REQUEST } from './create.reducer';
 import { isValidNewForm } from 'client/shared/formValidation';
 import { animateScroll } from 'react-scroll';
 import FadeIn from 'client/shared/UI/transitions/fadeIn';
@@ -14,9 +15,12 @@ import Toggle from 'client/shared/UI/components/toggle';
 interface Props {
   type: FormType;
   form: NewForm;
+  createReq: AsyncReducerState<InsertOneWriteOpResult>;
   UPDATE_NAME: ActionDispatcher<string>;
   TOGGLE_PUBLISH: ActionDispatcher<void>;
   ADD_QUESTION: ActionDispatcher<QuestionType>;
+  CREATE_REQUEST_PENDING: ActionDispatcher<NewForm>;
+  CREATE_REQUEST_RESET: ActionDispatcher<void>;
 }
 
 interface LocalState {
@@ -44,7 +48,11 @@ class CreateForm extends React.Component<Props, LocalState> {
     animateScroll.scrollToBottom();
   }
 
-  submitForm = () => { /*TODO*/ };
+  submitForm = () => this.props.CREATE_REQUEST_PENDING(this.props.form);
+
+  createRequestReset = (event: React.MouseEvent<HTMLElement>) => {
+    this.props.CREATE_REQUEST_RESET();
+  }
 
   render() {
     return (
@@ -80,6 +88,12 @@ class CreateForm extends React.Component<Props, LocalState> {
             </FadeIn>
           )}
         </div>
+        {this.props.createReq.error &&
+          <div className={styles.errorBanner}>
+            An Error Has Occurred
+            <i className='material-icons' onClick={this.createRequestReset}>close</i>
+          </div>
+        }
         <div className={styles.footer}>
           <label className={styles.toggleLabel}>
             <p>Publish?</p>
@@ -90,7 +104,7 @@ class CreateForm extends React.Component<Props, LocalState> {
             />
           </label>
           <button
-            onChange={this.submitForm}
+            onClick={this.submitForm}
             disabled={!isValidNewForm(this.props.form)}
           >
             Create Form
@@ -102,13 +116,16 @@ class CreateForm extends React.Component<Props, LocalState> {
 }
 
 const mapState = (state: State) => ({
-  form: state.create.form
+  form: state.create.form,
+  createReq: state.create.createRequest
 });
 
 const mapDispatch = {
   UPDATE_NAME,
   TOGGLE_PUBLISH,
-  ADD_QUESTION
+  ADD_QUESTION,
+  CREATE_REQUEST_PENDING: CREATE_REQUEST.PENDING,
+  CREATE_REQUEST_RESET: CREATE_REQUEST.RESET
 };
 
 export default connect(mapState, mapDispatch)(CreateForm);

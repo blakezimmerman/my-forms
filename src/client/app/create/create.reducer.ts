@@ -5,6 +5,7 @@ import {
 } from 'client/shared/reduxUtils';
 import { match } from 'client/shared/miscUtils';
 import { State } from 'client/store/rootReducer';
+import { InsertOneWriteOpResult } from 'mongodb';
 import { NewForm, FormType, Question, QuestionType, Response } from 'models/forms';
 import * as R from 'ramda';
 import * as shortId from 'shortid';
@@ -21,12 +22,15 @@ export const SET_SETA = actionCreator<{i: number, setA: string[]}>('SET_SETA');
 export const SET_SETB = actionCreator<{i: number, setB: string[]}>('SET_SETB');
 export const SET_CHAR_LIMIT = actionCreator<{i: number, charLimit: number}>('SET_CHAR_LIMIT');
 
+export const CREATE_REQUEST = asyncActionCreator<NewForm, InsertOneWriteOpResult>('CREATE_REQUEST');
+
 export interface CreateState {
   form: NewForm;
+  createRequest: AsyncReducerState<InsertOneWriteOpResult>;
 }
 
 const initialFormState: NewForm = {
-  published: false,
+  published: true,
   type: FormType.Survey,
   name: '',
   questions: []
@@ -66,5 +70,6 @@ const form = (state = initialFormState, curAction: Action<any>) =>
     .otherwise((action) => state);
 
 export const create = combineReducers({
-  form
+  form,
+  createRequest: asyncReducer(CREATE_REQUEST)
 });
