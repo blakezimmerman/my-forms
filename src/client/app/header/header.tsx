@@ -6,7 +6,7 @@ import { Action } from 'client/shared/reduxUtils';
 import { match, is } from 'client/shared/miscUtils';
 
 interface Props {
-  locationPath: string;
+  locationType: string;
   authenticated: boolean;
   toHome: () => Action<void>;
   toDashboard: () => Action<void>;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Header = (props: Props) => {
-  const { locationPath, authenticated } = props;
+  const { locationType, authenticated } = props;
 
   const toLogout = () => location.href = '/api/auth/logout';
 
@@ -26,10 +26,10 @@ const Header = (props: Props) => {
     <div className={styles.banner}>
       <h1 onClick={props.toHome}>myForms</h1>
       <div>
-        {locationPath !== '/dashboard' && authenticated &&
+        {locationType !== 'DASHBOARD' && authenticated &&
           button('Dashboard', props.toDashboard)
         }
-        {locationPath !== '/login' && !authenticated &&
+        {locationType !== 'LOGIN' && !authenticated &&
           button('Login', props.toLogin)
         }
         {authenticated &&

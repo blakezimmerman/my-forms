@@ -18,6 +18,7 @@ interface Props {
   toCreateTest: () => Action<void>;
   requestForms: ActionDispatcher<void>;
   createReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
+  displayForm: (id: string) => () => Action<{id: string}>;
   deleteForm: (id: string) => () => Action<string>;
 }
 
@@ -63,7 +64,7 @@ class Dashboard extends React.Component<Props> {
                   }
                 </div>
                 <div className={styles.secondRow}>
-                  <button>View</button>
+                  <button onClick={this.props.displayForm(form._id)}>View</button>
                   <button>Edit</button>
                   <button onClick={this.props.deleteForm(form._id)}>Delete</button>
                 </div>
@@ -87,6 +88,7 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   toCreateTest: () => dispatch(routeActions.CREATE_TEST()),
   requestForms: () => dispatch(GET_FORMS_REQUEST.PENDING()),
   createReset: (event: React.MouseEvent<HTMLElement>) => dispatch(CREATE_REQUEST.RESET()),
+  displayForm: (id: string) => () => dispatch(routeActions.DISPLAY_FORM({id})),
   deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 

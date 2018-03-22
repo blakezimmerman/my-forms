@@ -4,19 +4,22 @@ import { routerReducer as location } from 'client/router/router';
 import { login, LoginState } from 'client/app/login/login.reducer';
 import { dashboard, DashboardState } from 'client/app/dashboard/dashboard.reducer';
 import { create, CreateState } from 'client/app/create/create.reducer';
+import { form, FormState } from 'client/app/form/form.reducer';
 
 export interface State {
   location: LocationState;
   login: LoginState;
   dashboard: DashboardState;
   create: CreateState;
+  form: FormState;
 }
 
 const rootReducer = combineReducers({
   location,
   login,
   dashboard,
-  create
+  create,
+  form
 });
 
 export default rootReducer;

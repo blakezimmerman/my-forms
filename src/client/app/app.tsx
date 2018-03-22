@@ -2,6 +2,7 @@ import * as React from 'react';
 import './app.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
+import { LocationState } from 'redux-first-router';
 import { ActionDispatcher } from 'client/shared/reduxUtils';
 import { REFRESH_SESSION } from './login/login.reducer';
 import { getUserName, getAuthenticated } from './login/login.selectors';
@@ -12,9 +13,10 @@ import Login from './login/login';
 import Register from './login/register';
 import Dashboard from './dashboard/dashboard';
 import CreateForm from './create/createForm';
+import DisplayForm from './form/form';
 
 interface Props {
-  locationPath: string;
+  location: LocationState;
   authenticated: boolean;
   refreshSession: ActionDispatcher<void>;
 }
@@ -31,16 +33,17 @@ class App extends React.Component<Props> {
   }
 
   render() {
-    const { locationPath, authenticated } = this.props;
+    const { location, authenticated } = this.props;
 
     const getPage = () => {
-      switch (locationPath) {
-        case ('/'): return <Home/>;
-        case ('/login'): return <Login/>;
-        case ('/register'): return <Register/>;
-        case ('/dashboard'): return authenticated && <Dashboard/>;
-        case ('/create-survey'): return authenticated && <CreateForm type={FormType.Survey}/>;
-        case ('/create-test'): return authenticated && <CreateForm type={FormType.Test}/>;
+      switch (location.type) {
+        case ('HOME'): return <Home/>;
+        case ('LOGIN'): return <Login/>;
+        case ('REGISTER'): return <Register/>;
+        case ('DASHBOARD'): return authenticated && <Dashboard/>;
+        case ('CREATE_SURVEY'): return authenticated && <CreateForm type={FormType.Survey}/>;
+        case ('CREATE_TEST'): return authenticated && <CreateForm type={FormType.Test}/>;
+        case ('DISPLAY_FORM'): return <DisplayForm id={(location as any).payload.id}/>;
         default: return <Home/>;
       }
     };
@@ -48,7 +51,7 @@ class App extends React.Component<Props> {
     return (
       <>
         <Header
-          locationPath={locationPath}
+          locationType={location.type}
           authenticated={authenticated}
         />
         {getPage()}
@@ -58,7 +61,7 @@ class App extends React.Component<Props> {
 }
 
 const mapState = (state: State) => ({
-  locationPath: state.location.pathname,
+  location: state.location,
   authenticated: getAuthenticated(state)
 });
 

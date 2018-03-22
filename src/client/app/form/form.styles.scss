@@ -1,0 +1,28 @@
+@import 'shared/UI/variables';
+@import 'shared/UI/mixins';
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $primary-color;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $failure-color;
+}
+
+.container {
+  @include page-container();
+
+  h2 {
+    font-family: $heading-font;
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+}
