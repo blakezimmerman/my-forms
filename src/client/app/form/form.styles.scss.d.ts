@@ -3,4 +3,11 @@
 
 export const loader: string;
 export const error: string;
+export const header: string;
+export const footer: string;
 export const container: string;
+export const questionCard: string;
+export const questionTop: string;
+export const qNumber: string;
+export const correctAnswer: string;
+export const correctText: string;

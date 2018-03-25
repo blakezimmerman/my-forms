@@ -68,3 +68,17 @@
     display: inline-block;
   }
 }
+
+.shortAnswer {
+  textarea {
+    @include textarea();
+    margin: 0.5rem 0;
+  }
+}
+
+.essayAnswer {
+  textarea {
+    @include textarea();
+    margin: 0.5rem 0;
+  }
+}

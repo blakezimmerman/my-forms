@@ -10,3 +10,5 @@ export const letter: string;
 export const row: string;
 export const ranking: string;
 export const item: string;
+export const shortAnswer: string;
+export const essayAnswer: string;

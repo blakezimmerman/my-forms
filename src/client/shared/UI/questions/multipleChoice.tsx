@@ -23,7 +23,7 @@ const MultipleChoice = (props: Props) => {
           <input
             type='checkbox'
             value={option}
-            checked={R.contains(option, props.value)}
+            checked={R.contains(option, props.value || '')}
             onChange={onChange}
           />
           {option}

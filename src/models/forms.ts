@@ -75,7 +75,7 @@ export type Response =
 
 export type TrueFalseResponse = boolean;
 export type MultipleChoiceResponse = string[];
-export type ShortAnswerResponse = { reponse: string, correct: boolean | undefined };
-export type EssayAnswerResponse = { reponse: string, correct: boolean | undefined };
+export type ShortAnswerResponse = { response: string, correct: boolean | undefined };
+export type EssayAnswerResponse = { response: string, correct: boolean | undefined };
 export type MatchingResponse = number[];
 export type RankingResponse = string[];

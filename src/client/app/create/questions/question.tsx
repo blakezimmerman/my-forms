@@ -55,7 +55,7 @@ const CreateQuestion = (props: Props) => {
         <TextareaAutosize
           value={props.question.prompt}
           onChange={handlePrompt}
-          placeholder={`Enter Prompt...`}
+          placeholder={'Enter Prompt...'}
         />
         <i className='material-icons' onClick={removeQuestion}>close</i>
       </div>

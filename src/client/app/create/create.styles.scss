@@ -11,18 +11,7 @@
 }
 
 .header {
-  padding: 1rem;
-  border-bottom: 1px lightgray solid;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 4.75rem;
-  background-color: white;
-  z-index: 1;
-
-  @media (max-width: $mobile-breakpoint) {
-    padding: 0.7rem;
-    top: 3.5rem;
-  }
+  @include basic-header();
 }
 
 .headerButton {
@@ -117,25 +106,8 @@
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  display: flex;
+  @include basic-footer();
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  width: calc(100% - 4rem);
-  z-index: 1;
-  background-color: $primary-color;
-
-  @media (max-width: $mobile-breakpoint) {
-    padding: 0.7rem 1.4rem;
-    width: calc(100% - 2.8rem);
-  }
-
-  button {
-    @include button(white);
-    color: $primary-color;
-  }
 }
 
 .toggleLabel {
