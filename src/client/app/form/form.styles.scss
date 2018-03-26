@@ -25,6 +25,22 @@
   @include basic-footer();
 }
 
+.succBanner {
+  @include notification-banner($success-color);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+}
+
+.errBanner {
+  @include notification-banner($failure-color);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+}
+
 .container {
   @include page-container();
   padding-bottom: 4.5rem;

@@ -151,3 +151,18 @@
     color: $primary-color;
   }
 }
+
+@mixin notification-banner($color) {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  background-color: $color;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0.6rem 1.2rem;
+  }
+}

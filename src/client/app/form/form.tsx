@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { State } from 'client/store/rootReducer';
 import { Form, Response } from 'models/forms';
 import { Action, ActionDispatcher, AsyncReducerState } from 'client/shared/reduxUtils';
-import { GET_FORM_REQUEST, INIT_RESPONSES, SET_RESPONSE } from './form.reducer';
+import { InsertOneWriteOpResult } from 'mongodb';
+import {
+  GET_FORM_REQUEST, INIT_RESPONSES,
+  SET_RESPONSE, SUBMIT_RESPONSES_REQUEST
+} from './form.reducer';
 import ViewForm from './viewForm';
 import TakeForm from './takeForm';
 
@@ -13,16 +17,22 @@ interface Props {
   formReq: AsyncReducerState<Form>;
   responses: Response[];
   curUser: string;
+  submitReq: AsyncReducerState<InsertOneWriteOpResult>;
   getForm: ActionDispatcher<string>;
   initResponses: ActionDispatcher<number>;
   setResponse: ActionDispatcher<{i: number, response: Response}>;
+  submitResponses: ActionDispatcher<{id: string, responses: Response[]}>;
+  resetSubmit: ActionDispatcher<void>;
 }
 
 export interface DisplayFormProps {
   form: Form;
   responses: Response[];
+  submitReq?: AsyncReducerState<InsertOneWriteOpResult>;
   initResponses: ActionDispatcher<number>;
   setResponse: (i: number) => (response: Response) => Action<{i: number, response: Response} | undefined>;
+  submitResponses?: () => void;
+  resetSubmit?: () => void;
 }
 
 class DisplayForm extends React.Component<Props> {
@@ -32,9 +42,16 @@ class DisplayForm extends React.Component<Props> {
 
   setResponse = (i: number) => (response: Response) => this.props.setResponse({i, response});
 
-  render() {
-    const { formReq, responses, initResponses } = this.props;
+  submitResponses = () => {
+    this.props.submitResponses({id: this.props.id, responses: this.props.responses});
+  }
 
+  resetSubmit = () => {
+    this.props.resetSubmit();
+  }
+
+  render() {
+    const { formReq, responses, submitReq, initResponses } = this.props;
     return (
       <>
         {formReq.pending && <div className={styles.loader}>Loading...</div>}
@@ -51,8 +68,11 @@ class DisplayForm extends React.Component<Props> {
                 ? <TakeForm
                     form={formReq.result}
                     responses={responses}
+                    submitReq={submitReq}
                     initResponses={initResponses}
                     setResponse={this.setResponse}
+                    submitResponses={this.submitResponses}
+                    resetSubmit={this.resetSubmit}
                 />
                 : <div className={styles.error}>
                     This form is not published
@@ -66,13 +86,16 @@ class DisplayForm extends React.Component<Props> {
 const mapState = (state: State) => ({
   formReq: state.form.formRequest,
   responses: state.form.responses,
-  curUser: state.login.loginRequest.result
+  curUser: state.login.loginRequest.result,
+  submitReq: state.form.submitRequest
 });
 
 const mapDispatch = {
   getForm: GET_FORM_REQUEST.PENDING,
   initResponses: INIT_RESPONSES,
-  setResponse: SET_RESPONSE
+  setResponse: SET_RESPONSE,
+  submitResponses: SUBMIT_RESPONSES_REQUEST.PENDING,
+  resetSubmit: SUBMIT_RESPONSES_REQUEST.RESET
 };
 
 export default connect(mapState, mapDispatch)(DisplayForm);

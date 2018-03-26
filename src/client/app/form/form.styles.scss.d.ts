@@ -5,6 +5,8 @@ export const loader: string;
 export const error: string;
 export const header: string;
 export const footer: string;
+export const succBanner: string;
+export const errBanner: string;
 export const container: string;
 export const questionCard: string;
 export const questionTop: string;

@@ -86,14 +86,7 @@
 }
 
 .errorBanner {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: white;
-  background-color: $failure-color;
-  padding: 0.8rem 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include notification-banner($failure-color);
   position: fixed;
   bottom: 4.15rem;
   width: calc(100% - 3.2rem);

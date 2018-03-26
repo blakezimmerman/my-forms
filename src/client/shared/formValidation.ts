@@ -1,6 +1,8 @@
 import {
   FormType, NewForm,  QuestionType, TrueFalse,
-  MultipleChoice, ShortAnswer, Matching, Ranking
+  MultipleChoice, ShortAnswer, Matching, Ranking,
+  Response, MultipleChoiceResponse, ShortAnswerResponse,
+  EssayAnswerResponse, MatchingResponse
 } from 'models/forms';
 import { match, is } from 'client/shared/miscUtils';
 
@@ -37,3 +39,28 @@ export const isValidNewMatching = (formType: FormType, q: Matching) => formType 
 export const isValidNewRanking = (formType: FormType, q: Ranking) => formType === FormType.Survey
   ? !!(q.options && q.options.length > 1)
   : !!(q.options && q.options.length > 1 && q.answer);
+
+export const areValidResponses = (responses: Array<{type: QuestionType, value: Response}>) =>
+  responses.every((response) =>
+    response.value !== undefined &&
+    match<QuestionType, boolean>(response.type)
+      .on(is(QuestionType.TrueFalse), () =>
+        response.value !== undefined
+      )
+      .on(is(QuestionType.MultipleChoice), () =>
+        (response.value as MultipleChoiceResponse).length > 0
+      )
+      .on(is(QuestionType.ShortAnswer), () =>
+        !!(response.value as ShortAnswerResponse).response.length
+      )
+      .on(is(QuestionType.EssayAnswer), () =>
+        !!(response.value as EssayAnswerResponse).response.length
+      )
+      .on(is(QuestionType.Matching), () =>
+        (response.value as MatchingResponse).every((x) => x !== undefined && !isNaN(x))
+      )
+      .on(is(QuestionType.Ranking), () =>
+        response.value !== undefined
+      )
+      .otherwise(() => false)
+  );

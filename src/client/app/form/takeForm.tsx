@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from './form.styles.scss';
 import { DisplayFormProps } from './form';
 import RenderQuestion from './renderQuestion';
+import { areValidResponses } from 'client/shared/formValidation';
 
 class TakeForm extends React.Component<DisplayFormProps> {
   componentDidMount() {
@@ -9,9 +10,27 @@ class TakeForm extends React.Component<DisplayFormProps> {
   }
 
   render() {
-    const { form, responses, setResponse } = this.props;
+    const { form, responses, submitReq, setResponse, submitResponses, resetSubmit } = this.props;
+
+    const responsesWithTypes = responses.map((response, i) => ({
+      type: form.questions[i].type,
+      value: response
+    }));
+
     return (
       <>
+        {submitReq && submitReq.result &&
+          <div className={styles.succBanner}>
+            Your responses have been submitted
+            <i className='material-icons' onClick={resetSubmit}>close</i>
+          </div>
+        }
+        {submitReq && submitReq.error &&
+          <div className={styles.errBanner}>
+            An Error Has Occurred
+            <i className='material-icons' onClick={resetSubmit}>close</i>
+          </div>
+        }
         <div className={styles.container}>
           <h2>{form.name}</h2>
           {form.questions.map((question, i) =>
@@ -26,7 +45,10 @@ class TakeForm extends React.Component<DisplayFormProps> {
           )}
         </div>
         <div className={styles.footer}>
-          <button>
+          <button
+            disabled={!areValidResponses(responsesWithTypes)}
+            onClick={submitResponses}
+          >
             Submit Form
           </button>
         </div>

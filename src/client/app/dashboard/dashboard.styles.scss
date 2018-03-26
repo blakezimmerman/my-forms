@@ -2,18 +2,11 @@
 @import 'shared/UI/mixins';
 
 .successBanner {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: white;
-  background-color: $success-color;
-  padding: 0.8rem 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @media (max-width: $mobile-breakpoint) {
-    padding: 0.6rem 1.2rem;
-  }
+  @include notification-banner($success-color);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
 }
 
 .container {
