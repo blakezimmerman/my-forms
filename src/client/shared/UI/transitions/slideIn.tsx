@@ -8,7 +8,7 @@ interface Props {
 const SlideIn = ({ children }: Props) => {
   const initialPositions: PlainStyle[] = children.map((elem) => ({ pos: -100 }));
 
-  const springVals = {stiffness: 200, damping: 20};
+  const springVals = {stiffness: 450, damping: 35};
 
   const calcStyles = (prevVals: PlainStyle[]) =>
     prevVals.map((_, i) =>

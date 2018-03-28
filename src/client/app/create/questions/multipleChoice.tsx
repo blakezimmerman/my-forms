@@ -29,16 +29,14 @@ const CreateMultipleChoice = (props: Props) => (
      props.question.options &&
      !!props.question.options.length &&
       <FadeIn>
-        <>
-          <div className={styles.answerPrompt}>
-            Provide the correct answer:
-          </div>
-          <MultipleChoice
-            options={props.question.options}
-            value={props.question.answer || []}
-            onChange={props.setAnswer}
-          />
-        </>
+        <div className={styles.answerPrompt}>
+          Provide the correct answer:
+        </div>
+        <MultipleChoice
+          options={props.question.options}
+          value={props.question.answer || []}
+          onChange={props.setAnswer}
+        />
       </FadeIn>
     }
   </div>

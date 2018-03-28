@@ -43,17 +43,15 @@ const CreateMatching = (props: Props) => (
      props.question.setA && !!props.question.setA.length &&
      props.question.setB && !!props.question.setB.length &&
       <FadeIn>
-        <>
-          <div className={styles.answerPrompt}>
-            Provide the correct answer:
-          </div>
-          <Matching
-            setA={props.question.setA}
-            setB={props.question.setB}
-            value={props.question.answer || []}
-            onChange={props.setAnswer}
-          />
-        </>
+        <div className={styles.answerPrompt}>
+          Provide the correct answer:
+        </div>
+        <Matching
+          setA={props.question.setA}
+          setB={props.question.setB}
+          value={props.question.answer || []}
+          onChange={props.setAnswer}
+        />
       </FadeIn>
     }
   </div>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Motion, spring, PlainStyle } from 'react-motion';
 
 interface Props {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[] | undefined;
 }
 
 const FadeIn = ({ children }: Props) => (
@@ -15,7 +15,8 @@ const FadeIn = ({ children }: Props) => (
         style={{
           opacity: interpolatingStyle.opacity,
           width: '100%'
-        }}>
+        }}
+      >
         {children}
       </div>
     }

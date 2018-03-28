@@ -9,6 +9,8 @@ import { getUserName } from '../login/login.selectors';
 import { routeActions } from 'client/router/router';
 import { GET_FORMS_REQUEST, DELETE_FORM_REQUEST } from './dashboard.reducer';
 import { CREATE_REQUEST } from '../create/create.reducer';
+import FadeIn from 'client/shared/UI/transitions/fadeIn';
+import DelayRender from 'client/shared/UI/transitions/delayRender';
 
 interface Props {
   userName: string;
@@ -47,30 +49,36 @@ class Dashboard extends React.Component<Props> {
             </button>
           </div>
           <h2>Your Forms</h2>
-          {this.props.formsReq.pending &&
-            <div className={styles.loader}>Loading...</div>
-          }
           {this.props.formsReq.error &&
             <div className={styles.error}>An Error has Occurred</div>
           }
-          {this.props.formsReq.result &&
-            this.props.formsReq.result.map((form) =>
-              <div key={form._id} className={styles.formCard}>
-                <div className={styles.firstRow}>
-                  <div className={styles.formName}>{form.name}</div>
-                  {form.published
-                    ? <div className={styles.publishedBadge}>Published {form.type}</div>
-                    : <div className={styles.unpublishedBadge}>Unpublished {form.type}</div>
-                  }
+          <DelayRender>
+            <>
+            {this.props.formsReq.pending &&
+              <div className={styles.loader}>Loading...</div>
+            }
+            </>
+          </DelayRender>
+          <FadeIn>
+            {this.props.formsReq.result &&
+              this.props.formsReq.result.map((form) =>
+                <div key={form._id} className={styles.formCard}>
+                  <div className={styles.firstRow}>
+                    <div className={styles.formName}>{form.name}</div>
+                    {form.published
+                      ? <div className={styles.publishedBadge}>Published {form.type}</div>
+                      : <div className={styles.unpublishedBadge}>Unpublished {form.type}</div>
+                    }
+                  </div>
+                  <div className={styles.secondRow}>
+                    <button onClick={this.props.displayForm(form._id)}>View</button>
+                    <button>Edit</button>
+                    <button onClick={this.props.deleteForm(form._id)}>Delete</button>
+                  </div>
                 </div>
-                <div className={styles.secondRow}>
-                  <button onClick={this.props.displayForm(form._id)}>View</button>
-                  <button>Edit</button>
-                  <button onClick={this.props.deleteForm(form._id)}>Delete</button>
-                </div>
-              </div>
-            )
-          }
+              )
+            }
+          </FadeIn>
         </div>
       </>
     );

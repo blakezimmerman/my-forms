@@ -31,10 +31,10 @@ const Home = (props: Props) => (
         <h2>With myForms you can easily...</h2>
         <div className={styles.cardsContainer}>
           <div className={styles.exampleCard}>
-            <h3>Create Surveys</h3>
+            <h3>Create and Share Surveys</h3>
           </div>
           <div className={styles.exampleCard}>
-            <h3>Create Tests</h3>
+            <h3>Create and Share Tests</h3>
           </div>
         </div>
       </div>

@@ -35,15 +35,13 @@ const RankingMatching = (props: Props) => {
        props.question.options &&
        !!props.question.options.length &&
         <FadeIn>
-          <>
-            <div className={styles.answerPrompt}>
-              Provide the correct answer:
-            </div>
-            <Ranking
-              value={props.question.answer || props.question.options}
-              onChange={props.setAnswer}
-            />
-          </>
+          <div className={styles.answerPrompt}>
+            Provide the correct answer:
+          </div>
+          <Ranking
+            value={props.question.answer || props.question.options}
+            onChange={props.setAnswer}
+          />
         </FadeIn>
       }
     </div>

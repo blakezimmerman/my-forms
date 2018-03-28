@@ -3,6 +3,7 @@ import * as styles from './form.styles.scss';
 import { FormType } from 'models/forms';
 import { DisplayFormProps } from './form';
 import RenderQuestion from './renderQuestion';
+import FadeIn from 'client/shared/UI/transitions/fadeIn';
 
 class ViewForm extends React.Component<DisplayFormProps> {
   componentDidMount() {
@@ -19,19 +20,21 @@ class ViewForm extends React.Component<DisplayFormProps> {
             ' ...except without the answers shown'
           }.
         </div>
-        <div className={styles.container}>
-          <h2>{form.name}</h2>
-          {form.questions.map((question, i) =>
-            <RenderQuestion
-              key={question._id}
-              index={i}
-              question={question}
-              response={responses[i]}
-              setResponse={setResponse(i)}
-              showAnswer={true}
-            />
-          )}
-        </div>
+        <FadeIn>
+          <div className={styles.container}>
+            <h2>{form.name}</h2>
+            {form.questions.map((question, i) =>
+              <RenderQuestion
+                key={question._id}
+                index={i}
+                question={question}
+                response={responses[i]}
+                setResponse={setResponse(i)}
+                showAnswer={true}
+              />
+            )}
+          </div>
+        </FadeIn>
       </>
     );
   }
