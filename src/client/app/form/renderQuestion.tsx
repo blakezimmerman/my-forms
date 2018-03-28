@@ -82,7 +82,7 @@ const RenderQuestion = ({index, question, response, setResponse, showAnswer}: Pr
           />
         )
     }
-    {showAnswer && (question as any).answer && <RenderAnswer question={question}/>}
+    {showAnswer && (question as any).answer !== undefined && <RenderAnswer question={question}/>}
   </div>
 );
 

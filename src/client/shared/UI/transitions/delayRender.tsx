@@ -8,7 +8,7 @@ class DelayRender extends React.Component<Props> {
   state = { shouldRender: false };
 
   componentDidMount() {
-    setTimeout(() => this.setState({shouldRender: true}), 200);
+    setTimeout(() => this.setState({shouldRender: true}), 400);
   }
 
   render() {
