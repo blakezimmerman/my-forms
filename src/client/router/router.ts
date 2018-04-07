@@ -1,4 +1,4 @@
-import { actionCreator } from './../shared/reduxUtils';
+import { actionCreator } from '../helpers/redux';
 import { connectRoutes } from 'redux-first-router';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import createHistory from 'history/createBrowserHistory';
@@ -17,7 +17,7 @@ const routesMap = {
 
 const { reducer, middleware, enhancer } = connectRoutes(history, routesMap);
 
-export { reducer as routerReducer };
+export { reducer as locationReducer };
 export { middleware as routerMiddleware };
 export { enhancer as routerEnhancer };
 

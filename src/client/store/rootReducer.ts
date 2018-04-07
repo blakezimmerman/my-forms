@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import { LocationState } from 'redux-first-router';
-import { routerReducer as location } from 'client/router/router';
-import { login, LoginState } from 'client/app/login/login.reducer';
-import { dashboard, DashboardState } from 'client/app/dashboard/dashboard.reducer';
-import { create, CreateState } from 'client/app/create/create.reducer';
-import { form, FormState } from 'client/app/form/form.reducer';
+import { locationReducer as location, LocationState } from 'client/router';
+import { loginReducer as login, LoginState } from 'client/containers/Login';
+import { dashboardReducer as dashboard, DashboardState } from 'client/containers/Dashboard';
+import { createReducer as create, CreateState } from 'client/containers/Create';
+import { formReducer as form, FormState } from 'client/containers/Form';
 
 export interface State {
   location: LocationState;

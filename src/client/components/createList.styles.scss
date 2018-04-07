@@ -1,0 +1,35 @@
+@import 'helpers/UI/variables';
+@import 'helpers/UI/mixins';
+
+@mixin listButton($color) {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  border: none;
+  transition: 0.3s;
+  color: $color;
+  padding: 0;
+
+  &:disabled {
+    color: $disabledBG-color;
+  }
+}
+
+.addButton {
+  @include listButton($success-color);
+}
+
+.removeButton {
+  @include listButton($failure-color);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.listInput {
+  @include input();
+  font-size: 1rem;
+  margin: 0;
+}

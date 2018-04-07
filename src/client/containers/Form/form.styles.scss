@@ -1,0 +1,84 @@
+@import 'helpers/UI/variables';
+@import 'helpers/UI/mixins';
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $primary-color;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  font-size: 1.4rem;
+  color: $failure-color;
+}
+
+.header {
+  @include basic-header();
+}
+
+.footer {
+  @include basic-footer();
+}
+
+.succBanner {
+  @include notification-banner($success-color);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+}
+
+.errBanner {
+  @include notification-banner($failure-color);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+}
+
+.container {
+  @include page-container();
+  padding-bottom: 4.5rem;
+
+  h2 {
+    font-family: $heading-font;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.questionCard {
+  @include card();
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.questionTop {
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.qNumber {
+  display: inline;
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.correctAnswer {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.correctText {
+  color: darken($primary-color, 15%);
+  margin-right: 0.5rem;
+}

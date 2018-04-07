@@ -1,7 +1,7 @@
 import { Express } from 'express';
-import authRoutes from './auth.routes';
-import usersRoutes from './users.routes';
-import formsRoutes from './forms.routes';
+import authRoutes from './auth';
+import usersRoutes from './users';
+import formsRoutes from './forms';
 
 export default (app: Express) => {
   app.use('/api/auth', authRoutes);

@@ -1,16 +1,16 @@
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { routerEpic } from 'client/router/router.epics';
-import { loginEpic } from 'client/app/login/login.epics';
-import { dashboardEpics } from 'client/app/dashboard/dashboard.epics';
-import { createEpics } from 'client/app/create/create.epics';
-import { formEpics } from 'client/app/form/form.epics';
+import { routerEpic } from 'client/router';
+import { loginEpic } from 'client/containers/Login';
+import { dashboardEpic } from 'client/containers/Dashboard';
+import { createEpic } from 'client/containers/Create';
+import { formEpic } from 'client/containers/Form';
 
 const rootEpic = combineEpics(
   routerEpic,
   loginEpic,
-  dashboardEpics,
-  createEpics,
-  formEpics
+  dashboardEpic,
+  createEpic,
+  formEpic
 );
 
 const epicMiddleware = createEpicMiddleware(rootEpic);

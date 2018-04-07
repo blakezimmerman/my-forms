@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store/createStore';
-import App from './app/app';
-import 'client/assets/favicon.ico';
+import store from './store';
+import App from './containers/App';
+import 'client/public/favicon.ico';
 
 const renderRoot = (Component: any) => {
   render(
@@ -17,7 +17,7 @@ const renderRoot = (Component: any) => {
 renderRoot(App);
 
 if (module.hot) {
-  module.hot.accept('./app/app', () => {
-    renderRoot(require('./app/app').default);
+  module.hot.accept('./containers/App', () => {
+    renderRoot(require('./containers/App').default);
   });
 }

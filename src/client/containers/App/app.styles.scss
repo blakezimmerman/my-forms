@@ -1,0 +1,20 @@
+@import 'helpers/UI/variables';
+
+:global(body) {
+  font-family: $body-font, 'Helvetica Neue', sans-serif;
+  font-weight: 300;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+:global(.material-icons) {
+  -webkit-font-smoothing: subpixel-antialiased;
+  cursor: default;
+}
+
+:global(.dragging) {
+  cursor: pointer;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  user-select: none;
+}
