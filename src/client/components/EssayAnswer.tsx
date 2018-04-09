@@ -1,13 +1,17 @@
 import * as React from 'react';
-import * as styles from './questions.styles.scss';
+import styled from 'client/styling';
 import * as R from 'ramda';
 import { EssayAnswerResponse } from 'models/forms';
-import TextareaAutosize from 'react-autosize-textarea';
+import TextArea from './TextArea';
 
 interface Props {
   value: EssayAnswerResponse;
   onChange: (value: EssayAnswerResponse) => void;
 }
+
+const EssayAnswerWrapper = styled.div`
+  padding: 0.5rem 0;
+`;
 
 const EssayAnswer = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
@@ -15,13 +19,13 @@ const EssayAnswer = (props: Props) => {
   };
 
   return (
-    <div className={styles.essayAnswer}>
-      <TextareaAutosize
+    <EssayAnswerWrapper>
+      <TextArea
         value={props.value ? props.value.response : ''}
         onChange={onChange}
         placeholder={'Enter your response...'}
       />
-    </div>
+    </EssayAnswerWrapper>
   );
 };
 

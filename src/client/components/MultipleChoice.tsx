@@ -1,13 +1,18 @@
 import * as React from 'react';
-import * as styles from './questions.styles.scss';
+import styled from 'client/styling';
 import * as R from 'ramda';
 import { MultipleChoiceResponse } from 'models/forms';
+import Checkbox from './Checkbox';
 
 interface Props {
   options: string[];
   value: MultipleChoiceResponse;
   onChange: (value: MultipleChoiceResponse) => void;
 }
+
+const BlockLabel = styled.label`
+  display: block;
+`;
 
 const MultipleChoice = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -17,19 +22,18 @@ const MultipleChoice = (props: Props) => {
   };
 
   return (
-    <div className={styles.multipleChoice}>
+    <>
       {props.options.map((option) =>
-        <label key={option}>
-          <input
-            type='checkbox'
+        <BlockLabel key={option}>
+          <Checkbox
             value={option}
             checked={R.contains(option, props.value || '')}
             onChange={onChange}
           />
           {option}
-        </label>
+        </BlockLabel>
       )}
-    </div>
+    </>
   );
 };
 

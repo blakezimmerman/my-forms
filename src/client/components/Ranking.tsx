@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './questions.styles.scss';
+import styled from 'client/styling';
 import { RankingResponse } from 'models/forms';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { DragItem, DropZone } from 'client/components/DragNDrop';
@@ -8,6 +8,15 @@ interface Props {
   value: RankingResponse;
   onChange: (value: RankingResponse) => void;
 }
+
+const Item = styled.div`
+  background-color: ${({theme}) => theme.colors.primary};
+  color: white;
+  border-radius: 0.5rem;
+  margin: 0.2rem;
+  padding: 0.4rem 0.8rem;
+  display: inline-block;
+`;
 
 const Ranking = (props: Props) => {
   const onDragStart = () => {
@@ -29,19 +38,17 @@ const Ranking = (props: Props) => {
   };
 
   return (
-    <div className={styles.ranking}>
-      <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-        <DropZone id={'ranking'} disabled={false}>
-          <>
-          {props.value.map((item, index) =>
-            <DragItem key={item} id={item} index={index}>
-              <div className={styles.item}>{item}</div>
-            </DragItem>
-          )}
-          </>
-        </DropZone>
-      </DragDropContext>
-    </div>
+    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+      <DropZone id={'ranking'} disabled={false}>
+        <>
+        {props.value.map((item, index) =>
+          <DragItem key={item} id={item} index={index}>
+            <Item>{item}</Item>
+          </DragItem>
+        )}
+        </>
+      </DropZone>
+    </DragDropContext>
   );
 };
 

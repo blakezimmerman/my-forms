@@ -1,6 +1,21 @@
 import * as React from 'react';
-import * as styles from './createList.styles.scss';
+import styled from 'client/styling';
 import * as R from 'ramda';
+import { Input } from './Inputs';
+import { IconButton } from './Buttons';
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const AddButton = IconButton.extend`
+  color: ${({theme}) => theme.colors.success};
+`;
+
+const RemoveButton = IconButton.extend`
+  color: ${({theme}) => theme.colors.failure};
+`;
 
 interface Props {
   list: string[];
@@ -39,37 +54,32 @@ class CreateList extends React.Component<Props, LocalState> {
 
   render() {
     return (
-      <div>
-        <div className={styles.row}>
-          <button
-            className={styles.addButton}
+      <>
+        <Row>
+          <AddButton
             onClick={this.addToList}
             disabled={!this.validateAdd()}
           >
             <i className='material-icons'>add</i>
-          </button>
-          <input
-            className={styles.listInput}
+          </AddButton>
+          <Input
             type='text'
             value={this.state.input}
             onChange={this.updateState}
             onKeyPress={this.onKeyPress}
           />
-        </div>
-        <div>
-          {this.props.list.map((item, index) =>
-            <div key={item} className={styles.row}>
-              <button
-                className={styles.removeButton}
-                onClick={this.removeFromList(index)}
-              >
-                <i className='material-icons'>remove</i>
-              </button>
-              {item}
-            </div>
-          )}
-        </div>
-      </div>
+        </Row>
+        {this.props.list.map((item, index) =>
+          <Row key={item}>
+            <RemoveButton
+              onClick={this.removeFromList(index)}
+            >
+              <i className='material-icons'>remove</i>
+            </RemoveButton>
+            {item}
+          </Row>
+        )}
+      </>
     );
   }
 }

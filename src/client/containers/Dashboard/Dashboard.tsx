@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as styles from './dashboard.styles.scss';
+import { withTheme, Theme } from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Form } from 'models/forms';
@@ -11,8 +12,10 @@ import { GET_FORMS_REQUEST, DELETE_FORM_REQUEST } from './reducer';
 import { CREATE_REQUEST } from '../Create';
 import FadeIn from 'client/components/FadeIn';
 import DelayRender from 'client/components/DelayRender';
+import Badge from 'client/components/Badge';
 
 interface Props {
+  theme: Theme;
   userName: string;
   formsReq: AsyncReducerState<Form[]>;
   createReq: AsyncReducerState<InsertOneWriteOpResult>;
@@ -66,8 +69,8 @@ class Dashboard extends React.Component<Props> {
                   <div className={styles.firstRow}>
                     <div className={styles.formName}>{form.name}</div>
                     {form.published
-                      ? <div className={styles.publishedBadge}>Published {form.type}</div>
-                      : <div className={styles.unpublishedBadge}>Unpublished {form.type}</div>
+                      ? <Badge color={this.props.theme.colors.primary}>Published {form.type}</Badge>
+                      : <Badge color={this.props.theme.colors.failure}>Unpublished {form.type}</Badge>
                     }
                   </div>
                   <div className={styles.secondRow}>
@@ -100,4 +103,4 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 
-export default connect(mapState, mapDispatch)(Dashboard);
+export default withTheme(connect(mapState, mapDispatch)(Dashboard));

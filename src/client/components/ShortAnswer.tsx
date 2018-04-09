@@ -1,14 +1,18 @@
 import * as React from 'react';
-import * as styles from './questions.styles.scss';
+import styled from 'client/styling';
 import * as R from 'ramda';
 import { ShortAnswerResponse } from 'models/forms';
-import TextareaAutosize from 'react-autosize-textarea';
+import TextArea from './TextArea';
 
 interface Props {
   charLimit: number;
   value: ShortAnswerResponse;
   onChange: (value: ShortAnswerResponse) => void;
 }
+
+const ShortAnswerWrapper = styled.div`
+  padding: 0.5rem 0;
+`;
 
 const ShortAnswer = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
@@ -18,13 +22,13 @@ const ShortAnswer = (props: Props) => {
   };
 
   return (
-    <div className={styles.shortAnswer}>
-      <TextareaAutosize
+    <ShortAnswerWrapper>
+      <TextArea
         value={props.value ? props.value.response : ''}
         onChange={onChange}
         placeholder={`Enter your response... (${props.charLimit} character limit)`}
       />
-    </div>
+    </ShortAnswerWrapper>
   );
 };
 

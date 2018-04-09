@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './app.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store';
 import { LocationState } from 'redux-first-router';

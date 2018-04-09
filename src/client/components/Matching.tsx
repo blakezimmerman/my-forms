@@ -1,7 +1,8 @@
 import * as React from 'react';
-import * as styles from './questions.styles.scss';
+import styled from 'client/styling';
 import * as R from 'ramda';
 import { MatchingResponse } from 'models/forms';
+import Select from './Select';
 
 interface Props {
   setA: string[];
@@ -10,6 +11,38 @@ interface Props {
   onChange: (value: MatchingResponse) => void;
 }
 
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Column = styled.div`
+  margin-right: 1rem;
+
+  &:last-of-type {
+    margin: 0;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  height: 1.4rem;
+  margin: 0.3rem 0;
+`;
+
+const Letter = styled.div`
+  display: inline-block;
+  color: ${({theme}) => theme.colors.primary};
+  font-weight: bold;
+  margin-right: 0.3rem;
+`;
+
+const MatchingSelect = Select.extend`
+  height: 1.4rem;
+  margin-right: 0.3rem;
+`;
+
 const Matching = (props: Props) => {
   const onChange = (index: number) => (event: React.SyntheticEvent<HTMLSelectElement>) => {
     const temp = props.setB.map((item, i) => props.value[i]);
@@ -17,22 +50,22 @@ const Matching = (props: Props) => {
   };
 
   return (
-    <div className={styles.matching}>
-      <div className={styles.columnContainer}>
-        <div className={styles.column}>
+    <>
+      <ColumnWrapper>
+        <Column>
           {props.setA.map((item, index) =>
-            <div key={item} className={styles.row}>
-              <div className={styles.letter}>
+            <Row key={item}>
+              <Letter>
                 {`${String.fromCharCode(index + 65)}.`}
-              </div>
+              </Letter>
               {item}
-            </div>
+            </Row>
           )}
-        </div>
-        <div className={styles.column}>
+        </Column>
+        <Column>
           {props.setB.map((item, index) =>
-            <div key={item} className={styles.row}>
-              <select
+            <Row key={item}>
+              <MatchingSelect
                 value={props.value[index]}
                 onChange={onChange(index)}
               >
@@ -40,13 +73,13 @@ const Matching = (props: Props) => {
                 {props.setA.map((option, i) =>
                   <option key={option} value={i}>{String.fromCharCode(i + 65)}</option>
                 )}
-              </select>
+              </MatchingSelect>
               {item}
-            </div>
+            </Row>
           )}
-        </div>
-      </div>
-    </div>
+        </Column>
+      </ColumnWrapper>
+    </>
   );
 };
 

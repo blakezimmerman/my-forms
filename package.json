@@ -100,6 +100,7 @@
     "shortid": "^2.2.8",
     "source-map-support": "^0.5.3",
     "style-loader": "^0.20.3",
+    "styled-components": "^3.2.5",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
     "tslint-react": "^3.5.1",
