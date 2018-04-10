@@ -12,7 +12,7 @@ export const Button = styled.button.attrs({
 })`
   color: ${({color}) => getColorByBg(color)};
   background-color: ${({color}) => color};
-  font-family: $body-font;
+  font-family: ${({theme}) => theme.fonts.body};
   font-size: 1.1rem;
   text-align: center;
   padding: 0.4rem 0.8rem;

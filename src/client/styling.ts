@@ -1,4 +1,5 @@
 import * as styledComponents from 'styled-components';
+import { changeLuminance } from 'client/helpers/styles';
 
 interface Theme {
   fonts: {
@@ -7,6 +8,7 @@ interface Theme {
   };
   colors: {
       primary: string;
+      primaryDark: string
       success: string;
       failure: string;
       disabled: string;
@@ -21,6 +23,7 @@ const theme: Theme = {
   },
   colors: {
     primary: '#0046b7',
+    primaryDark: changeLuminance('#0046b7', -0.15),
     success: '#4CAE4C',
     failure: '#CC0000',
     disabled: '#555',

@@ -5,7 +5,7 @@ interface Props {
   theme?: Theme;
 }
 
-const Badge = styled.div.attrs({
+const NotificationBanner = styled.div.attrs({
   color: ({color, theme}: Props) => color || theme!.colors.primary
 })`
   font-weight: 700;
@@ -22,4 +22,4 @@ const Badge = styled.div.attrs({
   `}
 `;
 
-export default Badge;
+export default NotificationBanner;

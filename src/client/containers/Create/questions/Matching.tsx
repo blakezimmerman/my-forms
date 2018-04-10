@@ -1,10 +1,25 @@
 import * as React from 'react';
-import * as styles from '../create.styles.scss';
+import styled from 'client/styling';
 import { FormType, Response, Matching as MatchingQuestion } from 'models/forms';
 import { Action } from 'client/helpers/redux';
+import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
+import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
 import FadeIn from 'client/components/FadeIn';
 import Matching from 'client/components/Matching';
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Column = styled.div`
+  margin-right: 1rem;
+
+  &:last-of-type {
+    margin: 0;
+  }
+`;
 
 interface Props {
   type: FormType;
@@ -15,37 +30,31 @@ interface Props {
 }
 
 const CreateMatching = (props: Props) => (
-  <div>
-    <div className={styles.centeredBadge}>
-      <div>Matching Question</div>
-    </div>
-    <div className={styles.columnContainer}>
-      <div className={styles.column}>
-        <div className={styles.optionsPrompt}>
-          Provide the first set:
-        </div>
+  <>
+    <BadgeWrapper>
+      <Badge>Matching Question</Badge>
+    </BadgeWrapper>
+    <ColumnWrapper>
+      <Column>
+        <OptionsPrompt>Provide the first set:</OptionsPrompt>
         <CreateList
           list={props.question.setA || []}
           onChange={props.setSetA}
         />
-      </div>
-      <div className={styles.column}>
-        <div className={styles.optionsPrompt}>
-          Provide the second set:
-        </div>
+      </Column>
+      <Column>
+        <OptionsPrompt>Provide the second set:</OptionsPrompt>
         <CreateList
           list={props.question.setB || []}
           onChange={props.setSetB}
         />
-      </div>
-    </div>
+      </Column>
+    </ColumnWrapper>
     {props.type === FormType.Test &&
      props.question.setA && !!props.question.setA.length &&
      props.question.setB && !!props.question.setB.length &&
       <FadeIn>
-        <div className={styles.answerPrompt}>
-          Provide the correct answer:
-        </div>
+        <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
         <Matching
           setA={props.question.setA}
           setB={props.question.setB}
@@ -54,7 +63,7 @@ const CreateMatching = (props: Props) => (
         />
       </FadeIn>
     }
-  </div>
+  </>
 );
 
 export default CreateMatching;

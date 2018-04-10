@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as styles from './form.styles.scss';
 import { connect } from 'react-redux';
 import { State } from 'client/store';
 import { Form, Response } from 'models/forms';
@@ -12,6 +11,8 @@ import {
 import ViewForm from './ViewForm';
 import TakeForm from './TakeForm';
 import DelayRender from 'client/components/DelayRender';
+import Loading from 'client/components/Loading';
+import Error from 'client/components/Error';
 
 interface Props {
   id: string;
@@ -56,9 +57,9 @@ class DisplayForm extends React.Component<Props> {
     return (
       <>
         <DelayRender>
-          <>{formReq.pending && <div className={styles.loader}>Loading...</div>}</>
+          <>{formReq.pending && <Loading/>}</>
         </DelayRender>
-        {formReq.error && <div className={styles.error}>Unable to Load Form</div>}
+        {formReq.error && <Error>Unable to Load Form</Error>}
         {formReq.result && (
           formReq.result.createdBy === this.props.curUser
             ? <ViewForm
@@ -77,9 +78,9 @@ class DisplayForm extends React.Component<Props> {
                     submitResponses={this.submitResponses}
                     resetSubmit={this.resetSubmit}
                 />
-                : <div className={styles.error}>
+                : <Error>
                     This form is not published
-                  </div>
+                  </Error>
         )}
       </>
     );

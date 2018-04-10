@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './login.styles.scss';
+import styled from 'client/styling';
 import { connect } from 'react-redux';
 import { State } from 'client/store';
 import { ActionDispatcher } from 'client/helpers/redux';
@@ -7,7 +7,17 @@ import { User } from 'models/users';
 import { LOGIN_REQUEST } from './reducer';
 import { InsertOneWriteOpResult } from 'mongodb';
 import Link from 'redux-first-router-link';
+import PageWrapper from 'client/components/PageWrapper';
 import AccountForm from './AccountForm';
+import { H2 } from 'client/components/Headers';
+
+export const LoginWrapper = PageWrapper.extend`
+  align-items: center;
+`;
+
+export const LoginHeader = H2.extend`
+  text-align: center;
+`;
 
 interface Props {
   pending: boolean;
@@ -16,20 +26,27 @@ interface Props {
   requestLogin: ActionDispatcher<User>;
 }
 
+export const Error = styled.h3`
+  color: ${({theme}) => theme.colors.failure};
+  margin-top: 0;
+  font-size: 1.3rem;
+  text-align: center;
+`;
+
 const Login = (props: Props) => {
   const loginButton = (requestedUser: User) => (event: React.MouseEvent<HTMLButtonElement>) =>
     props.requestLogin(requestedUser);
 
   return (
-    <div className={styles.container}>
-      <h2>Sign in</h2>
-      {props.error && <h3 className={styles.error}>{props.error}</h3>}
+    <LoginWrapper>
+      <LoginHeader>Sign in</LoginHeader>
+      {props.error && <Error>{props.error}</Error>}
       <AccountForm submitText='Log In' submitFn={loginButton}/>
       <div>
         {'Not Registered? '}
         <Link to='/register'>Click here to make an account!</Link>
       </div>
-    </div>
+    </LoginWrapper>
   );
 };
 

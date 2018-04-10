@@ -1,9 +1,11 @@
 import * as React from 'react';
-import * as styles from './header.styles.scss';
+import styled, { media } from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { routeActions } from 'client/router';
 import { Action } from 'client/helpers/redux';
 import { match, is } from 'client/helpers/misc';
+import { H1 } from 'client/components/Headers';
+import { ClearButton } from 'client/components/Buttons';
 
 interface Props {
   locationType: string;
@@ -13,30 +15,60 @@ interface Props {
   toLogin: () => Action<void>;
 }
 
+const Banner = styled.div`
+  color: white;
+  background-color: ${({theme}) => theme.colors.primary};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  ${media.mobile`
+    padding: 0.6rem;
+  `}
+`;
+
+const HeaderText = H1.extend`
+  margin: 0;
+  cursor: pointer;
+
+  ${media.mobile`
+    font-size: 1.7rem;
+  `}
+`;
+
+const HeaderButton = ClearButton.extend`
+  margin: 0 0.5rem;
+
+  ${media.mobile`
+    margin: 0 0.2rem;
+  `}
+`;
+
 const Header = (props: Props) => {
   const { locationType, authenticated } = props;
 
   const toLogout = () => location.href = '/api/auth/logout';
 
-  const button = (label: string, click: () => Action<void> | string) => (
-    <button className={styles.headerButton} onClick={click}>{label}</button>
-  );
-
   return (
-    <div className={styles.banner}>
-      <h1 onClick={props.toHome}>myForms</h1>
+    <Banner>
+      <HeaderText onClick={props.toHome}>myForms</HeaderText>
       <div>
         {locationType !== 'DASHBOARD' && authenticated &&
-          button('Dashboard', props.toDashboard)
+          <HeaderButton onClick={props.toDashboard}>Dashboard</HeaderButton>
         }
         {locationType !== 'LOGIN' && !authenticated &&
-          button('Login', props.toLogin)
+          <HeaderButton onClick={props.toLogin}>Login</HeaderButton>
         }
         {authenticated &&
-          button('Logout', toLogout)
+          <HeaderButton onClick={toLogout}>Logout</HeaderButton>
         }
       </div>
-    </div>
+    </Banner>
   );
 };
 

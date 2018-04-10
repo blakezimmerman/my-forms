@@ -1,6 +1,6 @@
 import styled, { media } from 'client/styling';
 
-const BasicHeader = styled.div`
+const BasicHeading = styled.div`
   font-size: 1.1rem;
   padding: 1rem;
   border-bottom: 1px lightgray solid;
@@ -17,4 +17,4 @@ const BasicHeader = styled.div`
   `}
 `;
 
-export default BasicHeader;
+export default BasicHeading;

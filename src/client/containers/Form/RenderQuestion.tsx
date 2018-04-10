@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './form.styles.scss';
+import styled from 'client/styling';
 import {
   Question, QuestionType, Response, TrueFalseResponse,
   MultipleChoiceResponse, MatchingResponse, RankingResponse,
@@ -16,6 +16,25 @@ import EssayAnswer from 'client/components/EssayAnswer';
 import Matching from 'client/components/Matching';
 import Ranking from 'client/components/Ranking';
 import RenderAnswer from './RenderAnswer';
+import Card from 'client/components/Card';
+
+const QuestionCard = Card.extend`
+  margin: 1rem 0;
+  padding: 1rem;
+`;
+
+const QuestionTop = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+`;
+
+const QuestionNum = styled.div`
+  display: inline;
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+`;
 
 interface Props {
   index: number;
@@ -26,13 +45,13 @@ interface Props {
 }
 
 const RenderQuestion = ({index, question, response, setResponse, showAnswer}: Props) => (
-  <div className={styles.questionCard}>
-    <div className={styles.questionTop}>
+  <QuestionCard>
+    <QuestionTop>
       <div>
-        <div className={styles.qNumber}>{index + 1}.</div>
+        <QuestionNum>{index + 1}.</QuestionNum>
         {question.prompt}
       </div>
-    </div>
+    </QuestionTop>
     {
       match<QuestionType, JSX.Element>(question.type)
         .on(is(QuestionType.TrueFalse), (type) =>
@@ -83,7 +102,7 @@ const RenderQuestion = ({index, question, response, setResponse, showAnswer}: Pr
         )
     }
     {showAnswer && (question as any).answer !== undefined && <RenderAnswer question={question}/>}
-  </div>
+  </QuestionCard>
 );
 
 export default RenderQuestion;

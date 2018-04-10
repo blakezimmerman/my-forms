@@ -14,17 +14,18 @@ const IndentedInput = Input.extend`
 
 interface Props {
   label: string;
+  type: string;
   value: string;
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
 }
 
-export const LabeledInput = ({ label, value, onChange }: Props) => (
+export const LabeledInput = (props: Props) => (
   <label>
-    {label}
+    {props.label}
     <IndentedInput
-      type='text'
-      value={value}
-      onChange={onChange}
+      type={props.type}
+      value={props.value}
+      onChange={props.onChange}
     />
   </label>
 );

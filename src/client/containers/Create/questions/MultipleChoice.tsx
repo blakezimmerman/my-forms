@@ -1,7 +1,8 @@
 import * as React from 'react';
-import * as styles from '../create.styles.scss';
 import { FormType, Response, MultipleChoice as MultipleChoiceQuestion } from 'models/forms';
 import { Action } from 'client/helpers/redux';
+import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
+import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
 import FadeIn from 'client/components/FadeIn';
 import MultipleChoice from 'client/components/MultipleChoice';
@@ -14,13 +15,11 @@ interface Props {
 }
 
 const CreateMultipleChoice = (props: Props) => (
-  <div>
-    <div className={styles.centeredBadge}>
-      <div>Multiple Choice Question</div>
-    </div>
-    <div className={styles.optionsPrompt}>
-      Provide the options:
-    </div>
+  <>
+    <BadgeWrapper>
+      <Badge>Multiple Choice Question</Badge>
+    </BadgeWrapper>
+    <OptionsPrompt>Provide the options:</OptionsPrompt>
     <CreateList
       list={props.question.options || []}
       onChange={props.setOptions}
@@ -29,9 +28,7 @@ const CreateMultipleChoice = (props: Props) => (
      props.question.options &&
      !!props.question.options.length &&
       <FadeIn>
-        <div className={styles.answerPrompt}>
-          Provide the correct answer:
-        </div>
+        <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
         <MultipleChoice
           options={props.question.options}
           value={props.question.answer || []}
@@ -39,7 +36,7 @@ const CreateMultipleChoice = (props: Props) => (
         />
       </FadeIn>
     }
-  </div>
+  </>
 );
 
 export default CreateMultipleChoice;

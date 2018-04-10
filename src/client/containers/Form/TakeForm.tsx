@@ -1,9 +1,30 @@
 import * as React from 'react';
-import * as styles from './form.styles.scss';
 import { DisplayFormProps } from './Form';
 import RenderQuestion from './RenderQuestion';
 import { areValidResponses } from 'client/helpers/validation';
 import FadeIn from 'client/components/FadeIn';
+import { FormWrapper } from './ViewForm';
+import { H2 } from 'client/components/Headers';
+import BasicFooter from 'client/components/BasicFooter';
+import { Button } from 'client/components/Buttons';
+import NotificationBanner from 'client/components/NotificationBanner';
+
+const SuccessBanner = NotificationBanner.extend`
+  background-color: ${({theme}) => theme.colors.success};
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+`;
+
+const ErrorBanner = SuccessBanner.extend`
+  background-color: ${({theme}) => theme.colors.failure};
+`;
+
+const FooterButton = Button.extend`
+  color: ${({theme}) => theme.colors.primary}
+  background-color: white;
+`;
 
 class TakeForm extends React.Component<DisplayFormProps> {
   componentDidMount() {
@@ -21,20 +42,20 @@ class TakeForm extends React.Component<DisplayFormProps> {
     return (
       <>
         {submitReq && submitReq.result &&
-          <div className={styles.succBanner}>
+          <SuccessBanner>
             Your responses have been submitted
             <i className='material-icons' onClick={resetSubmit}>close</i>
-          </div>
+          </SuccessBanner>
         }
         {submitReq && submitReq.error &&
-          <div className={styles.errBanner}>
+          <ErrorBanner>
             An Error Has Occurred
             <i className='material-icons' onClick={resetSubmit}>close</i>
-          </div>
+          </ErrorBanner>
         }
         <FadeIn>
-          <div className={styles.container}>
-            <h2>{form.name}</h2>
+          <FormWrapper>
+            <H2>{form.name}</H2>
             {form.questions.map((question, i) =>
               <RenderQuestion
                 key={question._id}
@@ -45,16 +66,16 @@ class TakeForm extends React.Component<DisplayFormProps> {
                 showAnswer={false}
               />
             )}
-          </div>
+          </FormWrapper>
         </FadeIn>
-        <div className={styles.footer}>
-          <button
+        <BasicFooter>
+          <FooterButton
             disabled={!areValidResponses(responsesWithTypes)}
             onClick={submitResponses}
           >
             Submit Form
-          </button>
-        </div>
+          </FooterButton>
+        </BasicFooter>
       </>
     );
   }

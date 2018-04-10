@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from '../create.styles.scss';
+import styled from 'client/styling';
 import { connect } from 'react-redux';
 import { State } from 'client/store';
 import {
@@ -7,17 +7,34 @@ import {
   SET_OPTIONS, SET_SETA, SET_SETB, SET_CHAR_LIMIT
 } from '../reducer';
 import {
-    FormType, Question, QuestionType, Response, TrueFalse,
-    MultipleChoice, ShortAnswer, Matching, Ranking
+  FormType, Question, QuestionType, Response, TrueFalse,
+  MultipleChoice, ShortAnswer, Matching, Ranking
 } from 'models/forms';
 import { match, is } from 'client/helpers/misc';
 import { ActionDispatcher } from 'client/helpers/redux';
-import TextareaAutosize from 'react-autosize-textarea';
+import { BadgeWrapper } from './Shared';
+import Badge from 'client/components/Badge';
+import Card from 'client/components/Card';
+import TextArea from 'client/components/TextArea';
 import CreateTrueFalse from './TrueFalse';
 import CreateMultipleChoice from './MultipleChoice';
 import CreateShortAnswer from './ShortAnswer';
 import CreateMatching from './Matching';
 import CreateRanking from './Ranking';
+
+const QuestionCard = Card.extend`
+  margin: 1rem 0;
+  padding: 1rem;
+`;
+
+const QuestionTop = styled.div`
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+
+  textarea { margin: 0 1rem; }
+`;
 
 export interface Props {
   type: FormType;
@@ -49,16 +66,16 @@ const CreateQuestion = (props: Props) => {
   const setCharLimit = (charLimit: number) => props.SET_CHAR_LIMIT({i: props.index, charLimit});
 
   return (
-    <div className={styles.questionCard}>
-      <div className={styles.questionTop}>
+    <QuestionCard>
+      <QuestionTop>
         {props.index + 1}.
-        <TextareaAutosize
+        <TextArea
           value={props.question.prompt}
           onChange={handlePrompt}
           placeholder={'Enter Prompt...'}
         />
         <i className='material-icons' onClick={removeQuestion}>close</i>
-      </div>
+      </QuestionTop>
       {
         match<QuestionType, JSX.Element>(props.question.type)
           .on(is(QuestionType.TrueFalse), (type) =>
@@ -80,9 +97,9 @@ const CreateQuestion = (props: Props) => {
               setCharLimit={setCharLimit}
             />)
           .on(is(QuestionType.EssayAnswer), (type) =>
-            <div className={styles.centeredBadge}>
-              <div>Essay Answer Question</div>
-            </div>)
+            <BadgeWrapper>
+              <Badge>Essay Answer Question</Badge>
+            </BadgeWrapper>)
           .on(is(QuestionType.Matching), (type) =>
             <CreateMatching
               type={props.type}
@@ -105,7 +122,7 @@ const CreateQuestion = (props: Props) => {
               setAnswer={setAnswer}
             />)
       }
-    </div>
+    </QuestionCard>
   );
 };
 

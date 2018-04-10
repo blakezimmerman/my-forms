@@ -1,7 +1,8 @@
 import * as React from 'react';
-import * as styles from '../create.styles.scss';
 import { FormType, Response, Ranking as RankingQuestion } from 'models/forms';
 import { Action } from 'client/helpers/redux';
+import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
+import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
 import FadeIn from 'client/components/FadeIn';
 import Ranking from 'client/components/Ranking';
@@ -20,13 +21,11 @@ const RankingMatching = (props: Props) => {
   };
 
   return (
-    <div>
-      <div className={styles.centeredBadge}>
-        <div>Ranking Question</div>
-      </div>
-      <div className={styles.optionsPrompt}>
-        Provide the items to rank:
-      </div>
+    <>
+      <BadgeWrapper>
+        <Badge>Ranking Question</Badge>
+      </BadgeWrapper>
+      <OptionsPrompt>Provide the items to rank:</OptionsPrompt>
       <CreateList
         list={props.question.options || []}
         onChange={updateRanking}
@@ -35,16 +34,14 @@ const RankingMatching = (props: Props) => {
        props.question.options &&
        !!props.question.options.length &&
         <FadeIn>
-          <div className={styles.answerPrompt}>
-            Provide the correct answer:
-          </div>
+          <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
           <Ranking
             value={props.question.answer || props.question.options}
             onChange={props.setAnswer}
           />
         </FadeIn>
       }
-    </div>
+    </>
   );
 };
 

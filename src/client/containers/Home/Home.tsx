@@ -1,11 +1,48 @@
 import * as React from 'react';
-import * as styles from './home.styles.scss';
+import styled, { media } from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Action } from 'client/helpers/redux';
 import { getAuthenticated } from '../Login';
 import { routeActions } from 'client/router';
-import FadeIn from 'client/components/FadeIn';
+import { Button } from 'client/components/Buttons';
+import Examples from './Examples';
+
+const HomeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+`;
+
+const UpperSection = styled.div`
+  width: 100%;
+  background-color: ${({theme}) => theme.colors.primary};
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const HomeHeader = styled.h2`
+  font-weight: 400;
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 3rem 0 0;
+`;
+
+const GetStartedButton = Button.extend`
+  color: ${({theme}) => theme.colors.primary};
+  background-color: white;
+  font-size: 1.3rem;
+  margin: 3rem 1rem;
+  padding: 1rem 1.2rem;
+
+  ${media.mobile`
+    font-size: 1.15rem;
+    padding: 0.8rem 1rem;
+  `}
+`;
 
 interface Props {
   authenticated: boolean;
@@ -14,32 +51,20 @@ interface Props {
 }
 
 const Home = (props: Props) => (
-  <div className={styles.container}>
-    <div className={styles.upper}>
-      <h2>Get Answers With Ease</h2>
+  <HomeWrapper>
+    <UpperSection>
+      <HomeHeader>Get Answers With Ease</HomeHeader>
       {props.authenticated
-        ? <button className={styles.getStarted} onClick={props.toDashboard}>
+        ? <GetStartedButton onClick={props.toDashboard}>
             Go To Your Dashboard To Get Started
-          </button>
-        : <button className={styles.getStarted} onClick={props.toRegister}>
+          </GetStartedButton>
+        : <GetStartedButton onClick={props.toRegister}>
             Create An Account To Get Started
-          </button>
+          </GetStartedButton>
       }
-    </div>
-    <FadeIn>
-      <div className={styles.examples} key={1}>
-        <h2>With myForms you can easily...</h2>
-        <div className={styles.cardsContainer}>
-          <div className={styles.exampleCard}>
-            <h3>Create and Share Surveys</h3>
-          </div>
-          <div className={styles.exampleCard}>
-            <h3>Create and Share Tests</h3>
-          </div>
-        </div>
-      </div>
-    </FadeIn>
-  </div>
+    </UpperSection>
+    <Examples/>
+  </HomeWrapper>
 );
 
 const mapState = (state: State) => ({

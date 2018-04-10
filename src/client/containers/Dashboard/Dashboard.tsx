@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as styles from './dashboard.styles.scss';
-import { withTheme, Theme } from 'client/styling';
+import styled, { media, withTheme, Theme } from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Form } from 'models/forms';
@@ -13,6 +12,57 @@ import { CREATE_REQUEST } from '../Create';
 import FadeIn from 'client/components/FadeIn';
 import DelayRender from 'client/components/DelayRender';
 import Badge from 'client/components/Badge';
+import NotificationBanner from 'client/components/NotificationBanner';
+import PageWrapper from 'client/components/PageWrapper';
+import { H2 } from 'client/components/Headers';
+import { Button, InvertedButton } from 'client/components/Buttons';
+import Card from 'client/components/Card';
+import Loading from 'client/components/Loading';
+import Error from 'client/components/Error';
+
+const SuccessBanner = NotificationBanner.extend`
+  background-color: ${({theme}) => theme.colors.success};
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1;
+
+  ${media.mobile`
+    top: 3.5rem;
+  `}
+`;
+
+const ButtonsWrapper = styled.div`
+  button { margin: 0.5rem; }
+`;
+
+const FormCard = Card.extend`
+  margin: 1rem;
+  padding: 1rem;
+`;
+
+const FirstRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const FormName = styled.div`
+  font-size: 1.2rem;
+`;
+
+const SecondRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ActionButton = InvertedButton.extend`
+  display: inline-block;
+  margin: 0.6rem 1rem 0;
+  font-size: 1rem;
+  padding: 0.25rem 0.6rem;
+`;
 
 interface Props {
   theme: Theme;
@@ -36,53 +86,47 @@ class Dashboard extends React.Component<Props> {
     return (
       <>
         {this.props.createReq.result &&
-          <div className={styles.successBanner}>
+          <SuccessBanner>
             Form Created Successfully
             <i className='material-icons' onClick={this.props.createReset}>close</i>
-          </div>
+          </SuccessBanner>
         }
-        <div className={styles.container}>
-          <h2>Welcome, {this.props.userName}</h2>
-          <div>
-            <button className={styles.createButton} onClick={this.props.toCreateSurvey}>
+        <PageWrapper>
+          <H2>Welcome, {this.props.userName}</H2>
+          <ButtonsWrapper>
+            <Button onClick={this.props.toCreateSurvey}>
               Create Survey
-            </button>
-            <button className={styles.createButton} onClick={this.props.toCreateTest}>
+            </Button>
+            <Button onClick={this.props.toCreateTest}>
               Create Test
-            </button>
-          </div>
-          <h2>Your Forms</h2>
-          {this.props.formsReq.error &&
-            <div className={styles.error}>An Error has Occurred</div>
-          }
+            </Button>
+          </ButtonsWrapper>
+          <H2>Your Forms</H2>
+          {this.props.formsReq.error && <Error>An Error has Occurred</Error>}
           <DelayRender>
-            <>
-            {this.props.formsReq.pending &&
-              <div className={styles.loader}>Loading...</div>
-            }
-            </>
+            <>{this.props.formsReq.pending && <Loading/>}</>
           </DelayRender>
           <FadeIn>
             {this.props.formsReq.result &&
               this.props.formsReq.result.map((form) =>
-                <div key={form._id} className={styles.formCard}>
-                  <div className={styles.firstRow}>
-                    <div className={styles.formName}>{form.name}</div>
+                <FormCard key={form._id}>
+                  <FirstRow>
+                    <FormName>{form.name}</FormName>
                     {form.published
                       ? <Badge color={this.props.theme.colors.primary}>Published {form.type}</Badge>
                       : <Badge color={this.props.theme.colors.failure}>Unpublished {form.type}</Badge>
                     }
-                  </div>
-                  <div className={styles.secondRow}>
-                    <button onClick={this.props.displayForm(form._id)}>View</button>
-                    <button>Edit</button>
-                    <button onClick={this.props.deleteForm(form._id)}>Delete</button>
-                  </div>
-                </div>
+                  </FirstRow>
+                  <SecondRow>
+                    <ActionButton onClick={this.props.displayForm(form._id)}>View</ActionButton>
+                    <ActionButton>Edit</ActionButton>
+                    <ActionButton onClick={this.props.deleteForm(form._id)}>Delete</ActionButton>
+                  </SecondRow>
+                </FormCard>
               )
             }
           </FadeIn>
-        </div>
+        </PageWrapper>
       </>
     );
   }

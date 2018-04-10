@@ -1,7 +1,19 @@
 import * as React from 'react';
-import * as styles from './form.styles.scss';
+import styled from 'client/styling';
+import { changeLuminance } from 'client/helpers/styles';
 import { Question, QuestionType } from 'models/forms';
 import { match, is } from 'client/helpers/misc';
+
+const AnswerWrapper = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const AnswerLabel = styled.span`
+  color: ${({theme}) => theme.colors.primaryDark};
+  margin-right: 0.5rem;
+`;
 
 interface Props {
   question: Question;
@@ -11,8 +23,8 @@ const RenderAnswer = ({ question }: Props) => {
   const answer = (question as any).answer;
 
   return (
-    <div className={styles.correctAnswer}>
-      <span className={styles.correctText}>Correct Answer:</span>
+    <AnswerWrapper>
+      <AnswerLabel>Correct Answer:</AnswerLabel>
       {
         match<QuestionType, JSX.Element>(question.type)
           .on(is(QuestionType.TrueFalse), (type) =>
@@ -35,7 +47,7 @@ const RenderAnswer = ({ question }: Props) => {
             <span>{(question as any).answer.toString()}</span>
           )
       }
-    </div>
+    </AnswerWrapper>
   );
 };
 
