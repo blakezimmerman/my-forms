@@ -23,6 +23,8 @@ fs.readdirSync('node_modules')
   });
 
 module.exports = {
+  mode: 'production',
+
   target: 'node',
 
   node: {
@@ -51,11 +53,11 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
         include: [SERVER_DIR, MODELS_DIR],
-        use: ['awesome-typescript-loader']
+        use: 'ts-loader'
       }
     ]
   },
