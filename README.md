@@ -11,7 +11,7 @@ The technology stack for myForms can be classified into three distinct parts:
 ### Client
 - [Typescript](https://www.typescriptlang.org/) for primary language
 - [React](https://reactjs.org/) for view framework
-- [Sass](https://sass-lang.com/) (SCSS) for styling views
+- [Styled-Components](https://www.styled-components.com/) for styling views
 - [Redux](https://redux.js.org/) for state managment
 - [Redux-Observable](https://redux-observable.js.org/) for handling side effects
 - [Redux-First Router](https://github.com/faceyspacey/redux-first-router) for application routing
@@ -35,35 +35,37 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 ├── node_modules (Dependencies; appears after npm install)
 ├── src/
 │   ├── client/ (React code)
-│   │   ├── app/ (App views and logic)
-│   │   │   ├── 'feature'/ (All files related to a feature)
-│   │   │   │   ├── 'feature'.epics.ts
-│   │   │   │   ├── 'feature'.reducer.ts
-│   │   │   │   ├── 'feature'.selectors.ts
-│   │   │   │   ├── 'feature'.styles.scss
-│   │   │   │   ├── 'feature'.styles.scss.d.ts (Auto-gen'd style definitions)
-│   │   │   │   ├── 'UI Component'.tsx
-│   │   │   ├── app.styles.scss (Global styles for app)
-│   │   │   ├── app.styles.scss.d.ts (Auto-gen'd style definitions)
-│   │   │   └── app.tsx (Root component)
-│   │   ├── assets/ (Static assets like images)
+│   │   ├── components/ (Independent components used throughout project)
+│   │   ├── containers/ (High-level features)
+│   │   │   └── 'Feature'/ (All files related to a feature)
+│   │   │       ├── epic.ts
+│   │   │       ├── reducer.ts
+│   │   │       ├── selectors.ts
+│   │   │       ├── 'Component'.tsx
+│   │   │       └── index.ts (Export all relevant items)
+│   │   ├── helpers/ (Code shared throughout the client app)
+│   │   │   ├── api.ts (Helpers for API calls)
+│   │   │   ├── misc.ts (Other helper functions)
+│   │   │   ├── redux.ts (Helper functions and abstractions for redux)
+│   │   │   ├── styles.ts (Style-related helper functions)
+│   │   │   └── validation.ts (Functions for form validation)
+│   │   ├── public/ (Static assets like images)
 │   │   ├── router/ (Code for Redux-First Router)
-│   │   │   ├── router.epics.ts (Epics for router actions)
+│   │   │   ├── epic.ts (Epics for router actions)
+│   │   │   ├── index.ts (Export all relevant items)
 │   │   │   └── router.ts (Route map for application)
-│   │   ├── shared/ (Code shared between React components)
-│   │   │   ├── UI/ (Generic components and SCSS mixins)
-│   │   │   ├── apiUtils.ts (Utils for API calls)
-│   │   │   ├── miscUtils.ts (Other utils)
-│   │   │   └── reduxUtils.ts (Utils and abstractions for redux)
 │   │   ├── store/ (Code for initializing Redux store)
 │   │   │   ├── createStore/ (Returns Redux store for current env)
+│   │   │   ├── index.ts (Exports all relevant items)
 │   │   │   ├── rootEpic.ts (Root epic for Redux)
 │   │   │   └── rootReducer.ts (Root reducer for Redux)
 │   │   ├── index.handlebars (HTML where env config and JS bundle are injected)
-│   │   └── index.tsx (Entry point for React)
+│   │   ├── index.tsx (Entry point for React)
+│   │   └── styling.ts (Injects theme into styled-components and exports related functions)
 │   ├── models/ (All shared types and interfaces for project)
 │   └── server/ (Node.js code)
-│       ├── data/ (Code to interface with MongoDB)
+│       ├── data/ (Code to fetch data needed by routes)
+│       ├── mongo/ (Code to interface with MongoDB)
 │       ├── routes/ (Code for API routes)
 │       ├── app.ts (Entry point for server)
 │       ├── clientConfig.ts (Returns env config for client)
@@ -77,10 +79,10 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 ├── .dockerignore (Files for Docker to ignore)
 ├── .editorconfig (Formatting rules for editor)
 ├── .gitignore (Files for git to ignore)
-├── docker-compose.dev.yml (Dev config for Docker Compose)
+├── dev.docker-compose.yml (Dev config for Docker Compose)
+├── dev.Dockerfile (Dev build script for myforms_app container)
 ├── docker-compose.yml (Prod config for Docker Compose)
 ├── Dockerfile (Prod build script for myforms_app container)
-├── Dockerfile.dev (Dev build script for myforms_app container)
 ├── package-lock.json (Specific versions for all dependencies)
 ├── package.json (Dependency list and npm scripts)
 ├── README.md (This file)
@@ -92,16 +94,13 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 Some terms or conventions in the code base may be unfamiliar so I'll try to define some of them here.
 
 ### Reducers
-Reducers are pure functions that take an action and the current Redux state object and then return a new state object. Reducers can be composed together and a composition of all the application's reducers is called the root reducer. In this project, files that end with `.reducer.ts` contain a reducer and definitions for the actions that the reducer acts on. More can be read about reducers in the [docs for Redux](https://redux.js.org/docs/basics/Reducers.html).
+Reducers are pure functions that take an action and the current Redux state object and then return a new state object. Reducers can be composed together and a composition of all the application's reducers is called the root reducer. In this project, files named `reducer.ts` contain a reducer and definitions for the actions that the reducer acts on. More can be read about reducers in the [docs for Redux](https://redux.js.org/docs/basics/Reducers.html).
 
 ### Epics
 Epics are the means by which asynchronous Redux actions are performed. In essence, they take in actions, perform side effects, and return new actions as a result. More can read about them in the [docs for Redux-Observable](https://redux-observable.js.org/docs/basics/Epics.html).
 
 ### Selectors
 Selectors are memoized functions that take the global Redux state as an argument and return some value computed from the state. They can be read about in more detail at [Reselect's GitHub Repo](https://github.com/reactjs/reselect).
-
-### Style Definitions
-Style definitions refer to the source files with the extension `.scss.d.ts`. These files are automatically generated by `typings-for-css-modules-loader` when the client is bundled by webpack. These files allow you to have type checking and autocomplete when referencing SCSS classes in React Components.
 
 ## How to Run
 
