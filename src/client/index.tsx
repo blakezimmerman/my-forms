@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider, theme, injectGlobal } from './styling';
 import store from './store';
 import App from './containers/App';
-import 'client/public/favicon.ico';
+import registerServiceWorker from './registerServiceWorker';
 
 const GlobalStyle = injectGlobal`
   body {
@@ -38,6 +38,7 @@ const renderRoot = (Component: any) => {
 };
 
 renderRoot(App);
+registerServiceWorker();
 
 if (module.hot) {
   module.hot.accept('./containers/App', () => {

@@ -1,7 +1,7 @@
 # myForms
 
 ## About
-myForms is a web application for creating surveys / tests, administrating them through shareable links, and viewing the results once submissions are received. This application follows the specifications required by the Engineering Design VI course (SSW-322 at Stevens Institute of Technology).
+myForms is a progressive web application for creating surveys / tests, administrating them through shareable links, and viewing the results once submissions are received. This application follows the specifications required by the Engineering Design VI course (SSW-322 at Stevens Institute of Technology).
 
 The running application can be found at: https://myforms.herokuapp.com
 
@@ -59,8 +59,9 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 │   │   │   ├── index.ts (Exports all relevant items)
 │   │   │   ├── rootEpic.ts (Root epic for Redux)
 │   │   │   └── rootReducer.ts (Root reducer for Redux)
-│   │   ├── index.handlebars (HTML where env config and JS bundle are injected)
+│   │   ├── index.html (HTML where the compiled JS bundle is injected)
 │   │   ├── index.tsx (Entry point for React)
+│   │   ├── registerServiceWorker.ts (Registers a service worker to cache assets)
 │   │   └── styling.ts (Injects theme into styled-components and exports related functions)
 │   ├── models/ (All shared types and interfaces for project)
 │   └── server/ (Node.js code)
@@ -68,7 +69,6 @@ To help maintain a uniform runtime environment and relieve possible dependency i
 │       ├── mongo/ (Code to interface with MongoDB)
 │       ├── routes/ (Code for API routes)
 │       ├── app.ts (Entry point for server)
-│       ├── clientConfig.ts (Returns env config for client)
 │       ├── serveApp.ts (Serves Single-Page-App)
 │       └── webpackBuild.ts (Builds client in dev env)
 ├── webpack/

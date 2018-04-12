@@ -1,11 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Action, AsyncActionDispatcher } from './redux';
-import { ClientConfig } from 'server/clientConfig';
 import { match, is } from './misc';
 
-declare const APP_CONFIG: ClientConfig;
-
-export const apiBase = APP_CONFIG.host + 'api/';
+export const apiBase = window.location.origin + '/api/';
 
 export const api = (endpoint: string) => apiBase + endpoint;
 

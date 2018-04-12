@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 exports.APP_DIR = path.resolve(__dirname, '../src/client');
@@ -34,8 +35,11 @@ exports.commonConfig = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template:  this.APP_DIR + '/index.handlebars',
-      filename: 'index.handlebars',
-    })
+      template:  this.APP_DIR + '/index.html',
+      filename: 'index.html',
+    }),
+    new CopyWebpackPlugin([
+      { from: this.APP_DIR + '/public' }
+    ])
   ]
 };

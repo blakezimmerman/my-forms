@@ -13,6 +13,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(cookieParser(secret));
 
+// Force https for all requests
+if (ENV !== 'dev' && host !== `http://localhost:${port}/`) {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect('https://' + req.host + req.url);
+    } else {
+      next();
+    }
+  });
+}
+
 // Add routes
 import routes from './routes';
 routes(app);
