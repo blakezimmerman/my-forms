@@ -9,13 +9,12 @@ const Checkbox = styled.input.attrs({
   type: 'checkbox',
   color: ({color, theme}: Props) => color || theme!.colors.primary
 })`
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
 
   width: 16px;
   height: 16px;
 
+  background-color: white;
   border: 2px solid rgba(0,0,0,0.2);
   transition: 0.2s all linear;
   outline: none;

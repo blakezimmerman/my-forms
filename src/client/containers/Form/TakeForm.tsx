@@ -11,7 +11,6 @@ import NotificationBanner from 'client/components/NotificationBanner';
 
 const SuccessBanner = NotificationBanner.extend`
   background-color: ${({theme}) => theme.colors.success};
-  position: -webkit-sticky;
   position: sticky;
   top: 4.75rem;
   z-index: 1;

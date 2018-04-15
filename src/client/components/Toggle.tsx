@@ -19,7 +19,6 @@ const Slider = styled.span`
   right: 0;
   bottom: 0;
   background-color: ${(props) => props.theme.colors.disabledBG};
-  -webkit-transition: .4s;
   transition: .4s;
   border-radius: 32px;
 
@@ -31,7 +30,6 @@ const Slider = styled.span`
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
   }

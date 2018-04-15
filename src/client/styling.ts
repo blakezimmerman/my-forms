@@ -10,6 +10,7 @@ interface Theme {
       primary: string;
       primaryDark: string
       success: string;
+      warning: string;
       failure: string;
       disabled: string;
       disabledBG: string;
@@ -25,6 +26,7 @@ const theme: Theme = {
     primary: '#0046b7',
     primaryDark: changeLuminance('#0046b7', -0.15),
     success: '#4CAE4C',
+    warning: '#E67300',
     failure: '#CC0000',
     disabled: '#555',
     disabledBG: '#aaa'

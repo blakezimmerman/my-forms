@@ -1,14 +1,25 @@
 import * as React from 'react';
 
 interface Props {
+  delay: number;
   children: JSX.Element | JSX.Element[] | undefined;
 }
 
 class DelayRender extends React.Component<Props> {
   state = { shouldRender: false };
+  timer: number = 0;
 
   componentDidMount() {
-    setTimeout(() => this.setState({shouldRender: true}), 400);
+    this.timer = window.setTimeout(
+      () => this.setState({ shouldRender: true }),
+      this.props.delay
+    );
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
   }
 
   render() {

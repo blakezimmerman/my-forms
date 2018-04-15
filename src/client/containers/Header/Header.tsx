@@ -22,7 +22,6 @@ const Banner = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;

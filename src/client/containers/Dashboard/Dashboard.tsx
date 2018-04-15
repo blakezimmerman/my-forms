@@ -10,19 +10,17 @@ import { routeActions } from 'client/router';
 import { GET_FORMS_REQUEST, DELETE_FORM_REQUEST } from './reducer';
 import { CREATE_REQUEST } from '../Create';
 import FadeIn from 'client/components/FadeIn';
-import DelayRender from 'client/components/DelayRender';
 import Badge from 'client/components/Badge';
 import NotificationBanner from 'client/components/NotificationBanner';
 import PageWrapper from 'client/components/PageWrapper';
 import { H2 } from 'client/components/Headers';
 import { Button, InvertedButton } from 'client/components/Buttons';
 import Card from 'client/components/Card';
-import Loading from 'client/components/Loading';
+import { Loading } from 'client/components/Loaders';
 import Error from 'client/components/Error';
 
 const SuccessBanner = NotificationBanner.extend`
   background-color: ${({theme}) => theme.colors.success};
-  position: -webkit-sticky;
   position: sticky;
   top: 4.75rem;
   z-index: 1;
@@ -103,9 +101,7 @@ class Dashboard extends React.Component<Props> {
           </ButtonsWrapper>
           <H2>Your Forms</H2>
           {this.props.formsReq.error && <Error>An Error has Occurred</Error>}
-          <DelayRender>
-            <>{this.props.formsReq.pending && <Loading/>}</>
-          </DelayRender>
+          {this.props.formsReq.pending && <Loading/>}
           <FadeIn>
             {this.props.formsReq.result &&
               this.props.formsReq.result.map((form) =>

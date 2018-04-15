@@ -14,7 +14,14 @@ module.exports = webpackMerge(commonConfig, {
 
   output: {
     path: BUILD_DIR,
-    filename: 'app.[hash].bundle.js'
+    filename: '[name].[chunkhash].bundle.js'
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    },
+    runtimeChunk: true
   },
 
   plugins: [

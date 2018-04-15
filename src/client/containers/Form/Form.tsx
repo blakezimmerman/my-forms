@@ -10,8 +10,7 @@ import {
 } from './reducer';
 import ViewForm from './ViewForm';
 import TakeForm from './TakeForm';
-import DelayRender from 'client/components/DelayRender';
-import Loading from 'client/components/Loading';
+import { Loading } from 'client/components/Loaders';
 import Error from 'client/components/Error';
 
 interface Props {
@@ -56,9 +55,7 @@ class DisplayForm extends React.Component<Props> {
     const { formReq, responses, submitReq, initResponses } = this.props;
     return (
       <>
-        <DelayRender>
-          <>{formReq.pending && <Loading/>}</>
-        </DelayRender>
+        {formReq.pending && <Loading/>}
         {formReq.error && <Error>Unable to Load Form</Error>}
         {formReq.result && (
           formReq.result.createdBy === this.props.curUser
