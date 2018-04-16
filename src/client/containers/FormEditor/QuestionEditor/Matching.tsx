@@ -29,7 +29,7 @@ interface Props {
   setAnswer: (answer: Response) => Action<any>;
 }
 
-const CreateMatching = (props: Props) => (
+const MatchingEditor = (props: Props) => (
   <>
     <BadgeWrapper>
       <Badge>Matching Question</Badge>
@@ -66,4 +66,4 @@ const CreateMatching = (props: Props) => (
   </>
 );
 
-export default CreateMatching;
+export default MatchingEditor;

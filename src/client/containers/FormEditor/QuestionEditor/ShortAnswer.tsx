@@ -14,7 +14,7 @@ interface Props {
   setCharLimit: (limit: number) => Action<any>;
 }
 
-const CreateShortAnswer = (props: Props) => {
+const ShortAnswerEditor = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     props.setCharLimit(parseInt(event.currentTarget.value, 10));
 
@@ -33,4 +33,4 @@ const CreateShortAnswer = (props: Props) => {
   );
 };
 
-export default CreateShortAnswer;
+export default ShortAnswerEditor;

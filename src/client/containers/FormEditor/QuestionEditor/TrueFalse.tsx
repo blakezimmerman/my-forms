@@ -11,7 +11,7 @@ interface Props {
   setAnswer: (answer: Response) => Action<any>;
 }
 
-const CreateTrueFalse = (props: Props) => {
+const TrueFalseEditor = (props: Props) => {
   return (
     <>
       <BadgeWrapper>
@@ -27,4 +27,4 @@ const CreateTrueFalse = (props: Props) => {
   );
 };
 
-export default CreateTrueFalse;
+export default TrueFalseEditor;

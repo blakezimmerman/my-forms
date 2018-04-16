@@ -16,11 +16,11 @@ import { BadgeWrapper } from './Shared';
 import Badge from 'client/components/Badge';
 import Card from 'client/components/Card';
 import TextArea from 'client/components/TextArea';
-import CreateTrueFalse from './TrueFalse';
-import CreateMultipleChoice from './MultipleChoice';
-import CreateShortAnswer from './ShortAnswer';
-import CreateMatching from './Matching';
-import CreateRanking from './Ranking';
+import TrueFalseEditor from './TrueFalse';
+import MultipleChoiceEditor from './MultipleChoice';
+import ShortAnswerEditor from './ShortAnswer';
+import MatchingEditor from './Matching';
+import RankingEditor from './Ranking';
 
 const QuestionCard = Card.extend`
   margin: 1rem 0;
@@ -49,7 +49,7 @@ export interface Props {
   SET_CHAR_LIMIT: ActionDispatcher<{i: number, charLimit: number}>;
 }
 
-const CreateQuestion = (props: Props) => {
+const QuestionEditor = (props: Props) => {
   const handlePrompt = (event: React.SyntheticEvent<HTMLTextAreaElement>) =>
     props.UPDATE_PROMPT({i: props.index, prompt: event.currentTarget.value});
 
@@ -79,20 +79,20 @@ const CreateQuestion = (props: Props) => {
       {
         match<QuestionType, JSX.Element>(props.question.type)
           .on(is(QuestionType.TrueFalse), (type) =>
-            <CreateTrueFalse
+            <TrueFalseEditor
               type={props.type}
               question={props.question as TrueFalse}
               setAnswer={setAnswer}
             />)
           .on(is(QuestionType.MultipleChoice), (type) =>
-            <CreateMultipleChoice
+            <MultipleChoiceEditor
               type={props.type}
               question={props.question as MultipleChoice}
               setOptions={setOptions}
               setAnswer={setAnswer}
             />)
           .on(is(QuestionType.ShortAnswer), (type) =>
-            <CreateShortAnswer
+            <ShortAnswerEditor
               question={props.question as ShortAnswer}
               setCharLimit={setCharLimit}
             />)
@@ -101,7 +101,7 @@ const CreateQuestion = (props: Props) => {
               <Badge>Essay Answer Question</Badge>
             </BadgeWrapper>)
           .on(is(QuestionType.Matching), (type) =>
-            <CreateMatching
+            <MatchingEditor
               type={props.type}
               question={props.question as Matching}
               setSetA={setSetA}
@@ -109,14 +109,14 @@ const CreateQuestion = (props: Props) => {
               setAnswer={setAnswer}
             />)
           .on(is(QuestionType.Ranking), (type) =>
-            <CreateRanking
+            <RankingEditor
               type={props.type}
               question={props.question as Ranking}
               setOptions={setOptions}
               setAnswer={setAnswer}
             />)
           .otherwise((type) =>
-            <CreateTrueFalse
+            <TrueFalseEditor
               type={props.type}
               question={props.question as TrueFalse}
               setAnswer={setAnswer}
@@ -136,4 +136,4 @@ const mapDispatch = {
   SET_CHAR_LIMIT
 };
 
-export default connect(null, mapDispatch)(CreateQuestion);
+export default connect(null, mapDispatch)(QuestionEditor);

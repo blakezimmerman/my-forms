@@ -14,7 +14,7 @@ interface Props {
   setAnswer: (answer: Response) => Action<any>;
 }
 
-const CreateMultipleChoice = (props: Props) => (
+const MultipleChoiceEditor = (props: Props) => (
   <>
     <BadgeWrapper>
       <Badge>Multiple Choice Question</Badge>
@@ -39,4 +39,4 @@ const CreateMultipleChoice = (props: Props) => (
   </>
 );
 
-export default CreateMultipleChoice;
+export default MultipleChoiceEditor;

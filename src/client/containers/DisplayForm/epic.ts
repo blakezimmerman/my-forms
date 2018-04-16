@@ -23,7 +23,7 @@ const responsesSubmitPendingEpic: Epic = (actions$) =>
     )
   );
 
-export const formEpic = combineEpics(
+export const displayFormEpic = combineEpics(
   formRequestPendingEpic,
   responsesSubmitPendingEpic
 );

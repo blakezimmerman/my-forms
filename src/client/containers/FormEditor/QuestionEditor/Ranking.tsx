@@ -14,7 +14,7 @@ interface Props {
   setAnswer: (answer: Response) => Action<any>;
 }
 
-const RankingMatching = (props: Props) => {
+const RankingEditor = (props: Props) => {
   const updateRanking = (value: string[]) => {
     props.setOptions(value);
     props.setAnswer(value);
@@ -45,4 +45,4 @@ const RankingMatching = (props: Props) => {
   );
 };
 
-export default RankingMatching;
+export default RankingEditor;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormType } from 'models/forms';
-import { DisplayFormProps } from './Form';
+import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
 import FadeIn from 'client/components/FadeIn';
 import BasicHeading from 'client/components/BasicHeading';

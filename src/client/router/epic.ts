@@ -7,7 +7,7 @@ import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 import { mapTo } from 'rxjs/operators';
 import { getAuthenticated } from 'client/containers/Login';
-import { SET_TYPE } from 'client/containers/Create';
+import { SET_TYPE } from 'client/containers/FormEditor';
 import { FormType } from 'models/forms';
 
 const authEpic: Epic<State> = (actions$, store) =>
@@ -17,7 +17,7 @@ const authEpic: Epic<State> = (actions$, store) =>
   );
 
 const noAuthEpic: Epic<State> = (actions$, store) =>
-  actions$.ofType('DASHBOARD', 'CREATE_SURVEY', 'CREATE_FORM').pipe(
+  actions$.ofType('DASHBOARD', 'CREATE_SURVEY', 'CREATE_FORM', 'EDIT_FORM').pipe(
     delay(300),
     filter(() => !getAuthenticated(store.getState())),
     mapTo(routeActions.LOGIN())

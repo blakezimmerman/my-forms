@@ -72,6 +72,7 @@ interface Props {
   requestForms: ActionDispatcher<void>;
   createReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
   displayForm: (id: string) => () => Action<{id: string}>;
+  editForm: (id: string) => () => Action<{id: string}>;
   deleteForm: (id: string) => () => Action<string>;
 }
 
@@ -115,7 +116,7 @@ class Dashboard extends React.Component<Props> {
                   </FirstRow>
                   <SecondRow>
                     <ActionButton onClick={this.props.displayForm(form._id)}>View</ActionButton>
-                    <ActionButton>Edit</ActionButton>
+                    <ActionButton onClick={this.props.editForm(form._id)}>Edit</ActionButton>
                     <ActionButton onClick={this.props.deleteForm(form._id)}>Delete</ActionButton>
                   </SecondRow>
                 </FormCard>
@@ -131,7 +132,7 @@ class Dashboard extends React.Component<Props> {
 const mapState = (state: State) => ({
   userName: getUserName(state),
   formsReq: state.dashboard.formsRequest,
-  createReq: state.create.createRequest
+  createReq: state.create
 });
 
 const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
@@ -140,6 +141,7 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   requestForms: () => dispatch(GET_FORMS_REQUEST.PENDING()),
   createReset: (event: React.MouseEvent<HTMLElement>) => dispatch(CREATE_REQUEST.RESET()),
   displayForm: (id: string) => () => dispatch(routeActions.DISPLAY_FORM({id})),
+  editForm: (id: string) => () => dispatch(routeActions.EDIT_FORM({id})),
   deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 

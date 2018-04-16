@@ -4,12 +4,11 @@ import { State } from 'client/store';
 import { LocationState } from 'redux-first-router';
 import { ActionDispatcher } from 'client/helpers/redux';
 import { Login, Register, REFRESH_SESSION, getUserName, getAuthenticated } from '../Login';
-import { FormType } from 'models/forms';
 import Header from '../Header';
 import Home from '../Home';
 import Dashboard from '../Dashboard';
 import CreateForm from '../Create';
-import DisplayForm from '../Form';
+import DisplayForm from '../DisplayForm';
 
 interface Props {
   location: LocationState;
@@ -37,9 +36,10 @@ class App extends React.Component<Props> {
         case ('LOGIN'): return <Login/>;
         case ('REGISTER'): return <Register/>;
         case ('DASHBOARD'): return authenticated && <Dashboard/>;
-        case ('CREATE_SURVEY'): return authenticated && <CreateForm type={FormType.Survey}/>;
-        case ('CREATE_TEST'): return authenticated && <CreateForm type={FormType.Test}/>;
+        case ('CREATE_SURVEY'): return authenticated && <CreateForm/>;
+        case ('CREATE_TEST'): return authenticated && <CreateForm/>;
         case ('DISPLAY_FORM'): return <DisplayForm id={(location as any).payload.id}/>;
+        case ('EDIT_FORM'): return null;
         default: return <Home/>;
       }
     };

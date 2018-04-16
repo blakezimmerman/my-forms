@@ -85,10 +85,10 @@ class DisplayForm extends React.Component<Props> {
 }
 
 const mapState = (state: State) => ({
-  formReq: state.form.formRequest,
-  responses: state.form.responses,
+  formReq: state.displayForm.formRequest,
+  responses: state.displayForm.responses,
   curUser: state.login.loginRequest.result,
-  submitReq: state.form.submitRequest
+  submitReq: state.displayForm.submitRequest
 });
 
 const mapDispatch = {

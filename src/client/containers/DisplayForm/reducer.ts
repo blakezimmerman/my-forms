@@ -14,7 +14,7 @@ export const SET_RESPONSE = actionCreator<{i: number, response: Response}>('SET_
 export const SUBMIT_RESPONSES_REQUEST =
   asyncActionCreator<{id: string, responses: Response[]}, InsertOneWriteOpResult>('SUBMIT_RESPONSES_REQUEST');
 
-export interface FormState {
+export interface DisplayFormState {
   formRequest: AsyncReducerState<Form>;
   responses: Response[];
   submitRequest: AsyncReducerState<InsertOneWriteOpResult>;
@@ -26,7 +26,7 @@ const responses = (state: Response[] = [], curAction: Action<any>) =>
     .on(isType(SET_RESPONSE), (action) => R.update(action.payload.i, action.payload.response, state))
     .otherwise((action) => state);
 
-export const formReducer = combineReducers({
+export const displayFormReducer = combineReducers({
   formRequest: asyncReducer(GET_FORM_REQUEST),
   responses,
   submitRequest: asyncReducer(SUBMIT_RESPONSES_REQUEST)

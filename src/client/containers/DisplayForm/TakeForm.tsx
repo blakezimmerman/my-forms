@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DisplayFormProps } from './Form';
+import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
 import { areValidResponses } from 'client/helpers/validation';
 import FadeIn from 'client/components/FadeIn';
