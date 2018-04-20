@@ -18,10 +18,6 @@ interface Props {
 }
 
 class App extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   componentDidMount() {
     if (!this.props.authenticated) {
       return this.props.refreshSession();

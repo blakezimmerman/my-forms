@@ -29,13 +29,10 @@ interface LocalState {
 }
 
 class AccountForm extends React.Component<Props, LocalState> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      userName: '',
-      password: ''
-    };
-  }
+  state = {
+    userName: '',
+    password: ''
+  };
 
   isDisabled = () => !(this.state.userName && this.state.password);
 

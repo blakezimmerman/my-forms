@@ -86,12 +86,9 @@ interface LocalState {
 }
 
 class FormEditor extends React.Component<Props, LocalState> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      select: QuestionType.TrueFalse
-    };
-  }
+  state = {
+    select: QuestionType.TrueFalse
+  };
 
   handleSelect = (event: React.FormEvent<HTMLSelectElement>) => {
     this.setState({select: event.currentTarget.value as QuestionType});

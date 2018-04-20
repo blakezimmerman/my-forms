@@ -27,12 +27,9 @@ interface LocalState {
 }
 
 class CreateList extends React.Component<Props, LocalState> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      input: ''
-    };
-  }
+  state = {
+    input: ''
+  };
 
   updateState = (event: React.SyntheticEvent<HTMLInputElement>) =>
     this.setState({input: event.currentTarget.value})
