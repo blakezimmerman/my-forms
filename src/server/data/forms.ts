@@ -24,17 +24,12 @@ export const getForms = (createdBy: string): Promise<Form[]> =>
     .catch((e) => Promise.reject(e));
 
 /* Update */
-export const updateForm = (id: string, questions: Question[]) =>
+export const updateForm = (id: string, published: boolean, name: string, questions: Question[]) =>
   formsCollection()
     .then((collection) => collection.findOne({_id: id})
     .then((form: Form) => !form.submissions.length
-      ? collection.update({_id: id}, {$set: {questions}})
+      ? collection.update({_id: id}, {$set: {published, name, questions}})
       : Promise.reject(new Error('Cannot update form after submissions have been received.'))))
-    .catch((e) => Promise.reject(e));
-
-export const setPublished = (id: string, state: boolean) =>
-  formsCollection()
-    .then((collection) => collection.update({_id: id}, {$set: {published: state}}))
     .catch((e) => Promise.reject(e));
 
 export const gradeSubmission = (id: string, index: number, submission: Submission) =>

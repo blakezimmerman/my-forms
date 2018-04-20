@@ -4,11 +4,14 @@ import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Form } from 'models/forms';
 import { Action, ActionDispatcher, AsyncReducerState} from 'client/helpers/redux';
-import { InsertOneWriteOpResult } from 'mongodb';
+import { InsertOneWriteOpResult, WriteOpResult } from 'mongodb';
 import { getUserName } from '../Login';
 import { routeActions } from 'client/router';
 import { GET_FORMS_REQUEST, DELETE_FORM_REQUEST } from './reducer';
+import { SET_FORM } from '../FormEditor';
 import { CREATE_REQUEST } from '../Create';
+import { GET_EDIT_FORM_REQUEST, EDIT_REQUEST } from '../Edit';
+import { GET_FORM_REQUEST } from '../DisplayForm';
 import FadeIn from 'client/components/FadeIn';
 import Badge from 'client/components/Badge';
 import NotificationBanner from 'client/components/NotificationBanner';
@@ -67,12 +70,14 @@ interface Props {
   userName: string;
   formsReq: AsyncReducerState<Form[]>;
   createReq: AsyncReducerState<InsertOneWriteOpResult>;
+  editReq: AsyncReducerState<WriteOpResult>;
   toCreateSurvey: () => Action<void>;
   toCreateTest: () => Action<void>;
   requestForms: ActionDispatcher<void>;
   createReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
-  displayForm: (id: string) => () => Action<{id: string}>;
-  editForm: (id: string) => () => Action<{id: string}>;
+  editReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
+  displayForm: (form: Form) => () => void;
+  editForm: (form: Form) => () => void;
   deleteForm: (id: string) => () => Action<string>;
 }
 
@@ -88,6 +93,12 @@ class Dashboard extends React.Component<Props> {
           <SuccessBanner>
             Form Created Successfully
             <i className='material-icons' onClick={this.props.createReset}>close</i>
+          </SuccessBanner>
+        }
+        {this.props.editReq.result &&
+          <SuccessBanner>
+            Form Edited Successfully
+            <i className='material-icons' onClick={this.props.editReset}>close</i>
           </SuccessBanner>
         }
         <PageWrapper>
@@ -115,8 +126,8 @@ class Dashboard extends React.Component<Props> {
                     }
                   </FirstRow>
                   <SecondRow>
-                    <ActionButton onClick={this.props.displayForm(form._id)}>View</ActionButton>
-                    <ActionButton onClick={this.props.editForm(form._id)}>Edit</ActionButton>
+                    <ActionButton onClick={this.props.displayForm(form)}>View</ActionButton>
+                    <ActionButton onClick={this.props.editForm(form)}>Edit</ActionButton>
                     <ActionButton onClick={this.props.deleteForm(form._id)}>Delete</ActionButton>
                   </SecondRow>
                 </FormCard>
@@ -132,7 +143,8 @@ class Dashboard extends React.Component<Props> {
 const mapState = (state: State) => ({
   userName: getUserName(state),
   formsReq: state.dashboard.formsRequest,
-  createReq: state.create
+  createReq: state.create,
+  editReq: state.edit.editRequest
 });
 
 const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
@@ -140,8 +152,16 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   toCreateTest: () => dispatch(routeActions.CREATE_TEST()),
   requestForms: () => dispatch(GET_FORMS_REQUEST.PENDING()),
   createReset: (event: React.MouseEvent<HTMLElement>) => dispatch(CREATE_REQUEST.RESET()),
-  displayForm: (id: string) => () => dispatch(routeActions.DISPLAY_FORM({id})),
-  editForm: (id: string) => () => dispatch(routeActions.EDIT_FORM({id})),
+  editReset: (event: React.MouseEvent<HTMLElement>) => dispatch(EDIT_REQUEST.RESET()),
+  displayForm: (form: Form) => () => {
+    dispatch(GET_FORM_REQUEST.SUCCESS(form));
+    dispatch(routeActions.DISPLAY_FORM({id: form._id}));
+  },
+  editForm: (form: Form) => () => {
+    dispatch(GET_EDIT_FORM_REQUEST.RESET());
+    dispatch(SET_FORM(form));
+    dispatch(routeActions.EDIT_FORM({id: form._id}));
+  },
   deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 

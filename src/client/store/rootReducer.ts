@@ -7,6 +7,7 @@ import { loginReducer as login, LoginState } from 'client/containers/Login';
 import { dashboardReducer as dashboard, DashboardState } from 'client/containers/Dashboard';
 import { formEditorReducer as formEditor } from 'client/containers/FormEditor';
 import { createReducer as create } from 'client/containers/Create';
+import { editReducer as edit, EditState } from 'client/containers/Edit';
 import { displayFormReducer as displayForm, DisplayFormState } from 'client/containers/DisplayForm';
 
 export interface State {
@@ -15,6 +16,7 @@ export interface State {
   dashboard: DashboardState;
   formEditor: NewForm;
   create: AsyncReducerState<InsertOneWriteOpResult>;
+  edit: EditState;
   displayForm: DisplayFormState;
 }
 
@@ -24,6 +26,7 @@ const rootReducer = combineReducers({
   dashboard,
   formEditor,
   create,
+  edit,
   displayForm
 });
 

@@ -5,7 +5,7 @@ import { secret } from '../app';
 import { userNameinCookies, checkMatchFound } from './helpers';
 import {
   addForm, getForm, getForms, updateForm,
-  setPublished, addSubmission, deleteForm, gradeSubmission
+  addSubmission, deleteForm, gradeSubmission
 } from '../data/forms';
 
 const router = express.Router();
@@ -73,18 +73,9 @@ router.get('/creator/:createdBy', (req, res) => // Get Forms by creator
 );
 
 /* Update */
-router.put('/:id', (req, res) => // Update questions of form
+router.put('/:id', (req, res) => // Update form with new content
   checkPermission(req, req.params.id)
-    .then((userName) => updateForm(req.params.id, req.body)
-      .then((result) => checkMatchFound(result, res))
-      .catch((e) => res.status(500).json('Unable to update form. Please try again later.'))
-    )
-    .catch((e: Error) => res.status(403).json(e.message))
-);
-
-router.put('/:id/published', (req, res) => // Update published status of form
-  checkPermission(req, req.params.id)
-    .then((userName) => setPublished(req.params.id, req.body)
+    .then((userName) => updateForm(req.params.id, req.body.published, req.body.name, req.body.questions)
       .then((result) => checkMatchFound(result, res))
       .catch((e) => res.status(500).json('Unable to update form. Please try again later.'))
     )

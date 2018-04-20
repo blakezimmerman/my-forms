@@ -37,8 +37,10 @@ export interface DisplayFormProps {
 }
 
 class DisplayForm extends React.Component<Props> {
-  componentWillMount() {
-    this.props.getForm(this.props.id);
+  componentDidMount() {
+    if (!this.props.formReq.result || this.props.formReq.result._id !== this.props.id) {
+      this.props.getForm(this.props.id);
+    }
   }
 
   setResponse = (i: number) => (response: Response) => this.props.setResponse({i, response});

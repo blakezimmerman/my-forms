@@ -8,6 +8,7 @@ import Header from '../Header';
 import Home from '../Home';
 import Dashboard from '../Dashboard';
 import CreateForm from '../Create';
+import EditForm from '../Edit';
 import DisplayForm from '../DisplayForm';
 
 interface Props {
@@ -38,8 +39,8 @@ class App extends React.Component<Props> {
         case ('DASHBOARD'): return authenticated && <Dashboard/>;
         case ('CREATE_SURVEY'): return authenticated && <CreateForm/>;
         case ('CREATE_TEST'): return authenticated && <CreateForm/>;
+        case ('EDIT_FORM'): return authenticated && <EditForm/>;
         case ('DISPLAY_FORM'): return <DisplayForm id={(location as any).payload.id}/>;
-        case ('EDIT_FORM'): return null;
         default: return <Home/>;
       }
     };
