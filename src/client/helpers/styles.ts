@@ -1,3 +1,12 @@
+import { css } from 'client/styling';
+
+export const truncate = (width: string) => css`
+  width: ${width};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const hexToRgb = (hex: string) => ({
   r: parseInt(hex.substring(0, 2), 16), // hexToR,
   g: parseInt(hex.substring(2, 4), 16), // hexToG

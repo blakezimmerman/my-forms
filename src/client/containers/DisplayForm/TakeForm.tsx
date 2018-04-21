@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { media } from 'client/styling';
 import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
 import { areValidResponses } from 'client/helpers/validation';
@@ -14,6 +15,10 @@ const SuccessBanner = NotificationBanner.extend`
   position: sticky;
   top: 4.75rem;
   z-index: 1;
+
+  ${media.mobile`
+    top: 3.5rem;
+  `}
 `;
 
 const ErrorBanner = SuccessBanner.extend`

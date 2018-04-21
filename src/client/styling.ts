@@ -8,6 +8,7 @@ interface Theme {
   };
   colors: {
       primary: string;
+      primaryLight: string;
       primaryDark: string
       success: string;
       warning: string;
@@ -23,8 +24,9 @@ const theme: Theme = {
     body: 'Lato'
   },
   colors: {
-    primary: '#0046b7',
-    primaryDark: changeLuminance('#0046b7', -0.15),
+    primary: '#0046B7',
+    primaryLight: changeLuminance('#0046B7', 0.2),
+    primaryDark: changeLuminance('#0046B7', -0.2),
     success: '#4CAE4C',
     warning: '#E67300',
     failure: '#CC0000',

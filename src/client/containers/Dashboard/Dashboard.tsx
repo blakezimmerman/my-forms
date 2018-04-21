@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { media, withTheme, Theme } from 'client/styling';
+import styled, { media } from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Form } from 'models/forms';
@@ -17,10 +17,10 @@ import Badge from 'client/components/Badge';
 import NotificationBanner from 'client/components/NotificationBanner';
 import PageWrapper from 'client/components/PageWrapper';
 import { H2 } from 'client/components/Headers';
-import { Button, InvertedButton } from 'client/components/Buttons';
-import Card from 'client/components/Card';
+import { Button } from 'client/components/Buttons';
 import { Loading } from 'client/components/Loaders';
 import Error from 'client/components/Error';
+import FormCard from './FormCard';
 
 const SuccessBanner = NotificationBanner.extend`
   background-color: ${({theme}) => theme.colors.success};
@@ -34,39 +34,25 @@ const SuccessBanner = NotificationBanner.extend`
 `;
 
 const ButtonsWrapper = styled.div`
-  button { margin: 0.5rem; }
-`;
-
-const FormCard = Card.extend`
-  margin: 1rem;
-  padding: 1rem;
-`;
-
-const FirstRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const FormName = styled.div`
-  font-size: 1.2rem;
-`;
-
-const SecondRow = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
-const ActionButton = InvertedButton.extend`
-  display: inline-block;
-  margin: 0.6rem 1rem 0;
-  font-size: 1rem;
-  padding: 0.25rem 0.6rem;
+const SurveyButton = Button.extend`
+  background-color: ${({ theme}) => theme.colors.primaryLight};
+  width: 50%;
+  margin: 0 0 0.7rem 1rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px 0 0 4px;
+`;
+
+const TestButton = SurveyButton.extend`
+  background-color: ${({ theme}) => theme.colors.primaryDark};
+  margin: 0 1rem 0.7rem 0;
+  border-radius: 0 4px 4px 0;
 `;
 
 interface Props {
-  theme: Theme;
   userName: string;
   formsReq: AsyncReducerState<Form[]>;
   createReq: AsyncReducerState<InsertOneWriteOpResult>;
@@ -104,12 +90,12 @@ class Dashboard extends React.Component<Props> {
         <PageWrapper>
           <H2>Welcome, {this.props.userName}</H2>
           <ButtonsWrapper>
-            <Button onClick={this.props.toCreateSurvey}>
+            <SurveyButton onClick={this.props.toCreateSurvey}>
               Create Survey
-            </Button>
-            <Button onClick={this.props.toCreateTest}>
+            </SurveyButton>
+            <TestButton onClick={this.props.toCreateTest}>
               Create Test
-            </Button>
+            </TestButton>
           </ButtonsWrapper>
           <H2>Your Forms</H2>
           {this.props.formsReq.error && <Error>An Error has Occurred</Error>}
@@ -117,20 +103,13 @@ class Dashboard extends React.Component<Props> {
           <FadeIn>
             {this.props.formsReq.result &&
               this.props.formsReq.result.map((form) =>
-                <FormCard key={form._id}>
-                  <FirstRow>
-                    <FormName>{form.name}</FormName>
-                    {form.published
-                      ? <Badge color={this.props.theme.colors.primary}>Published {form.type}</Badge>
-                      : <Badge color={this.props.theme.colors.failure}>Unpublished {form.type}</Badge>
-                    }
-                  </FirstRow>
-                  <SecondRow>
-                    <ActionButton onClick={this.props.displayForm(form)}>View</ActionButton>
-                    <ActionButton onClick={this.props.editForm(form)}>Edit</ActionButton>
-                    <ActionButton onClick={this.props.deleteForm(form._id)}>Delete</ActionButton>
-                  </SecondRow>
-                </FormCard>
+                <FormCard
+                  key={form._id}
+                  form={form}
+                  displayForm={this.props.displayForm}
+                  editForm={this.props.editForm}
+                  deleteForm={this.props.deleteForm}
+                />
               )
             }
           </FadeIn>
@@ -165,4 +144,4 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   deleteForm: (id: string) => () => dispatch(DELETE_FORM_REQUEST.PENDING(id))
 });
 
-export default withTheme(connect(mapState, mapDispatch)(Dashboard));
+export default connect(mapState, mapDispatch)(Dashboard);

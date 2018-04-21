@@ -7,9 +7,9 @@ export const addForm = (form: Form) =>
     .then((collection) => collection.insertOne(form))
     .catch((e) => Promise.reject(e));
 
-export const addSubmission = (id: string, submision: Submission) =>
+export const addSubmission = (id: string, submission: Submission) =>
   formsCollection()
-    .then((collection) => collection.update({_id: id}, {$push: {submisions: submision}}))
+    .then((collection) => collection.update({_id: id}, {$push: {submissions: submission}}))
     .catch((e) => Promise.reject(e));
 
 /* Read */
