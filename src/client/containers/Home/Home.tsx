@@ -6,7 +6,7 @@ import { Action } from 'client/helpers/redux';
 import { getAuthenticated } from '../Login';
 import { routeActions } from 'client/router';
 import { Button } from 'client/components/Buttons';
-import Examples from './Examples';
+import Features from './Features';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const Home = (props: Props) => (
           </GetStartedButton>
       }
     </UpperSection>
-    <Examples/>
+    <Features/>
   </HomeWrapper>
 );
 

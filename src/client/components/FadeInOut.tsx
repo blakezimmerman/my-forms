@@ -36,7 +36,7 @@ const FadeInOutOut = ({ children }: Props) => {
         {(interpolatedStyles) =>
           <>
             {interpolatedStyles.map(({ key, data, style }) => (
-              <div key={key} style={{ opacity: style.opacity }}>
+              <div key={key} style={{ opacity: style.opacity, width: '100%' }}>
                 {data}
               </div>
             ))}
