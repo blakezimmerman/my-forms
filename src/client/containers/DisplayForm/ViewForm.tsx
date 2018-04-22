@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'client/styling';
 import { FormType } from 'models/forms';
 import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
@@ -14,11 +13,11 @@ export const FormWrapper = PageWrapper.extend`
   h2 { margin-bottom: 0.5rem; }
 `;
 
-export const CopyButtonWrapper = styled.div`
+export const FormHeader = BasicHeading.extend`
   display: flex;
-  justify-content: center;
-  width: 100%;
-  margin: 0.5rem 0 0;
+  align-items: center;
+  flex-direction: column;
+  button { margin: 0.5rem 0 0; }
 `;
 
 class ViewForm extends React.Component<DisplayFormProps> {
@@ -30,17 +29,13 @@ class ViewForm extends React.Component<DisplayFormProps> {
     const { form, responses, setResponse } = this.props;
     return (
       <>
-        <BasicHeading>
+        <FormHeader>
           This is what your form will look like to others
           {form.type === FormType.Test &&
             ' ...except without the answers shown'
           }.
-          <CopyButtonWrapper>
-            <CopyButton
-              text={`${window.location.origin}/forms/${this.props.form._id}`}
-            />
-          </CopyButtonWrapper>
-        </BasicHeading>
+          <CopyButton text={`${window.location.origin}/forms/${this.props.form._id}`}/>
+        </FormHeader>
         <FadeInOut>
           <FormWrapper>
             <H2>{form.name}</H2>
