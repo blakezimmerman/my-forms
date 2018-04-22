@@ -71,6 +71,7 @@
     "axios": "^0.18.0",
     "compression-webpack-plugin": "^1.1.11",
     "copy-node-modules": "^1.0.4",
+    "copy-to-clipboard": "^3.0.8",
     "copy-webpack-plugin": "^4.5.1",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
