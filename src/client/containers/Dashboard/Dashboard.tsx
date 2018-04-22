@@ -12,7 +12,7 @@ import { SET_FORM } from '../FormEditor';
 import { CREATE_REQUEST } from '../Create';
 import { GET_EDIT_FORM_REQUEST, EDIT_REQUEST } from '../Edit';
 import { GET_FORM_REQUEST } from '../DisplayForm';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import Badge from 'client/components/Badge';
 import NotificationBanner from 'client/components/NotificationBanner';
 import PageWrapper from 'client/components/PageWrapper';
@@ -100,7 +100,7 @@ class Dashboard extends React.Component<Props> {
           <H2>Your Forms</H2>
           {this.props.formsReq.error && <Error>An Error has Occurred</Error>}
           {this.props.formsReq.pending && <Loading/>}
-          <FadeIn>
+          <FadeInOut>
             {this.props.formsReq.result &&
               this.props.formsReq.result.map((form) =>
                 <FormCard
@@ -112,7 +112,7 @@ class Dashboard extends React.Component<Props> {
                 />
               )
             }
-          </FadeIn>
+          </FadeInOut>
         </PageWrapper>
       </>
     );

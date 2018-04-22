@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'client/styling';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import Card from 'client/components/Card';
 import { H2 } from 'client/components/Headers';
 
@@ -32,7 +32,7 @@ const ExampleCard = Card.extend`
 `;
 
 const Examples = () => (
-  <FadeIn>
+  <FadeInOut>
     <ExamplesWrapper>
       <ExampleHeader>With myForms you can easily...</ExampleHeader>
       <CardsWrapper>
@@ -44,7 +44,7 @@ const Examples = () => (
         </ExampleCard>
       </CardsWrapper>
     </ExamplesWrapper>
-  </FadeIn>
+  </FadeInOut>
 );
 
 export default Examples;

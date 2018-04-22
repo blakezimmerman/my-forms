@@ -4,7 +4,7 @@ import { Action } from 'client/helpers/redux';
 import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
 import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import Ranking from 'client/components/Ranking';
 
 interface Props {
@@ -33,13 +33,13 @@ const RankingEditor = (props: Props) => {
       {props.type === FormType.Test &&
        props.question.options &&
        !!props.question.options.length &&
-        <FadeIn>
+        <FadeInOut>
           <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
           <Ranking
             value={props.question.answer || props.question.options}
             onChange={props.setAnswer}
           />
-        </FadeIn>
+        </FadeInOut>
       }
     </>
   );

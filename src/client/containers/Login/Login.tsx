@@ -10,6 +10,7 @@ import Link from 'redux-first-router-link';
 import PageWrapper from 'client/components/PageWrapper';
 import AccountForm from './AccountForm';
 import { H2 } from 'client/components/Headers';
+import { Loading } from 'client/components/Loaders';
 
 export const LoginWrapper = PageWrapper.extend`
   align-items: center;
@@ -46,6 +47,7 @@ const Login = (props: Props) => {
         {'Not Registered? '}
         <Link to='/register'>Click here to make an account!</Link>
       </div>
+      {props.pending && <Loading/>}
     </LoginWrapper>
   );
 };

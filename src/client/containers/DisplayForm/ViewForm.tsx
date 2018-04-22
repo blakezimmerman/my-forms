@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormType } from 'models/forms';
 import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import BasicHeading from 'client/components/BasicHeading';
 import PageWrapper from 'client/components/PageWrapper';
 import { H2 } from 'client/components/Headers';
@@ -27,7 +27,7 @@ class ViewForm extends React.Component<DisplayFormProps> {
             ' ...except without the answers shown'
           }.
         </BasicHeading>
-        <FadeIn>
+        <FadeInOut>
           <FormWrapper>
             <H2>{form.name}</H2>
             {form.questions.map((question, i) =>
@@ -41,7 +41,7 @@ class ViewForm extends React.Component<DisplayFormProps> {
               />
             )}
           </FormWrapper>
-        </FadeIn>
+        </FadeInOut>
       </>
     );
   }

@@ -5,7 +5,7 @@ import { Action } from 'client/helpers/redux';
 import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
 import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import Matching from 'client/components/Matching';
 
 const ColumnWrapper = styled.div`
@@ -53,7 +53,7 @@ const MatchingEditor = (props: Props) => (
     {props.type === FormType.Test &&
      props.question.setA && !!props.question.setA.length &&
      props.question.setB && !!props.question.setB.length &&
-      <FadeIn>
+      <FadeInOut>
         <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
         <Matching
           setA={props.question.setA}
@@ -61,7 +61,7 @@ const MatchingEditor = (props: Props) => (
           value={props.question.answer || []}
           onChange={props.setAnswer}
         />
-      </FadeIn>
+      </FadeInOut>
     }
   </>
 );

@@ -4,7 +4,7 @@ import { Action } from 'client/helpers/redux';
 import { BadgeWrapper, OptionsPrompt, AnswerPrompt } from './Shared';
 import Badge from 'client/components/Badge';
 import CreateList from 'client/components/CreateList';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import MultipleChoice from 'client/components/MultipleChoice';
 
 interface Props {
@@ -27,14 +27,14 @@ const MultipleChoiceEditor = (props: Props) => (
     {props.type === FormType.Test &&
      props.question.options &&
      !!props.question.options.length &&
-      <FadeIn>
+      <FadeInOut>
         <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
         <MultipleChoice
           options={props.question.options}
           value={props.question.answer || []}
           onChange={props.setAnswer}
         />
-      </FadeIn>
+      </FadeInOut>
     }
   </>
 );

@@ -9,6 +9,7 @@ import { InsertOneWriteOpResult } from 'mongodb';
 import Link from 'redux-first-router-link';
 import { LoginWrapper, LoginHeader, Error } from './Login';
 import AccountForm from './AccountForm';
+import { Loading } from 'client/components/Loaders';
 
 interface Props {
   pending: boolean;
@@ -42,6 +43,7 @@ const Register = (props: Props) => {
         {'Already have an account? '}
         <Link to='/login'>Click here to log in!</Link>
       </div>
+      {props.pending && <Loading/>}
     </LoginWrapper>
   );
 };

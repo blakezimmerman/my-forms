@@ -7,7 +7,7 @@ import { NewForm, QuestionType } from 'models/forms';
 import { UPDATE_NAME, TOGGLE_PUBLISH, ADD_QUESTION } from './reducer';
 import { isValidNewForm } from 'client/helpers/validation';
 import { animateScroll } from 'react-scroll';
-import FadeIn from 'client/components/FadeIn';
+import SlideInOut from 'client/components/SlideInOut';
 import QuestionEditor from './QuestionEditor';
 import Toggle from 'client/components/Toggle';
 import PageWrapper from 'client/components/PageWrapper';
@@ -130,11 +130,16 @@ class FormEditor extends React.Component<Props, LocalState> {
             onChange={this.handleName}
             placeholder={`Enter ${this.props.form.type} Name...`}
           />
-          {this.props.form.questions.map((question, index) =>
-            <FadeIn key={question._id}>
-              <QuestionEditor type={this.props.form.type} question={question} index={index}/>
-            </FadeIn>
-          )}
+          <SlideInOut>
+            {this.props.form.questions.map((question, index) =>
+                <QuestionEditor
+                  key={question._id}
+                  type={this.props.form.type}
+                  question={question}
+                  index={index}
+                />
+            )}
+          </SlideInOut>
         </EditorWrapper>
         {this.props.submitReq.error &&
           <ErrorBanner>

@@ -3,7 +3,7 @@ import { media } from 'client/styling';
 import { DisplayFormProps } from './DisplayForm';
 import RenderQuestion from './RenderQuestion';
 import { areValidResponses } from 'client/helpers/validation';
-import FadeIn from 'client/components/FadeIn';
+import FadeInOut from 'client/components/FadeInOut';
 import { FormWrapper } from './ViewForm';
 import { H2 } from 'client/components/Headers';
 import BasicFooter from 'client/components/BasicFooter';
@@ -57,7 +57,7 @@ class TakeForm extends React.Component<DisplayFormProps> {
             <i className='material-icons' onClick={resetSubmit}>close</i>
           </ErrorBanner>
         }
-        <FadeIn>
+        <FadeInOut>
           <FormWrapper>
             <H2>{form.name}</H2>
             {form.questions.map((question, i) =>
@@ -71,7 +71,7 @@ class TakeForm extends React.Component<DisplayFormProps> {
               />
             )}
           </FormWrapper>
-        </FadeIn>
+        </FadeInOut>
         <BasicFooter>
           <FooterButton
             disabled={!areValidResponses(responsesWithTypes)}
