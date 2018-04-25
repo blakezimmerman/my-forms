@@ -24,7 +24,7 @@ export const DragItem = (props: DragProps) => {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      style={provided.draggableProps.style || undefined}
+      style={provided.draggableProps.style || undefined as any} // Workaround until the types are fixed
     >
       {props.children}
     </div>
