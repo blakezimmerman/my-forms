@@ -46,6 +46,7 @@ interface Props {
   theme: Theme;
   form: Form;
   displayForm: (form: Form) => () => void;
+  getResults: (form: Form) => () => void;
   editForm: (form: Form) => () => void;
   deleteForm: (id: string) => () => Action<string>;
 }
@@ -66,7 +67,7 @@ const FormCard = (props: Props) => (
     </Row>
     <Row>
       {props.form.submissions.length
-        ? <ActionButton>Results</ActionButton>
+        ? <ActionButton onClick={props.getResults(props.form)}>Results</ActionButton>
         : <ActionButton onClick={props.editForm(props.form)}>Edit</ActionButton>
       }
       {props.form.published

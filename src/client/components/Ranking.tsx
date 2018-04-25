@@ -42,7 +42,7 @@ const Ranking = (props: Props) => {
       <DropZone id={'ranking'} disabled={false}>
         <>
         {props.value.map((item, index) =>
-          <DragItem key={item} id={item} index={index}>
+          <DragItem key={item} id={item} index={index} usePortal={true}>
             <Item>{item}</Item>
           </DragItem>
         )}

@@ -10,6 +10,7 @@ import Dashboard from '../Dashboard';
 import CreateForm from '../Create';
 import EditForm from '../Edit';
 import DisplayForm from '../DisplayForm';
+import Results from '../Results';
 
 interface Props {
   location: LocationState;
@@ -37,6 +38,7 @@ class App extends React.Component<Props> {
         case ('CREATE_TEST'): return authenticated && <CreateForm/>;
         case ('EDIT_FORM'): return authenticated && <EditForm/>;
         case ('DISPLAY_FORM'): return <DisplayForm id={(location as any).payload.id}/>;
+        case ('RESULTS'): return authenticated && <Results id={(location as any).payload.id}/>;
         default: return <Home/>;
       }
     };

@@ -24,18 +24,20 @@ const MultipleChoiceEditor = (props: Props) => (
       list={props.question.options || []}
       onChange={props.setOptions}
     />
-    {props.type === FormType.Test &&
-     props.question.options &&
-     !!props.question.options.length &&
-      <FadeInOut>
-        <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
-        <MultipleChoice
-          options={props.question.options}
-          value={props.question.answer || []}
-          onChange={props.setAnswer}
-        />
-      </FadeInOut>
-    }
+    <FadeInOut>
+      {(props.type === FormType.Test &&
+        props.question.options &&
+        !!props.question.options.length
+       ) ? <>
+          <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
+          <MultipleChoice
+            options={props.question.options}
+            value={props.question.answer || []}
+            onChange={props.setAnswer}
+          />
+        </> : null
+      }
+    </FadeInOut>
   </>
 );
 

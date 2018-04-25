@@ -34,7 +34,7 @@ export const formEditorReducer = (state = initialFormState, curAction: Action<an
     .on(isType(UPDATE_NAME), (action) => ({...state, name: action.payload}))
     .on(isType(TOGGLE_PUBLISH), (action) => ({...state, published: !state.published}))
     .on(isType(ADD_QUESTION), (action) => updateQuestions(state,
-      R.append({_id: shortId.generate(), prompt: '', type: action.payload})
+      R.append({_id: shortId(), prompt: '', type: action.payload})
     ))
     .on(isType(REMOVE_QUESTION), (action) => updateQuestions(state,
       R.remove(action.payload, 1)

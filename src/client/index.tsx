@@ -24,6 +24,11 @@ const GlobalStyle = injectGlobal`
     cursor: grabbing;
     user-select: none;
   }
+
+  #draggable {
+    position: absolute;
+    pointer-events: none;
+  }
 `;
 
 const renderRoot = (Component: any) => {

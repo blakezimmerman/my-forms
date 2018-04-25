@@ -8,17 +8,8 @@ import { Form, NewForm, FormType } from 'models/forms';
 import { GET_EDIT_FORM_REQUEST, EDIT_REQUEST } from './reducer';
 import FormEditor from '../FormEditor';
 import NotificationBanner from 'client/components/NotificationBanner';
-
-const ErrorBanner = NotificationBanner.extend`
-  background-color: ${({theme}) => theme.colors.failure};
-  position: sticky;
-  top: 4.75rem;
-  z-index: 1;
-
-  ${media.mobile`
-    top: 3.5rem;
-  `}
-`;
+import { Loading } from 'client/components/Loaders';
+import Error from 'client/components/Error';
 
 interface Props {
   id: string;
@@ -41,15 +32,16 @@ class EditForm extends React.Component<Props> {
   render() {
     return (
       <>
-        {this.props.formReq.error &&
-          <ErrorBanner>Unable to load form</ErrorBanner>
-        }
-        <FormEditor
-          submitText={`Edit ${this.props.type}`}
-          submitReq={this.props.editReq}
-          SUBMIT_REQUEST_PENDING={this.props.EDIT_REQUEST_PENDING}
-          SUBMIT_REQUEST_RESET={this.props.EDIT_REQUEST_RESET}
-        />
+        {this.props.formReq.pending && <Loading/>}
+        {this.props.formReq.error && <Error>Unable to load form</Error>}
+        {this.props.form && (
+          <FormEditor
+            submitText={`Edit ${this.props.type}`}
+            submitReq={this.props.editReq}
+            SUBMIT_REQUEST_PENDING={this.props.EDIT_REQUEST_PENDING}
+            SUBMIT_REQUEST_RESET={this.props.EDIT_REQUEST_RESET}
+          />
+        )}
       </>
     );
   }

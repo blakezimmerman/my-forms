@@ -30,17 +30,19 @@ const RankingEditor = (props: Props) => {
         list={props.question.options || []}
         onChange={updateRanking}
       />
-      {props.type === FormType.Test &&
-       props.question.options &&
-       !!props.question.options.length &&
-        <FadeInOut>
-          <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
-          <Ranking
-            value={props.question.answer || props.question.options}
-            onChange={props.setAnswer}
-          />
-        </FadeInOut>
-      }
+      <FadeInOut>
+        {(props.type === FormType.Test &&
+          props.question.options &&
+          !!props.question.options.length
+         ) ? <>
+            <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
+            <Ranking
+              value={props.question.answer || props.question.options}
+              onChange={props.setAnswer}
+            />
+          </> : null
+        }
+      </FadeInOut>
     </>
   );
 };

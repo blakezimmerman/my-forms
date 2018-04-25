@@ -2,7 +2,7 @@ import * as React from 'react';
 import { TransitionMotion, spring } from 'react-motion';
 
 interface Props {
-  children: JSX.Element | JSX.Element[] | undefined;
+  children: JSX.Element | JSX.Element[] | null;
 }
 
 const FadeInOutOut = ({ children }: Props) => {

@@ -50,19 +50,21 @@ const MatchingEditor = (props: Props) => (
         />
       </Column>
     </ColumnWrapper>
-    {props.type === FormType.Test &&
-     props.question.setA && !!props.question.setA.length &&
-     props.question.setB && !!props.question.setB.length &&
-      <FadeInOut>
-        <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
-        <Matching
-          setA={props.question.setA}
-          setB={props.question.setB}
-          value={props.question.answer || []}
-          onChange={props.setAnswer}
-        />
-      </FadeInOut>
-    }
+    <FadeInOut>
+      {(props.type === FormType.Test &&
+        props.question.setA && !!props.question.setA.length &&
+        props.question.setB && !!props.question.setB.length
+       ) ? <>
+          <AnswerPrompt>Provide the correct answer:</AnswerPrompt>
+          <Matching
+            setA={props.question.setA}
+            setB={props.question.setB}
+            value={props.question.answer || []}
+            onChange={props.setAnswer}
+          />
+        </> : null
+      }
+    </FadeInOut>
   </>
 );
 

@@ -13,7 +13,8 @@ const routesMap = {
   CREATE_SURVEY: '/create-survey',
   CREATE_TEST: '/create-test',
   DISPLAY_FORM: '/forms/:id',
-  EDIT_FORM: '/edit/:id'
+  EDIT_FORM: '/edit/:id',
+  RESULTS: '/results/:id'
 };
 
 const { reducer, middleware, enhancer } = connectRoutes(history, routesMap);
@@ -31,5 +32,6 @@ export const routeActions = {
   CREATE_SURVEY: actionCreator<void>('CREATE_SURVEY'),
   CREATE_TEST: actionCreator<void>('CREATE_TEST'),
   DISPLAY_FORM: actionCreator<{id: string}>('DISPLAY_FORM'),
-  EDIT_FORM: actionCreator<{id: string}>('EDIT_FORM')
+  EDIT_FORM: actionCreator<{id: string}>('EDIT_FORM'),
+  RESULTS: actionCreator<{id: string}>('RESULTS')
 };

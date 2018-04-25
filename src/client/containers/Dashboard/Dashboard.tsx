@@ -63,6 +63,7 @@ interface Props {
   createReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
   editReset: (event: React.MouseEvent<HTMLElement>) => Action<void>;
   displayForm: (form: Form) => () => void;
+  getResults: (form: Form) => () => void;
   editForm: (form: Form) => () => void;
   deleteForm: (id: string) => () => Action<string>;
 }
@@ -101,16 +102,17 @@ class Dashboard extends React.Component<Props> {
           {this.props.formsReq.error && <Error>An Error has Occurred</Error>}
           {this.props.formsReq.pending && <Loading/>}
           <FadeInOut>
-            {this.props.formsReq.result &&
+            {this.props.formsReq.result ?
               this.props.formsReq.result.map((form) =>
                 <FormCard
                   key={form._id}
                   form={form}
                   displayForm={this.props.displayForm}
+                  getResults={this.props.getResults}
                   editForm={this.props.editForm}
                   deleteForm={this.props.deleteForm}
                 />
-              )
+              ) : null
             }
           </FadeInOut>
         </PageWrapper>
@@ -135,6 +137,10 @@ const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
   displayForm: (form: Form) => () => {
     dispatch(GET_FORM_REQUEST.SUCCESS(form));
     dispatch(routeActions.DISPLAY_FORM({id: form._id}));
+  },
+  getResults: (form: Form) => () => {
+    dispatch(GET_FORM_REQUEST.SUCCESS(form));
+    dispatch(routeActions.RESULTS({id: form._id}));
   },
   editForm: (form: Form) => () => {
     dispatch(GET_EDIT_FORM_REQUEST.RESET());
