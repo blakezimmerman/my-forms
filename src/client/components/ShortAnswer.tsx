@@ -17,7 +17,7 @@ const ShortAnswerWrapper = styled.div`
 const ShortAnswer = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
     if (event.currentTarget.value.length <= props.charLimit) {
-      props.onChange({response: event.currentTarget.value, correct: false});
+      props.onChange({response: event.currentTarget.value, correct: undefined});
     }
   };
 

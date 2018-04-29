@@ -15,7 +15,7 @@ const EssayAnswerWrapper = styled.div`
 
 const EssayAnswer = (props: Props) => {
   const onChange = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
-    props.onChange({response: event.currentTarget.value, correct: false});
+    props.onChange({response: event.currentTarget.value, correct: undefined});
   };
 
   return (

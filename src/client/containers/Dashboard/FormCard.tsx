@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { media, withTheme, Theme } from 'client/styling';
+import styled, { withTheme, Theme } from 'client/styling';
 import { Action } from 'client/helpers/redux';
 import { Form, FormType } from 'models/forms';
 import Card from 'client/components/Card';

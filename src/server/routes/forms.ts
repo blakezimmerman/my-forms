@@ -51,6 +51,7 @@ router.post('/:id/submissions', (req, res) => // New Submission
     }
     const submission = {
       submittedBy: decoded,
+      submittedOn: new Date().toString(),
       responses: req.body
     };
     addSubmission(req.params.id, submission)
