@@ -1,3 +1,4 @@
 import Results from './Results';
+import ViewSubmission from './ViewSubmission';
 
-export default Results;
+export { Results, ViewSubmission };

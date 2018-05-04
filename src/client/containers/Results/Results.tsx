@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
-import { ActionDispatcher, AsyncReducerState } from 'client/helpers/redux';
+import { Action, ActionDispatcher, AsyncReducerState } from 'client/helpers/redux';
 import { Form, FormType } from 'models/forms';
 import { GET_FORM_REQUEST } from '../DisplayForm';
 import { getSubmissionsGraded, getAverageGrade } from './selectors';
@@ -11,6 +11,7 @@ import Error from 'client/components/Error';
 import { H2, H3 } from 'client/components/Headers';
 import PageWrapper from 'client/components/PageWrapper';
 import SubmissionCard from './SubmissionCard';
+import { routeActions } from 'client/router';
 
 interface Props {
   id: string;
@@ -18,6 +19,7 @@ interface Props {
   submissionsGraded: number | undefined;
   averageGrade: number | undefined;
   getForm: ActionDispatcher<string>;
+  toSubmission: (formId: string, subId: string) => () => Action<{ formId: string, subId: string }>;
 }
 
 class Results extends React.Component<Props> {
@@ -48,9 +50,10 @@ class Results extends React.Component<Props> {
             <H3>Submissions</H3>
             {submissions.map((submission) =>
               <SubmissionCard
-                key={submission.submittedOn + submission.submittedBy}
+                key={submission._id}
                 form={form}
                 submission={submission}
+                toSubmission={this.props.toSubmission(form._id, submission._id)}
               />
             )}
           </>
@@ -66,8 +69,9 @@ const mapState = (state: State) => ({
   averageGrade: getAverageGrade(state)
 });
 
-const mapDispatch = {
-  getForm: GET_FORM_REQUEST.PENDING
-};
+const mapDispatch = (dispatch: Dispatch<Action<any>>) => ({
+  getForm: (id: string) => dispatch(GET_FORM_REQUEST.PENDING(id)),
+  toSubmission: (formId: string, subId: string) => () => dispatch(routeActions.SUBMISSION({ formId, subId }))
+});
 
 export default connect(mapState, mapDispatch)(Results);

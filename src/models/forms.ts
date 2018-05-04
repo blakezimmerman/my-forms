@@ -64,6 +64,7 @@ export interface Ranking extends QuestionBase {
 }
 
 export interface Submission {
+  _id: string;
   submittedBy: string;
   submittedOn: string;
   responses: Response[];

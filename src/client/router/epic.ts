@@ -18,7 +18,7 @@ const authEpic: Epic<State> = (actions$, store) =>
 
 const noAuthEpic: Epic<State> = (actions$, store) =>
   actions$.ofType(
-    'DASHBOARD', 'CREATE_SURVEY', 'CREATE_FORM', 'EDIT_FORM', 'RESULTS'
+    'DASHBOARD', 'CREATE_SURVEY', 'CREATE_FORM', 'EDIT_FORM', 'RESULTS', 'SUBMISSION'
   ).pipe(
     delay(300),
     filter(() => !getAuthenticated(store.getState())),

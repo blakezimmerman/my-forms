@@ -14,7 +14,7 @@ export const submissionGrade = (questions: Question[], responses: Response[]) =>
   responses.reduce((correct, response, index) =>
     (response as any).correct === true
       ? correct + 1
-      : response === (questions[index] as any).answer
+      : (response || 'response').toString() === ((questions[index] as any).answer || 'answer').toString()
         ? correct + 1
         : correct
   , 0);

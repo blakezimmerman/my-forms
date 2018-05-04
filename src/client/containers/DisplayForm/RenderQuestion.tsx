@@ -15,7 +15,7 @@ import ShortAnswer from 'client/components/ShortAnswer';
 import EssayAnswer from 'client/components/EssayAnswer';
 import Matching from 'client/components/Matching';
 import Ranking from 'client/components/Ranking';
-import RenderAnswer from './RenderAnswer';
+import RenderAnswer from 'client/components/RenderAnswer';
 import Card from 'client/components/Card';
 
 const QuestionCard = Card.extend`
@@ -101,7 +101,13 @@ const RenderQuestion = ({index, question, response, setResponse, showAnswer}: Pr
           />
         )
     }
-    {showAnswer && (question as any).answer !== undefined && <RenderAnswer question={question}/>}
+    {showAnswer && (question as any).answer !== undefined &&
+      <RenderAnswer
+        label={'Correct Answer:'}
+        questionType={question.type}
+        answer={(question as any).answer}
+      />
+    }
   </QuestionCard>
 );
 

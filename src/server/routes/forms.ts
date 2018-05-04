@@ -50,6 +50,7 @@ router.post('/:id/submissions', (req, res) => // New Submission
       decoded = 'Anonymous';
     }
     const submission = {
+      _id: new ObjectId().toHexString(),
       submittedBy: decoded,
       submittedOn: new Date().toString(),
       responses: req.body

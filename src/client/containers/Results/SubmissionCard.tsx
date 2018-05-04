@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { withTheme, Theme } from 'client/styling';
 import { Form, Submission, FormType } from 'models/forms';
+import { Action } from 'client/helpers/redux';
 import Card from 'client/components/Card';
 import Badge from 'client/components/Badge';
 import { InvertedButton } from 'client/components/Buttons';
@@ -13,6 +14,11 @@ const CardWrapper = Card.extend`
   align-items: center;
   margin: 0 1rem 1rem;
   padding: 1rem;
+`;
+
+const SubmissionInfo = styled.div`
+  width: 14rem;
+  ${truncate('14rem')}
 `;
 
 const UserName = styled.span`
@@ -32,14 +38,15 @@ interface Props {
   theme: Theme;
   form: Form;
   submission: Submission;
+  toSubmission: () => Action<{ formId: string, subId: string }>;
 }
 
-const SubmissionCard = ({theme, form, submission}: Props) => (
+const SubmissionCard = ({theme, form, submission, toSubmission}: Props) => (
   <CardWrapper>
-    <div>
+    <SubmissionInfo>
       <UserName>{submission.submittedBy}</UserName>
       <SubmitDate> — {formatDate(submission.submittedOn)}</SubmitDate>
-    </div>
+    </SubmissionInfo>
     {form.type === FormType.Test &&
       <Badge color={isGraded(submission.responses) ? theme.colors.primary : theme.colors.failure}>
         {isGraded(submission.responses)
@@ -48,7 +55,7 @@ const SubmissionCard = ({theme, form, submission}: Props) => (
         }
       </Badge>
     }
-    <ActionButton>View</ActionButton>
+    <ActionButton onClick={toSubmission}>View</ActionButton>
   </CardWrapper>
 );
 
