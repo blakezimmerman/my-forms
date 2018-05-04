@@ -17,7 +17,7 @@ RUN npm install
 COPY . /app
 
 # Build our server and client application
-RUN npm run build:all
+RUN npm run build
 
 # Start our Node.js server
 CMD ["npm", "run", "start:prod"]
