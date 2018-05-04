@@ -12,6 +12,6 @@ export const H2 = styled.h2`
 `;
 
 export const H3 = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 300;
 `;

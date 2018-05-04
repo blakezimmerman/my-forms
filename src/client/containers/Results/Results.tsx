@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from 'client/styling';
 import { connect, Dispatch } from 'react-redux';
 import { State } from 'client/store';
 import { Action, ActionDispatcher, AsyncReducerState } from 'client/helpers/redux';
@@ -12,6 +13,15 @@ import { H2, H3 } from 'client/components/Headers';
 import PageWrapper from 'client/components/PageWrapper';
 import SubmissionCard from './SubmissionCard';
 import { routeActions } from 'client/router';
+
+const ResultsDetail = styled.div`
+  margin: 0.3rem 0.5rem;
+  font-size: 1.1rem;
+`;
+
+const Value = styled.span`
+  color: ${({theme}) => theme.colors.primary};
+`;
 
 interface Props {
   id: string;
@@ -39,12 +49,18 @@ class Results extends React.Component<Props> {
         {form && submissions && (
           <>
             <H2>{form.name} Results</H2>
-            <div>{submissions.length} Submissions</div>
-            <div>Last submission on {formatDate(submissions[submissions.length - 1].submittedOn)}</div>
+            <ResultsDetail><Value>{submissions.length}</Value> Submissions</ResultsDetail>
+            <ResultsDetail>
+              Last submission on <Value>{formatDate(submissions[submissions.length - 1].submittedOn)}</Value>
+            </ResultsDetail>
             {form.type === FormType.Test &&
               <>
-                <div>{this.props.submissionsGraded}/{submissions.length} Submissions Graded</div>
-                <div>Average Grade: {this.props.averageGrade}/{form.questions.length}</div>
+                <ResultsDetail>
+                  <Value>{this.props.submissionsGraded}/{submissions.length}</Value> Submissions Graded
+                </ResultsDetail>
+                <ResultsDetail>
+                  Average Grade: <Value>{this.props.averageGrade}/{form.questions.length}</Value>
+                </ResultsDetail>
               </>
             }
             <H3>Submissions</H3>
